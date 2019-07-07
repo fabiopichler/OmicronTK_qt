@@ -58,4 +58,5 @@ INCLUDEPATH += "../../include"
 
 LIBS += -L$${DESTDIR}
 
+unix:QMAKE_LFLAGS_RPATH=
 unix:QMAKE_LFLAGS += '-Wl,-rpath,\'\$$ORIGIN\',-z,origin'
