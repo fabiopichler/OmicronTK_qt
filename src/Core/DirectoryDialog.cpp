@@ -36,7 +36,7 @@
 #include <QDirIterator>
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 DirectoryDialog::DirectoryDialog(QWidget *parent)
     : m_parent(parent),

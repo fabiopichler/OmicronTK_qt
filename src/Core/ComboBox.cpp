@@ -32,7 +32,7 @@
 #include <QListView>
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 ComboBox::ComboBox(QWidget *parent)
     : QComboBox(parent)

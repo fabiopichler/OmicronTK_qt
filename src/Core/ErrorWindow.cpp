@@ -36,7 +36,7 @@
 #include <QHBoxLayout>
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 ErrorWindow::ErrorWindow(QWidget *parent) : Dialog(parent)
 {

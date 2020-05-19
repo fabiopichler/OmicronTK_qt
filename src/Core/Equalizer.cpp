@@ -39,7 +39,7 @@
 #include <QDebug>
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 Equalizer::Equalizer(QWidget *parent, std::vector<int> &values)
     : Dialog(parent),

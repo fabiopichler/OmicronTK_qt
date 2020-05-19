@@ -35,7 +35,7 @@
 #include <QObject>
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 int Object_setObjectName(lua_State *L)
 {

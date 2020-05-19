@@ -32,7 +32,7 @@
 #include "OmicronTK/Lua/LuaState.hpp"
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 class LuaObjectBase
 {

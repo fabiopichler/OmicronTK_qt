@@ -36,7 +36,7 @@
 #include "OmicronTK/Qt/Slider.hpp"
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 static const char *const tableName = "Slider";
 

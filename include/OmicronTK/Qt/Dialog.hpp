@@ -36,7 +36,7 @@
 class QVBoxLayout;
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 class TitleBar;
 

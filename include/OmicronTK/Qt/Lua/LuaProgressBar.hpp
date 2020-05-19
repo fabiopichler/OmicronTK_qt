@@ -37,7 +37,7 @@ namespace OTKLUA {
 class LuaState;
 }
 
-namespace OTKQT {
+namespace QT {
 
 class OTKQT_LUA_EXPORT LuaProgressBar
 {

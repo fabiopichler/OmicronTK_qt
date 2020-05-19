@@ -34,7 +34,7 @@
 #include <QString>
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 DropArea::DropArea(QWidget *parent)
     : Widget(parent),

@@ -37,7 +37,7 @@
 #include <QBoxLayout>
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 int Widget_setLayout(lua_State *L)
 {

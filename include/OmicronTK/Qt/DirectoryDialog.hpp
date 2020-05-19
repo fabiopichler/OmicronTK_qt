@@ -39,7 +39,7 @@
 class QLabel;
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 class Dialog;
 

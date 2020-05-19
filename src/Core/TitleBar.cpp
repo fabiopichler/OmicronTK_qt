@@ -38,7 +38,7 @@
 #include <QApplication>
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 TitleBar::TitleBar(QWidget *parent, int flags)
     : Widget(parent),

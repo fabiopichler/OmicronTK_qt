@@ -34,7 +34,7 @@
 #include <QLocalSocket>
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
     
 LocalSocket::LocalSocket(int timeout, const QString &appKey) : timeout(timeout), appKey(appKey)
 {

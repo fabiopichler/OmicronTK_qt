@@ -38,7 +38,7 @@ class QLabel;
 class QSlider;
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 class ComboBox;
 

@@ -40,7 +40,7 @@ class QWidget;
 class QSettings;
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 class OTKQT_CORE_EXPORT Theme
 {

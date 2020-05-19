@@ -37,7 +37,7 @@ class QLabel;
 class QTimer;
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 class OTKQT_CORE_EXPORT PopUp : public QWidget
 {

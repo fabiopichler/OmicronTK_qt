@@ -38,7 +38,7 @@
 #include <QDebug>
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 static const char *const tableName = "Widget";
 

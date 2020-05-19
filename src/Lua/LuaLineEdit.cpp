@@ -36,7 +36,7 @@
 #include <QLineEdit>
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 static const char *const tableName = "LineEdit";
 

@@ -33,7 +33,7 @@
 #include "Widget.hpp"
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 class OTKQT_CORE_EXPORT DropArea : public Widget
 {

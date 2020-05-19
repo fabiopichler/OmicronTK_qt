@@ -37,7 +37,7 @@
 #include <QLabel>
 
 namespace OmicronTK {
-namespace OTKQT {
+namespace QT {
 
 Dialog::Dialog(QWidget *parent, TitleBarPolicy policy)
     : QDialog(parent)
