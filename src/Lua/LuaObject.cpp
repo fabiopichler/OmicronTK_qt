@@ -63,9 +63,9 @@ int Object_connect(lua_State *L)
     return 0;
 }
 
-void LuaObject::requiref(OTKLUA::LuaState *state)
+void LuaObject::requiref(Lua::LuaState *state)
 {
-    OTKLUA::LuaRegVector functions;
+    Lua::LuaRegVector functions;
     functions.push_back({ "connect", Object_connect });
 
     state->reg(tableName, functions);

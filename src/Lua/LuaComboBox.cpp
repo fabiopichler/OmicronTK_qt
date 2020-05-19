@@ -50,17 +50,17 @@ int ComboBox_new(lua_State *L)
     if (!userdata)
         userdata = new ComboBox;
 
-    OTKLUA::LuaBase::newUserData<ComboBox>(L, tableName, userdata);
+    Lua::LuaBase::newUserData<ComboBox>(L, tableName, userdata);
 
     return 1;
 }
 
-void LuaComboBox::requiref(OTKLUA::LuaState *state)
+void LuaComboBox::requiref(Lua::LuaState *state)
 {
-    OTKLUA::LuaRegVector functions;
+    Lua::LuaRegVector functions;
     functions.push_back({ "new", ComboBox_new });
 
-    OTKLUA::LuaRegVector methods = LuaWidgetBase::methods();
+    Lua::LuaRegVector methods = LuaWidgetBase::methods();
 
     state->reg(tableName, functions, methods);
 }

@@ -51,7 +51,7 @@ int Label_new(lua_State *L)
     if (!userdata)
         userdata = new QLabel(lua_tolstring(L, 1, nullptr));
 
-    OTKLUA::LuaBase::newUserData<QLabel>(L, tableName, userdata);
+    Lua::LuaBase::newUserData<QLabel>(L, tableName, userdata);
 
     return 1;
 }
@@ -61,7 +61,7 @@ int Label_setText(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QLabel *userdata = OTKLUA::LuaBase::checkUserData<QLabel>(L, 1, tableName);
+    QLabel *userdata = Lua::LuaBase::checkUserData<QLabel>(L, 1, tableName);
     userdata->setText(luaL_checklstring(L, 2, nullptr));
 
     return 0;
@@ -72,7 +72,7 @@ int Label_setAlignment(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QLabel *userdata = OTKLUA::LuaBase::checkUserData<QLabel>(L, 1, tableName);
+    QLabel *userdata = Lua::LuaBase::checkUserData<QLabel>(L, 1, tableName);
     int alignment = static_cast<int>(lua_tointegerx(L, 2, nullptr));
 
     userdata->setAlignment(static_cast<Qt::Alignment>(alignment));
@@ -80,12 +80,12 @@ int Label_setAlignment(lua_State *L)
     return 0;
 }
 
-void LuaLabel::requiref(OTKLUA::LuaState *state)
+void LuaLabel::requiref(Lua::LuaState *state)
 {
-    OTKLUA::LuaRegVector functions;
+    Lua::LuaRegVector functions;
     functions.push_back({ "new", Label_new });
 
-    OTKLUA::LuaRegVector methods = LuaWidgetBase::methods();
+    Lua::LuaRegVector methods = LuaWidgetBase::methods();
     methods.push_back({ "setText", Label_setText });
     methods.push_back({ "setAlignment", Label_setAlignment });
 

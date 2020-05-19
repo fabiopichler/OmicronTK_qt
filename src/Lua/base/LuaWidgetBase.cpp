@@ -45,7 +45,7 @@ int Widget_setLayout(lua_State *L)
         return luaL_error(L, "expecting exactly 1 argument");
 
     QWidget *userdata = *static_cast<QWidget **>(lua_touserdata(L, 1));
-    QBoxLayout *layout = OTKLUA::LuaBase::checkUserData<QBoxLayout>(L, 2, "BoxLayout");
+    QBoxLayout *layout = Lua::LuaBase::checkUserData<QBoxLayout>(L, 2, "BoxLayout");
 
     userdata->setLayout(layout);
 
@@ -118,9 +118,9 @@ int Widget_setMinimumWidth(lua_State *L)
     return 0;
 }
 
-OTKLUA::LuaRegVector LuaWidgetBase::s_methods;
+Lua::LuaRegVector LuaWidgetBase::s_methods;
 
-const OTKLUA::LuaRegVector &LuaWidgetBase::methods()
+const Lua::LuaRegVector &LuaWidgetBase::methods()
 {
     if (!s_methods.empty())
         return s_methods;

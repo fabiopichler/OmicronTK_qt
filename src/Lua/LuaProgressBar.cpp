@@ -50,7 +50,7 @@ int ProgressBar_new(lua_State *L)
     if (!userdata)
         userdata = new QProgressBar;
 
-    OTKLUA::LuaBase::newUserData<QProgressBar>(L, tableName, userdata);
+    Lua::LuaBase::newUserData<QProgressBar>(L, tableName, userdata);
 
     return 1;
 }
@@ -60,7 +60,7 @@ int ProgressBar_setOrientation(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QProgressBar *userdata = OTKLUA::LuaBase::checkUserData<QProgressBar>(L, 1, tableName);
+    QProgressBar *userdata = Lua::LuaBase::checkUserData<QProgressBar>(L, 1, tableName);
     int orientation = static_cast<int>(lua_tointegerx(L, 2, nullptr));
 
     userdata->setOrientation(static_cast<Qt::Orientation>(orientation));
@@ -73,7 +73,7 @@ int ProgressBar_setInvertedAppearance(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QProgressBar *userdata = OTKLUA::LuaBase::checkUserData<QProgressBar>(L, 1, tableName);
+    QProgressBar *userdata = Lua::LuaBase::checkUserData<QProgressBar>(L, 1, tableName);
     userdata->setInvertedAppearance(lua_toboolean(L, 2));
 
     return 0;
@@ -84,18 +84,18 @@ int ProgressBar_setTextVisible(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QProgressBar *userdata = OTKLUA::LuaBase::checkUserData<QProgressBar>(L, 1, tableName);
+    QProgressBar *userdata = Lua::LuaBase::checkUserData<QProgressBar>(L, 1, tableName);
     userdata->setTextVisible(lua_toboolean(L, 2));
 
     return 0;
 }
 
-void LuaProgressBar::requiref(OTKLUA::LuaState *state)
+void LuaProgressBar::requiref(Lua::LuaState *state)
 {
-    OTKLUA::LuaRegVector functions;
+    Lua::LuaRegVector functions;
     functions.push_back({ "new", ProgressBar_new });
 
-    OTKLUA::LuaRegVector methods = LuaWidgetBase::methods();
+    Lua::LuaRegVector methods = LuaWidgetBase::methods();
     methods.push_back({ "setOrientation", ProgressBar_setOrientation });
     methods.push_back({ "setInvertedAppearance", ProgressBar_setInvertedAppearance });
     methods.push_back({ "setTextVisible", ProgressBar_setTextVisible });

@@ -50,7 +50,7 @@ int Slider_new(lua_State *L)
     if (!userdata)
         userdata = new Slider;
 
-    OTKLUA::LuaBase::newUserData<Slider>(L, tableName, userdata);
+    Lua::LuaBase::newUserData<Slider>(L, tableName, userdata);
 
     return 1;
 }
@@ -60,7 +60,7 @@ int Slider_setOrientation(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    Slider *userdata = OTKLUA::LuaBase::checkUserData<Slider>(L, 1, tableName);
+    Slider *userdata = Lua::LuaBase::checkUserData<Slider>(L, 1, tableName);
     int orientation = static_cast<int>(lua_tointegerx(L, 2, nullptr));
 
     userdata->setOrientation(static_cast<Qt::Orientation>(orientation));
@@ -68,12 +68,12 @@ int Slider_setOrientation(lua_State *L)
     return 0;
 }
 
-void LuaSlider::requiref(OTKLUA::LuaState *state)
+void LuaSlider::requiref(Lua::LuaState *state)
 {
-    OTKLUA::LuaRegVector functions;
+    Lua::LuaRegVector functions;
     functions.push_back({ "new", Slider_new });
 
-    OTKLUA::LuaRegVector methods = LuaWidgetBase::methods();
+    Lua::LuaRegVector methods = LuaWidgetBase::methods();
     methods.push_back({ "setOrientation", Slider_setOrientation });
 
     state->reg(tableName, functions, methods);

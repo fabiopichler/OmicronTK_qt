@@ -52,14 +52,14 @@ int Widget_new(lua_State *L)
     if (!userdata)
         userdata = new QWidget;
 
-    OTKLUA::LuaBase::newUserData<QWidget>(L, tableName, userdata);
+    Lua::LuaBase::newUserData<QWidget>(L, tableName, userdata);
 
     return 1;
 }
 
-void LuaWidget::requiref(OTKLUA::LuaState *state)
+void LuaWidget::requiref(Lua::LuaState *state)
 {
-    OTKLUA::LuaRegVector functions;
+    Lua::LuaRegVector functions;
     functions.push_back({ "new", Widget_new });
 
     state->reg(tableName, functions, LuaWidgetBase::methods());

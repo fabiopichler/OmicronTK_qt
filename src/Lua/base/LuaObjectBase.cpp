@@ -59,9 +59,9 @@ int Object_deleteLater(lua_State *L)
     return 0;
 }
 
-OTKLUA::LuaRegVector LuaObjectBase::s_methods;
+Lua::LuaRegVector LuaObjectBase::s_methods;
 
-const OTKLUA::LuaRegVector &LuaObjectBase::methods()
+const Lua::LuaRegVector &LuaObjectBase::methods()
 {
     if (!s_methods.empty())
         return s_methods;

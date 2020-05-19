@@ -57,7 +57,7 @@ int BoxLayout_new(lua_State *L)
         userdata = new QBoxLayout(static_cast<QBoxLayout::Direction>(static_cast<int>(direction)));
     }
 
-    OTKLUA::LuaBase::newUserData<QBoxLayout>(L, tableName, userdata);
+    Lua::LuaBase::newUserData<QBoxLayout>(L, tableName, userdata);
 
     return 1;
 }
@@ -67,7 +67,7 @@ int BoxLayout_addWidget(lua_State *L)
     if (lua_gettop(L) < 2)
         return luaL_error(L, "expecting 1, 2 or 3 arguments");
 
-    QBoxLayout *userdata = OTKLUA::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
+    QBoxLayout *userdata = Lua::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
     QWidget *widget = *static_cast<QWidget **>(lua_touserdata(L, 2));
 
     if (!widget)
@@ -86,7 +86,7 @@ int BoxLayout_addLayout(lua_State *L)
     if (lua_gettop(L) < 2)
         return luaL_error(L, "expecting 0 or 1 arguments");
 
-    QBoxLayout *userdata = OTKLUA::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
+    QBoxLayout *userdata = Lua::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
     QBoxLayout *layout = *static_cast<QBoxLayout **>(luaL_checkudata(L, 2, tableName));
     int stretch = static_cast<int>(lua_tointegerx(L, 3, nullptr));
 
@@ -100,7 +100,7 @@ int BoxLayout_setAlignment(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QBoxLayout *userdata = OTKLUA::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
+    QBoxLayout *userdata = Lua::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
     userdata->setAlignment(static_cast<Qt::AlignmentFlag>(static_cast<int>(luaL_checknumber(L, 2))));
 
     return 0;
@@ -111,7 +111,7 @@ int BoxLayout_setSpacing(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QBoxLayout *userdata = OTKLUA::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
+    QBoxLayout *userdata = Lua::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
     userdata->setSpacing(static_cast<int>(luaL_checknumber(L, 2)));
 
     return 0;
@@ -122,7 +122,7 @@ int BoxLayout_setMargin(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QBoxLayout *userdata = OTKLUA::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
+    QBoxLayout *userdata = Lua::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
     userdata->setMargin(static_cast<int>(luaL_checknumber(L, 2)));
 
     return 0;
@@ -133,7 +133,7 @@ int BoxLayout_addStretch(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QBoxLayout *userdata = OTKLUA::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
+    QBoxLayout *userdata = Lua::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
     userdata->addStretch(static_cast<int>(luaL_checknumber(L, 2)));
 
     return 0;
@@ -144,7 +144,7 @@ int BoxLayout_addSpacing(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QBoxLayout *userdata = OTKLUA::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
+    QBoxLayout *userdata = Lua::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
     userdata->addSpacing(static_cast<int>(luaL_checknumber(L, 2)));
 
     return 0;
@@ -155,7 +155,7 @@ int BoxLayout_setContentsMargins(lua_State *L)
     if (lua_gettop(L) != 5)
         return luaL_error(L, "expecting exactly 4 arguments");
 
-    QBoxLayout *userdata = OTKLUA::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
+    QBoxLayout *userdata = Lua::LuaBase::checkUserData<QBoxLayout>(L, 1, tableName);
 
     int left = static_cast<int>(luaL_checknumber(L, 2));
     int top = static_cast<int>(luaL_checknumber(L, 3));
@@ -167,12 +167,12 @@ int BoxLayout_setContentsMargins(lua_State *L)
     return 0;
 }
 
-void LuaLayout::requiref(OTKLUA::LuaState *state)
+void LuaLayout::requiref(Lua::LuaState *state)
 {
-    OTKLUA::LuaRegVector functions;
+    Lua::LuaRegVector functions;
     functions.push_back({ "new", BoxLayout_new });
 
-    OTKLUA::LuaRegVector methods = LuaWidgetBase::methods();
+    Lua::LuaRegVector methods = LuaWidgetBase::methods();
     methods.push_back({ "addLayout", BoxLayout_addLayout });
     methods.push_back({ "addWidget", BoxLayout_addWidget });
     methods.push_back({ "setAlignment", BoxLayout_setAlignment });

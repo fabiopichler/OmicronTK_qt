@@ -50,7 +50,7 @@ int LineEdit_new(lua_State *L)
     if (!userdata)
         userdata = new QLineEdit(lua_tolstring(L, 1, nullptr));
 
-    OTKLUA::LuaBase::newUserData<QLineEdit>(L, tableName, userdata);
+    Lua::LuaBase::newUserData<QLineEdit>(L, tableName, userdata);
 
     return 1;
 }
@@ -60,7 +60,7 @@ int LineEdit_setPlaceholderText(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QLineEdit *userdata = OTKLUA::LuaBase::checkUserData<QLineEdit>(L, 1, tableName);
+    QLineEdit *userdata = Lua::LuaBase::checkUserData<QLineEdit>(L, 1, tableName);
     userdata->setPlaceholderText(luaL_checklstring(L, 2, nullptr));
 
     return 0;
@@ -71,18 +71,18 @@ int LineEdit_setClearButtonEnabled(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QLineEdit *userdata = OTKLUA::LuaBase::checkUserData<QLineEdit>(L, 1, tableName);
+    QLineEdit *userdata = Lua::LuaBase::checkUserData<QLineEdit>(L, 1, tableName);
     userdata->setClearButtonEnabled(lua_toboolean(L, 2));
 
     return 0;
 }
 
-void LuaLineEdit::requiref(OTKLUA::LuaState *state)
+void LuaLineEdit::requiref(Lua::LuaState *state)
 {
-    OTKLUA::LuaRegVector functions;
+    Lua::LuaRegVector functions;
     functions.push_back({ "new", LineEdit_new });
 
-    OTKLUA::LuaRegVector methods = LuaWidgetBase::methods();
+    Lua::LuaRegVector methods = LuaWidgetBase::methods();
     methods.push_back({ "setPlaceholderText", LineEdit_setPlaceholderText });
     methods.push_back({ "setClearButtonEnabled", LineEdit_setClearButtonEnabled });
 

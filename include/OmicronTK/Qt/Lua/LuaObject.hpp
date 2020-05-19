@@ -33,7 +33,7 @@
 
 namespace OmicronTK {
 
-namespace OTKLUA {
+namespace Lua {
 class LuaState;
 }
 
@@ -41,8 +41,8 @@ namespace QT {
 
 class OTKQT_LUA_EXPORT LuaObject
 {
-    static void requiref(OTKLUA::LuaState *state);
-    friend class OTKLUA::LuaState;
+    static void requiref(Lua::LuaState *state);
+    friend class Lua::LuaState;
 };
 
 }

@@ -50,7 +50,7 @@ int PushButton_new(lua_State *L)
     if (!userdata)
         userdata = new QPushButton(lua_tolstring(L, 1, nullptr));
 
-    OTKLUA::LuaBase::newUserData<QPushButton>(L, tableName, userdata);
+    Lua::LuaBase::newUserData<QPushButton>(L, tableName, userdata);
 
     return 1;
 }
@@ -60,18 +60,18 @@ int PushButton_setText(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QPushButton *userdata = OTKLUA::LuaBase::checkUserData<QPushButton>(L, 1, tableName);
+    QPushButton *userdata = Lua::LuaBase::checkUserData<QPushButton>(L, 1, tableName);
     userdata->setText(luaL_checklstring(L, 2, nullptr));
 
     return 0;
 }
 
-void LuaPushButton::requiref(OTKLUA::LuaState *state)
+void LuaPushButton::requiref(Lua::LuaState *state)
 {
-    OTKLUA::LuaRegVector functions;
+    Lua::LuaRegVector functions;
     functions.push_back({ "new", PushButton_new });
 
-    OTKLUA::LuaRegVector methods = LuaWidgetBase::methods();
+    Lua::LuaRegVector methods = LuaWidgetBase::methods();
     methods.push_back({ "setText", PushButton_setText });
 
     state->reg(tableName, functions, methods);
