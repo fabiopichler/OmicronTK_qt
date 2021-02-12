@@ -59,7 +59,7 @@ int Widget_new(lua_State *L)
     return 0;
 }
 
-void LuaWidget::requiref(lua::Lua *state)
+void LuaWidget::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 

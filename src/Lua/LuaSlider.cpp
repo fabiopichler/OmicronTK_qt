@@ -70,7 +70,7 @@ int Slider_setOrientation(lua_State *L)
     return 0;
 }
 
-void LuaSlider::requiref(lua::Lua *state)
+void LuaSlider::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 

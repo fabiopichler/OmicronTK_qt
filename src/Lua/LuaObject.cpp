@@ -65,7 +65,7 @@ int Object_connect(lua_State *L)
     return 0;
 }
 
-void LuaObject::requiref(lua::Lua *state)
+void LuaObject::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 

@@ -79,7 +79,7 @@ int LineEdit_setClearButtonEnabled(lua_State *L)
     return 0;
 }
 
-void LuaLineEdit::requiref(lua::Lua *state)
+void LuaLineEdit::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 

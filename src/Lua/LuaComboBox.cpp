@@ -57,7 +57,7 @@ int ComboBox_new(lua_State *L)
     return 0;
 }
 
-void LuaComboBox::requiref(lua::Lua *state)
+void LuaComboBox::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 

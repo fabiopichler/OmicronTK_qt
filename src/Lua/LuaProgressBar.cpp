@@ -92,7 +92,7 @@ int ProgressBar_setTextVisible(lua_State *L)
     return 0;
 }
 
-void LuaProgressBar::requiref(lua::Lua *state)
+void LuaProgressBar::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 

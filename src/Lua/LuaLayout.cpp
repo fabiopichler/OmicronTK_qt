@@ -169,7 +169,7 @@ int BoxLayout_setContentsMargins(lua_State *L)
     return 0;
 }
 
-void LuaLayout::requiref(lua::Lua *state)
+void LuaLayout::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 

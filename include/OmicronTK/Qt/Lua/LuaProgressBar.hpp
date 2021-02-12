@@ -41,7 +41,7 @@ namespace QT {
 
 class OTKQT_LUA_EXPORT LuaProgressBar
 {
-    static void requiref(lua::Lua *state);
+    static void require(lua::Lua *state);
     friend class lua::Lua;
 };
 

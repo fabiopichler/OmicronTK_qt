@@ -83,7 +83,7 @@ int Label_setAlignment(lua_State *L)
     return 0;
 }
 
-void LuaLabel::requiref(lua::Lua *state)
+void LuaLabel::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 

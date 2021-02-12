@@ -68,7 +68,7 @@ int PushButton_setText(lua_State *L)
     return 0;
 }
 
-void LuaPushButton::requiref(lua::Lua *state)
+void LuaPushButton::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 
