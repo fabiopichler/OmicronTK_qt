@@ -62,7 +62,7 @@ int ProgressBar_setOrientation(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QProgressBar *userdata = Lua::LuaBase::checkUserData<QProgressBar>(L, 1, tableName);
+    QProgressBar *userdata = ObjectUtil<QProgressBar, tableName>::checkUserData(L, 1);
     int orientation = static_cast<int>(lua_tointegerx(L, 2, nullptr));
 
     userdata->setOrientation(static_cast<Qt::Orientation>(orientation));
@@ -75,7 +75,7 @@ int ProgressBar_setInvertedAppearance(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QProgressBar *userdata = Lua::LuaBase::checkUserData<QProgressBar>(L, 1, tableName);
+    QProgressBar *userdata = ObjectUtil<QProgressBar, tableName>::checkUserData(L, 1);
     userdata->setInvertedAppearance(lua_toboolean(L, 2));
 
     return 0;
@@ -86,7 +86,7 @@ int ProgressBar_setTextVisible(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QProgressBar *userdata = Lua::LuaBase::checkUserData<QProgressBar>(L, 1, tableName);
+    QProgressBar *userdata = ObjectUtil<QProgressBar, tableName>::checkUserData(L, 1);
     userdata->setTextVisible(lua_toboolean(L, 2));
 
     return 0;

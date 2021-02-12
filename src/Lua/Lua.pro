@@ -36,10 +36,10 @@ DEFINES += OTKQT_BUILD_LUA_LIB
 unix:INCLUDEPATH += "$${OTKLUA_UNIX}/include"
 win32:INCLUDEPATH += "$${OTKLUA_WIN}\\include"
 
-unix:LIBS += -ldl -llua
+unix:LIBS += -ldl -lluajit
 win32:LIBS +=  -llua53
 
-LIBS += -lOmicronTK+Qt$${DEBUG} -lOmicronTK+Lua$${DEBUG}
+LIBS += -lOmicronTK+Qt$${DEBUG} -lOmicronTK_lua
 
 contains(QMAKE_HOST.arch, x86_64) {
 

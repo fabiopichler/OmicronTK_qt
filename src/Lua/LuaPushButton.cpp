@@ -62,7 +62,7 @@ int PushButton_setText(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QPushButton *userdata = Lua::LuaBase::checkUserData<QPushButton>(L, 1, tableName);
+    QPushButton *userdata = ObjectUtil<QPushButton, tableName>::checkUserData(L, 1);
     userdata->setText(luaL_checklstring(L, 2, nullptr));
 
     return 0;

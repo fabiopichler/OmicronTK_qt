@@ -62,7 +62,7 @@ int Slider_setOrientation(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    Slider *userdata = Lua::LuaBase::checkUserData<Slider>(L, 1, tableName);
+    Slider *userdata = ObjectUtil<Slider, tableName>::checkUserData(L, 1);
     int orientation = static_cast<int>(lua_tointegerx(L, 2, nullptr));
 
     userdata->setOrientation(static_cast<Qt::Orientation>(orientation));

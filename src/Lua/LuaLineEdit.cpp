@@ -62,7 +62,7 @@ int LineEdit_setPlaceholderText(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QLineEdit *userdata = Lua::LuaBase::checkUserData<QLineEdit>(L, 1, tableName);
+    QLineEdit *userdata = ObjectUtil<QLineEdit, tableName>::checkUserData(L, 1);
     userdata->setPlaceholderText(luaL_checklstring(L, 2, nullptr));
 
     return 0;
@@ -73,7 +73,7 @@ int LineEdit_setClearButtonEnabled(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QLineEdit *userdata = Lua::LuaBase::checkUserData<QLineEdit>(L, 1, tableName);
+    QLineEdit *userdata = ObjectUtil<QLineEdit, tableName>::checkUserData(L, 1);
     userdata->setClearButtonEnabled(lua_toboolean(L, 2));
 
     return 0;
