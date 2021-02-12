@@ -29,7 +29,7 @@
 
 #pragma once
 
-#include "OmicronTK/Lua/LuaState.hpp"
+#include "OmicronTK/lua/Lua.hpp"
 
 namespace OmicronTK {
 namespace QT {
@@ -37,10 +37,10 @@ namespace QT {
 class LuaWidgetBase
 {
 public:
-    static const Lua::LuaRegVector &methods();
+    static const lua::RegVector &methods();
 
 private:
-    static Lua::LuaRegVector s_methods;
+    static lua::RegVector s_methods;
 };
 
 }

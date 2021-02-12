@@ -33,16 +33,16 @@
 
 namespace OmicronTK {
 
-namespace Lua {
-class LuaState;
+namespace lua {
+class Lua;
 }
 
 namespace QT {
 
 class OTKQT_LUA_EXPORT LuaLabel
 {
-    static void requiref(Lua::LuaState *state);
-    friend class Lua::LuaState;
+    static void requiref(lua::Lua *state);
+    friend class lua::Lua;
 };
 
 }

@@ -30,39 +30,44 @@
 #include "OmicronTK/Qt/Lua/LuaWidget.hpp"
 #include "base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/Lua/LuaBase.hpp>
+#include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <iostream>
 
 #include <QWidget>
 
 #include <QDebug>
 
+using namespace OmicronTK::lua;
+
 namespace OmicronTK {
 namespace QT {
 
-static const char *const tableName = "Widget";
+static const char tableName[] = "Widget";
 
 int Widget_new(lua_State *L)
 {
-    if (lua_gettop(L) > 1)
+    if (lua_gettop(L) > 2)
         return luaL_error(L, "expecting 0 or 1 arguments");
 
-    void *userdata = lua_touserdata(L, 1);
+    void *userdata = lua_touserdata(L, 2);
 
     if (!userdata)
         userdata = new QWidget;
 
-    Lua::LuaBase::newUserData<QWidget>(L, tableName, userdata);
+    ObjectUtil<QWidget, tableName>::newUserData(L, 1, (QWidget *)userdata);
 
-    return 1;
+    return 0;
 }
 
-void LuaWidget::requiref(Lua::LuaState *state)
+void LuaWidget::requiref(lua::Lua *state)
 {
-    Lua::LuaRegVector functions;
-    functions.push_back({ "new", Widget_new });
+    lua::Class luaClass(tableName);
 
-    state->reg(tableName, functions, LuaWidgetBase::methods());
+    luaClass.addConstructor(Widget_new);
+
+    luaClass.setMembers(LuaWidgetBase::methods());
+
+    state->createClass(luaClass);
 }
 
 }

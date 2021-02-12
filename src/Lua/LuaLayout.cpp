@@ -30,7 +30,7 @@
 #include "OmicronTK/Qt/Lua/LuaLayout.hpp"
 #include "base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/Lua/LuaBase.hpp>
+#include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <iostream>
 
 #include <QBoxLayout>
@@ -39,27 +39,29 @@
 
 #include <QDebug>
 
+using namespace OmicronTK::lua;
+
 namespace OmicronTK {
 namespace QT {
 
-static const char *const tableName = "BoxLayout";
+static const char tableName[] = "BoxLayout";
 
 int BoxLayout_new(lua_State *L)
 {
-    if (lua_gettop(L) != 1)
+    if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting 0 or 1 arguments");
 
-    void *userdata = lua_touserdata(L, 1);
+    void *userdata = lua_touserdata(L, 2);
 
     if (!userdata)
     {
-        double direction = lua_tointegerx(L, 1, nullptr);
+        double direction = lua_tointegerx(L, 2, nullptr);
         userdata = new QBoxLayout(static_cast<QBoxLayout::Direction>(static_cast<int>(direction)));
     }
 
-    Lua::LuaBase::newUserData<QBoxLayout>(L, tableName, userdata);
+    ObjectUtil<QBoxLayout, tableName>::newUserData(L, 1, (QBoxLayout *)userdata);
 
-    return 1;
+    return 0;
 }
 
 int BoxLayout_addWidget(lua_State *L)
@@ -167,22 +169,23 @@ int BoxLayout_setContentsMargins(lua_State *L)
     return 0;
 }
 
-void LuaLayout::requiref(Lua::LuaState *state)
+void LuaLayout::requiref(lua::Lua *state)
 {
-    Lua::LuaRegVector functions;
-    functions.push_back({ "new", BoxLayout_new });
+    lua::Class luaClass(tableName);
 
-    Lua::LuaRegVector methods = LuaWidgetBase::methods();
-    methods.push_back({ "addLayout", BoxLayout_addLayout });
-    methods.push_back({ "addWidget", BoxLayout_addWidget });
-    methods.push_back({ "setAlignment", BoxLayout_setAlignment });
-    methods.push_back({ "setSpacing", BoxLayout_setSpacing });
-    methods.push_back({ "setMargin", BoxLayout_setMargin });
-    methods.push_back({ "addStretch", BoxLayout_addStretch });
-    methods.push_back({ "addSpacing", BoxLayout_addSpacing });
-    methods.push_back({ "setContentsMargins", BoxLayout_setContentsMargins });
+    luaClass.addConstructor(BoxLayout_new);
 
-    state->reg(tableName, functions, methods);
+    luaClass.setMembers(LuaWidgetBase::methods());
+    luaClass.addMember("addLayout", BoxLayout_addLayout);
+    luaClass.addMember("addWidget", BoxLayout_addWidget);
+    luaClass.addMember("setAlignment", BoxLayout_setAlignment);
+    luaClass.addMember("setSpacing", BoxLayout_setSpacing);
+    luaClass.addMember("setMargin", BoxLayout_setMargin);
+    luaClass.addMember("addStretch", BoxLayout_addStretch);
+    luaClass.addMember("addSpacing", BoxLayout_addSpacing);
+    luaClass.addMember("setContentsMargins", BoxLayout_setContentsMargins);
+
+    state->createClass(luaClass);
 }
 
 }

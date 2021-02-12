@@ -30,29 +30,31 @@
 #include "OmicronTK/Qt/Lua/LuaProgressBar.hpp"
 #include "base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/Lua/LuaBase.hpp>
+#include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <iostream>
 
 #include <QProgressBar>
 
+using namespace OmicronTK::lua;
+
 namespace OmicronTK {
 namespace QT {
 
-static const char *const tableName = "ProgressBar";
+static const char tableName[] = "ProgressBar";
 
 int ProgressBar_new(lua_State *L)
 {
-    if (lua_gettop(L) > 1)
+    if (lua_gettop(L) > 2)
         return luaL_error(L, "expecting 0 or 1 arguments");
 
-    void *userdata = lua_touserdata(L, 1);
+    void *userdata = lua_touserdata(L, 2);
 
     if (!userdata)
         userdata = new QProgressBar;
 
-    Lua::LuaBase::newUserData<QProgressBar>(L, tableName, userdata);
+    ObjectUtil<QProgressBar, tableName>::newUserData(L, 1, (QProgressBar *)userdata);
 
-    return 1;
+    return 0;
 }
 
 int ProgressBar_setOrientation(lua_State *L)
@@ -90,17 +92,18 @@ int ProgressBar_setTextVisible(lua_State *L)
     return 0;
 }
 
-void LuaProgressBar::requiref(Lua::LuaState *state)
+void LuaProgressBar::requiref(lua::Lua *state)
 {
-    Lua::LuaRegVector functions;
-    functions.push_back({ "new", ProgressBar_new });
+    lua::Class luaClass(tableName);
 
-    Lua::LuaRegVector methods = LuaWidgetBase::methods();
-    methods.push_back({ "setOrientation", ProgressBar_setOrientation });
-    methods.push_back({ "setInvertedAppearance", ProgressBar_setInvertedAppearance });
-    methods.push_back({ "setTextVisible", ProgressBar_setTextVisible });
+    luaClass.addConstructor(ProgressBar_new);
 
-    state->reg(tableName, functions, methods);
+    luaClass.setMembers(LuaWidgetBase::methods());
+    luaClass.addMember("setOrientation", ProgressBar_setOrientation);
+    luaClass.addMember("setInvertedAppearance", ProgressBar_setInvertedAppearance);
+    luaClass.addMember("setTextVisible", ProgressBar_setTextVisible);
+
+    state->createClass(luaClass);
 }
 
 }

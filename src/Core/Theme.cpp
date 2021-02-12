@@ -197,7 +197,7 @@ QVector<QVector<QString>> Theme::styles()
 {
     QVector<QVector<QString>> list;
     QStringList styles = s_settings->value("Styles/List").toStringList();
-    list += {"Padrão", "default"};
+    list.push_back({"Padrão", "default"});
 
     for (int i = 0; i < styles.length(); i++)
     {

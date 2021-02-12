@@ -30,29 +30,31 @@
 #include "OmicronTK/Qt/Lua/LuaSlider.hpp"
 #include "base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/Lua/LuaBase.hpp>
+#include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <iostream>
 
 #include "OmicronTK/Qt/Slider.hpp"
 
+using namespace OmicronTK::lua;
+
 namespace OmicronTK {
 namespace QT {
 
-static const char *const tableName = "Slider";
+static const char tableName[] = "Slider";
 
 int Slider_new(lua_State *L)
 {
-    if (lua_gettop(L) > 1)
+    if (lua_gettop(L) > 2)
         return luaL_error(L, "expecting 0 or 1 arguments");
 
-    void *userdata = lua_touserdata(L, 1);
+    void *userdata = lua_touserdata(L, 2);
 
     if (!userdata)
         userdata = new Slider;
 
-    Lua::LuaBase::newUserData<Slider>(L, tableName, userdata);
+    ObjectUtil<Slider, tableName>::newUserData(L, 1, (Slider *)userdata);
 
-    return 1;
+    return 0;
 }
 
 int Slider_setOrientation(lua_State *L)
@@ -68,15 +70,16 @@ int Slider_setOrientation(lua_State *L)
     return 0;
 }
 
-void LuaSlider::requiref(Lua::LuaState *state)
+void LuaSlider::requiref(lua::Lua *state)
 {
-    Lua::LuaRegVector functions;
-    functions.push_back({ "new", Slider_new });
+    lua::Class luaClass(tableName);
 
-    Lua::LuaRegVector methods = LuaWidgetBase::methods();
-    methods.push_back({ "setOrientation", Slider_setOrientation });
+    luaClass.addConstructor(Slider_new);
 
-    state->reg(tableName, functions, methods);
+    luaClass.setMembers(LuaWidgetBase::methods());
+    luaClass.addMember("setOrientation", Slider_setOrientation);
+
+    state->createClass(luaClass);
 }
 
 }

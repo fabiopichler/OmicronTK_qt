@@ -29,7 +29,7 @@
 
 #include "LuaObjectBase.hpp"
 
-#include <OmicronTK/Lua/LuaBase.hpp>
+#include <lua.hpp>
 #include <iostream>
 
 #include <QObject>
@@ -59,9 +59,9 @@ int Object_deleteLater(lua_State *L)
     return 0;
 }
 
-Lua::LuaRegVector LuaObjectBase::s_methods;
+lua::RegVector LuaObjectBase::s_methods;
 
-const Lua::LuaRegVector &LuaObjectBase::methods()
+const lua::RegVector &LuaObjectBase::methods()
 {
     if (!s_methods.empty())
         return s_methods;

@@ -33,8 +33,8 @@ QT = core gui widgets
 TARGET = OmicronTK+Qt_Lua$${DEBUG}
 DEFINES += OTKQT_BUILD_LUA_LIB
 
-unix:INCLUDEPATH += "$${OTKLUA_UNIX}/project/include"
-win32:INCLUDEPATH += "$${OTKLUA_WIN}\\project\\include"
+unix:INCLUDEPATH += "$${OTKLUA_UNIX}/include"
+win32:INCLUDEPATH += "$${OTKLUA_WIN}\\include"
 
 unix:LIBS += -ldl -llua
 win32:LIBS +=  -llua53
@@ -49,7 +49,7 @@ contains(QMAKE_HOST.arch, x86_64) {
     win32:INCLUDEPATH += $${LUA_INCLUDE_PATH_WIN64}
     win32:LIBS += -L$${LUA_LIB_PATH_WIN64}
 
-    unix:LIBS += -L"$${OTKLUA_UNIX}/linux64/build"
+    unix:LIBS += -L"$${OTKLUA_UNIX}/lib/debug"
     win32:LIBS += -L"$${OTKLUA_WIN}/win64/build"
 
 } else {

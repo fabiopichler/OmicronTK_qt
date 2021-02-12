@@ -30,30 +30,33 @@
 #include "OmicronTK/Qt/Lua/LuaLabel.hpp"
 #include "base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/Lua/LuaBase.hpp>
+#include <OmicronTK/lua/util/ObjectUtil.hpp>
+#include <OmicronTK/lua/Class.hpp>
 
 #include <iostream>
 
 #include <QLabel>
 
+using namespace OmicronTK::lua;
+
 namespace OmicronTK {
 namespace QT {
 
-static const char *const tableName = "Label";
+static const char tableName[] = "Label";
 
 int Label_new(lua_State *L)
 {
-    if (lua_gettop(L) > 1)
+    if (lua_gettop(L) > 2)
         return luaL_error(L, "expecting 0 or 1 arguments");
 
-    void *userdata = lua_touserdata(L, 1);
+    void *userdata = lua_touserdata(L, 2);
 
     if (!userdata)
-        userdata = new QLabel(lua_tolstring(L, 1, nullptr));
+        userdata = new QLabel(lua_tolstring(L, 2, nullptr));
 
-    Lua::LuaBase::newUserData<QLabel>(L, tableName, userdata);
+    ObjectUtil<QLabel, tableName>::newUserData(L, 1, (QLabel *)userdata);
 
-    return 1;
+    return 0;
 }
 
 int Label_setText(lua_State *L)
@@ -80,16 +83,17 @@ int Label_setAlignment(lua_State *L)
     return 0;
 }
 
-void LuaLabel::requiref(Lua::LuaState *state)
+void LuaLabel::requiref(lua::Lua *state)
 {
-    Lua::LuaRegVector functions;
-    functions.push_back({ "new", Label_new });
+    lua::Class luaClass(tableName);
 
-    Lua::LuaRegVector methods = LuaWidgetBase::methods();
-    methods.push_back({ "setText", Label_setText });
-    methods.push_back({ "setAlignment", Label_setAlignment });
+    luaClass.addConstructor(Label_new);
 
-    state->reg(tableName, functions, methods);
+    luaClass.setMembers(LuaWidgetBase::methods());
+    luaClass.addMember("setText", Label_setText);
+    luaClass.addMember("setAlignment", Label_setAlignment);
+
+    state->createClass(luaClass);
 }
 
 }

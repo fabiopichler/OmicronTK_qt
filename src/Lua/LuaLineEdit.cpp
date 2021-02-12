@@ -30,29 +30,31 @@
 #include "OmicronTK/Qt/Lua/LuaLineEdit.hpp"
 #include "base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/Lua/LuaBase.hpp>
+#include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <iostream>
 
 #include <QLineEdit>
 
+using namespace OmicronTK::lua;
+
 namespace OmicronTK {
 namespace QT {
 
-static const char *const tableName = "LineEdit";
+static const char tableName[] = "LineEdit";
 
 int LineEdit_new(lua_State *L)
 {
-    if (lua_gettop(L) > 1)
+    if (lua_gettop(L) > 2)
         return luaL_error(L, "expecting 0 or 1 arguments");
 
-    void *userdata = lua_touserdata(L, 1);
+    void *userdata = lua_touserdata(L, 2);
 
     if (!userdata)
-        userdata = new QLineEdit(lua_tolstring(L, 1, nullptr));
+        userdata = new QLineEdit(lua_tolstring(L, 2, nullptr));
 
-    Lua::LuaBase::newUserData<QLineEdit>(L, tableName, userdata);
+    ObjectUtil<QLineEdit, tableName>::newUserData(L, 1, (QLineEdit *)userdata);
 
-    return 1;
+    return 0;
 }
 
 int LineEdit_setPlaceholderText(lua_State *L)
@@ -77,16 +79,17 @@ int LineEdit_setClearButtonEnabled(lua_State *L)
     return 0;
 }
 
-void LuaLineEdit::requiref(Lua::LuaState *state)
+void LuaLineEdit::requiref(lua::Lua *state)
 {
-    Lua::LuaRegVector functions;
-    functions.push_back({ "new", LineEdit_new });
+    lua::Class luaClass(tableName);
 
-    Lua::LuaRegVector methods = LuaWidgetBase::methods();
-    methods.push_back({ "setPlaceholderText", LineEdit_setPlaceholderText });
-    methods.push_back({ "setClearButtonEnabled", LineEdit_setClearButtonEnabled });
+    luaClass.addConstructor(LineEdit_new);
 
-    state->reg(tableName, functions, methods);
+    luaClass.setMembers(LuaWidgetBase::methods());
+    luaClass.addMember("setPlaceholderText", LineEdit_setPlaceholderText);
+    luaClass.addMember("setClearButtonEnabled", LineEdit_setClearButtonEnabled);
+
+    state->createClass(luaClass);
 }
 
 }

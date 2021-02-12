@@ -30,7 +30,9 @@
 #include "OmicronTK/Qt/Lua/LuaObject.hpp"
 #include "base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/Lua/LuaBase.hpp>
+#include <OmicronTK/lua/util/ObjectUtil.hpp>
+#include <OmicronTK/lua/Class.hpp>
+
 #include <iostream>
 
 #include <QObject>
@@ -38,7 +40,7 @@
 namespace OmicronTK {
 namespace QT {
 
-static const char *const tableName = "Object";
+static const char tableName[] = "Object";
 
 int Object_connect(lua_State *L)
 {
@@ -63,12 +65,13 @@ int Object_connect(lua_State *L)
     return 0;
 }
 
-void LuaObject::requiref(Lua::LuaState *state)
+void LuaObject::requiref(lua::Lua *state)
 {
-    Lua::LuaRegVector functions;
-    functions.push_back({ "connect", Object_connect });
+    lua::Class luaClass(tableName);
 
-    state->reg(tableName, functions);
+    luaClass.addStatic("connect", Object_connect);
+
+    state->createClass(luaClass);
 }
 
 }

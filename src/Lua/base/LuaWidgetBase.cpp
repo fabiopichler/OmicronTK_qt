@@ -30,14 +30,20 @@
 #include "LuaWidgetBase.hpp"
 #include "LuaObjectBase.hpp"
 
-#include <OmicronTK/Lua/LuaBase.hpp>
+#include <OmicronTK/lua/util/ObjectUtil.hpp>
+
+#include <lua.hpp>
 #include <iostream>
 
 #include <QWidget>
 #include <QBoxLayout>
 
+using namespace OmicronTK::lua;
+
 namespace OmicronTK {
 namespace QT {
+
+static const char BoxLayoutName[] = "BoxLayout";
 
 int Widget_setLayout(lua_State *L)
 {
@@ -45,7 +51,7 @@ int Widget_setLayout(lua_State *L)
         return luaL_error(L, "expecting exactly 1 argument");
 
     QWidget *userdata = *static_cast<QWidget **>(lua_touserdata(L, 1));
-    QBoxLayout *layout = Lua::LuaBase::checkUserData<QBoxLayout>(L, 2, "BoxLayout");
+    QBoxLayout *layout = ObjectUtil<QBoxLayout, BoxLayoutName>::checkUserData(L, 2);
 
     userdata->setLayout(layout);
 
@@ -118,9 +124,9 @@ int Widget_setMinimumWidth(lua_State *L)
     return 0;
 }
 
-Lua::LuaRegVector LuaWidgetBase::s_methods;
+lua::RegVector LuaWidgetBase::s_methods;
 
-const Lua::LuaRegVector &LuaWidgetBase::methods()
+const lua::RegVector &LuaWidgetBase::methods()
 {
     if (!s_methods.empty())
         return s_methods;
