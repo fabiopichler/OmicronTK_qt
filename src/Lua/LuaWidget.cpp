@@ -54,7 +54,7 @@ int Widget_new(lua_State *L)
     if (!userdata)
         userdata = new QWidget;
 
-    ObjectUtil<QWidget, tableName>::newUserData(L, 1, (QWidget *)userdata);
+    ObjectUtil<QWidget, tableName>::newUserData(L, 1, new QWidget);
 
     return 0;
 }
@@ -63,9 +63,9 @@ void LuaWidget::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 
-    luaClass.addConstructor(Widget_new);
-
     luaClass.setMembers(LuaWidgetBase::methods());
+
+    luaClass.addConstructor(Widget_new);
 
     state->createClass(luaClass);
 }

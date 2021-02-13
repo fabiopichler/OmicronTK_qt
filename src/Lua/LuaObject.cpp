@@ -44,9 +44,11 @@ static const char tableName[] = "Object";
 
 int Object_connect(lua_State *L)
 {
-    void *sender = lua_touserdata(L, 1);
+    lua_getfield(L, 1, "__userdata");
+    void *sender = lua_touserdata(L, -1);
     const char *signal = lua_tolstring(L, 2, nullptr);
-    void *receiver = lua_touserdata(L, 3);
+    lua_getfield(L, 3, "__userdata");
+    void *receiver = lua_touserdata(L, -1);
     const char *member = lua_tolstring(L, 4, nullptr);
 
     if (!sender || !signal || !receiver || !member)

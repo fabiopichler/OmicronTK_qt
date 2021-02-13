@@ -83,9 +83,10 @@ void LuaLineEdit::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 
+    luaClass.setMembers(LuaWidgetBase::methods());
+
     luaClass.addConstructor(LineEdit_new);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
     luaClass.addMember("setPlaceholderText", LineEdit_setPlaceholderText);
     luaClass.addMember("setClearButtonEnabled", LineEdit_setClearButtonEnabled);
 

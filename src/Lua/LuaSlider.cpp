@@ -74,9 +74,10 @@ void LuaSlider::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 
+    luaClass.setMembers(LuaWidgetBase::methods());
+
     luaClass.addConstructor(Slider_new);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
     luaClass.addMember("setOrientation", Slider_setOrientation);
 
     state->createClass(luaClass);

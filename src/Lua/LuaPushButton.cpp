@@ -72,9 +72,10 @@ void LuaPushButton::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 
+    luaClass.setMembers(LuaWidgetBase::methods());
+
     luaClass.addConstructor(PushButton_new);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
     luaClass.addMember("setText", PushButton_setText);
 
     state->createClass(luaClass);

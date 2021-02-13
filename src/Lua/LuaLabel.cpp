@@ -87,9 +87,10 @@ void LuaLabel::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 
+    luaClass.setMembers(LuaWidgetBase::methods());
+
     luaClass.addConstructor(Label_new);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
     luaClass.addMember("setText", Label_setText);
     luaClass.addMember("setAlignment", Label_setAlignment);
 

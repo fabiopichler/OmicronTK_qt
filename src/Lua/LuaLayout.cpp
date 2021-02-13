@@ -70,7 +70,8 @@ int BoxLayout_addWidget(lua_State *L)
         return luaL_error(L, "expecting 1, 2 or 3 arguments");
 
     QBoxLayout *userdata = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    QWidget *widget = *static_cast<QWidget **>(lua_touserdata(L, 2));
+    lua_getfield(L, 2, "__userdata");
+    QWidget *widget = *static_cast<QWidget **>(lua_touserdata(L, -1));
 
     if (!widget)
         return luaL_error(L, "widget error");
@@ -89,7 +90,8 @@ int BoxLayout_addLayout(lua_State *L)
         return luaL_error(L, "expecting 0 or 1 arguments");
 
     QBoxLayout *userdata = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    QBoxLayout *layout = *static_cast<QBoxLayout **>(luaL_checkudata(L, 2, tableName));
+    lua_getfield(L, 2, "__userdata");
+    QBoxLayout *layout = *static_cast<QBoxLayout **>(luaL_checkudata(L, -1, tableName));
     int stretch = static_cast<int>(lua_tointegerx(L, 3, nullptr));
 
     userdata->addLayout(layout, stretch);
@@ -173,9 +175,10 @@ void LuaLayout::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 
+    luaClass.setMembers(LuaWidgetBase::methods());
+
     luaClass.addConstructor(BoxLayout_new);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
     luaClass.addMember("addLayout", BoxLayout_addLayout);
     luaClass.addMember("addWidget", BoxLayout_addWidget);
     luaClass.addMember("setAlignment", BoxLayout_setAlignment);

@@ -96,9 +96,10 @@ void LuaProgressBar::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 
+    luaClass.setMembers(LuaWidgetBase::methods());
+
     luaClass.addConstructor(ProgressBar_new);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
     luaClass.addMember("setOrientation", ProgressBar_setOrientation);
     luaClass.addMember("setInvertedAppearance", ProgressBar_setInvertedAppearance);
     luaClass.addMember("setTextVisible", ProgressBar_setTextVisible);

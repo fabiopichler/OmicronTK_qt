@@ -34,6 +34,8 @@
 
 #include <QObject>
 
+using namespace OmicronTK::lua;
+
 namespace OmicronTK {
 namespace QT {
 

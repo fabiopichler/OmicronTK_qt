@@ -61,9 +61,9 @@ void LuaComboBox::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 
-    luaClass.addConstructor(ComboBox_new);
-
     luaClass.setMembers(LuaWidgetBase::methods());
+
+    luaClass.addConstructor(ComboBox_new);
 
     state->createClass(luaClass);
 }
