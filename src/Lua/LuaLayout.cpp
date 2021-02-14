@@ -51,15 +51,10 @@ int BoxLayout_new(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting 0 or 1 arguments");
 
-    void *userdata = lua_touserdata(L, 2);
+    double direction = lua_tointegerx(L, 2, nullptr);
+    QBoxLayout *self = new QBoxLayout(static_cast<QBoxLayout::Direction>(static_cast<int>(direction)));
 
-    if (!userdata)
-    {
-        double direction = lua_tointegerx(L, 2, nullptr);
-        userdata = new QBoxLayout(static_cast<QBoxLayout::Direction>(static_cast<int>(direction)));
-    }
-
-    ObjectUtil<QBoxLayout, tableName>::newUserData(L, 1, (QBoxLayout *)userdata);
+    ObjectUtil<QBoxLayout, tableName>::newUserData(L, 1, self);
 
     return 0;
 }
@@ -69,7 +64,7 @@ int BoxLayout_addWidget(lua_State *L)
     if (lua_gettop(L) < 2)
         return luaL_error(L, "expecting 1, 2 or 3 arguments");
 
-    QBoxLayout *userdata = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
+    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
     QWidget *widget = toUserData<QWidget>(L, 2);
 
     if (!widget)
@@ -78,7 +73,7 @@ int BoxLayout_addWidget(lua_State *L)
     int stretch = static_cast<int>(lua_tointegerx(L, 3, nullptr));
     int alignment = static_cast<int>(lua_tointegerx(L, 4, nullptr));
 
-    userdata->addWidget(widget, stretch, static_cast<Qt::AlignmentFlag>(alignment));
+    self->addWidget(widget, stretch, static_cast<Qt::AlignmentFlag>(alignment));
 
     return 0;
 }
@@ -88,11 +83,11 @@ int BoxLayout_addLayout(lua_State *L)
     if (lua_gettop(L) < 2)
         return luaL_error(L, "expecting 0 or 1 arguments");
 
-    QBoxLayout *userdata = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
+    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
     QBoxLayout *layout = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 2);
     int stretch = static_cast<int>(lua_tointegerx(L, 3, nullptr));
 
-    userdata->addLayout(layout, stretch);
+    self->addLayout(layout, stretch);
 
     return 0;
 }
@@ -102,8 +97,8 @@ int BoxLayout_setAlignment(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QBoxLayout *userdata = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    userdata->setAlignment(static_cast<Qt::AlignmentFlag>(static_cast<int>(luaL_checknumber(L, 2))));
+    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
+    self->setAlignment(static_cast<Qt::AlignmentFlag>(static_cast<int>(luaL_checknumber(L, 2))));
 
     return 0;
 }
@@ -113,8 +108,8 @@ int BoxLayout_setSpacing(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QBoxLayout *userdata = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    userdata->setSpacing(static_cast<int>(luaL_checknumber(L, 2)));
+    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
+    self->setSpacing(static_cast<int>(luaL_checknumber(L, 2)));
 
     return 0;
 }
@@ -124,8 +119,8 @@ int BoxLayout_setMargin(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QBoxLayout *userdata = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    userdata->setMargin(static_cast<int>(luaL_checknumber(L, 2)));
+    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
+    self->setMargin(static_cast<int>(luaL_checknumber(L, 2)));
 
     return 0;
 }
@@ -135,8 +130,8 @@ int BoxLayout_addStretch(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QBoxLayout *userdata = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    userdata->addStretch(static_cast<int>(luaL_checknumber(L, 2)));
+    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
+    self->addStretch(static_cast<int>(luaL_checknumber(L, 2)));
 
     return 0;
 }
@@ -146,8 +141,8 @@ int BoxLayout_addSpacing(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QBoxLayout *userdata = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    userdata->addSpacing(static_cast<int>(luaL_checknumber(L, 2)));
+    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
+    self->addSpacing(static_cast<int>(luaL_checknumber(L, 2)));
 
     return 0;
 }
@@ -157,14 +152,14 @@ int BoxLayout_setContentsMargins(lua_State *L)
     if (lua_gettop(L) != 5)
         return luaL_error(L, "expecting exactly 4 arguments");
 
-    QBoxLayout *userdata = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
+    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
 
     int left = static_cast<int>(luaL_checknumber(L, 2));
     int top = static_cast<int>(luaL_checknumber(L, 3));
     int right = static_cast<int>(luaL_checknumber(L, 4));
     int bottom = static_cast<int>(luaL_checknumber(L, 5));
 
-    userdata->setContentsMargins(left, top, right, bottom);
+    self->setContentsMargins(left, top, right, bottom);
 
     return 0;
 }

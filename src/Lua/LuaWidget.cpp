@@ -46,13 +46,8 @@ static const char tableName[] = "Widget";
 
 int Widget_new(lua_State *L)
 {
-    if (lua_gettop(L) > 2)
-        return luaL_error(L, "expecting 0 or 1 arguments");
-
-    void *userdata = lua_touserdata(L, 2);
-
-    if (!userdata)
-        userdata = new QWidget;
+    if (lua_gettop(L) > 1)
+        return luaL_error(L, "expecting 0 arguments");
 
     ObjectUtil<QWidget, tableName>::newUserData(L, 1, new QWidget);
 

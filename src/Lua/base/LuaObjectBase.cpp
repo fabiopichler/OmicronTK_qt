@@ -46,8 +46,8 @@ int Object_setObjectName(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QObject *userdata = toUserData<QObject>(L, 1);
-    userdata->setObjectName(luaL_checklstring(L, 2, nullptr));
+    QObject *self = toUserData<QObject>(L, 1);
+    self->setObjectName(luaL_checklstring(L, 2, nullptr));
 
     return 0;
 }
@@ -57,8 +57,8 @@ int Object_deleteLater(lua_State *L)
     if (lua_gettop(L) != 1)
         return luaL_error(L, "expecting 0 arguments");
 
-    QObject *userdata = toUserData<QObject>(L, 1);
-    userdata->deleteLater();
+    QObject *self = toUserData<QObject>(L, 1);
+    self->deleteLater();
 
     return 0;
 }

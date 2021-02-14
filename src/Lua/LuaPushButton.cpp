@@ -47,12 +47,9 @@ int PushButton_new(lua_State *L)
     if (lua_gettop(L) > 2)
         return luaL_error(L, "expecting 0 or 1 arguments");
 
-    void *userdata = lua_touserdata(L, 2);
+    QPushButton *self = new QPushButton(lua_tolstring(L, 2, nullptr));
 
-    if (!userdata)
-        userdata = new QPushButton(lua_tolstring(L, 2, nullptr));
-
-    ObjectUtil<QPushButton, tableName>::newUserData(L, 1, (QPushButton *)userdata);
+    ObjectUtil<QPushButton, tableName>::newUserData(L, 1, self);
 
     return 0;
 }
@@ -62,8 +59,8 @@ int PushButton_setText(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QPushButton *userdata = ObjectUtil<QPushButton, tableName>::checkUserData(L, 1);
-    userdata->setText(luaL_checklstring(L, 2, nullptr));
+    QPushButton *self = ObjectUtil<QPushButton, tableName>::checkUserData(L, 1);
+    self->setText(luaL_checklstring(L, 2, nullptr));
 
     return 0;
 }

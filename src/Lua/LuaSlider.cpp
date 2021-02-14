@@ -44,15 +44,10 @@ static const char tableName[] = "Slider";
 
 int Slider_new(lua_State *L)
 {
-    if (lua_gettop(L) > 2)
-        return luaL_error(L, "expecting 0 or 1 arguments");
+    if (lua_gettop(L) > 1)
+        return luaL_error(L, "expecting 0 arguments");
 
-    void *userdata = lua_touserdata(L, 2);
-
-    if (!userdata)
-        userdata = new Slider;
-
-    ObjectUtil<Slider, tableName>::newUserData(L, 1, (Slider *)userdata);
+    ObjectUtil<Slider, tableName>::newUserData(L, 1, new Slider);
 
     return 0;
 }
@@ -62,10 +57,10 @@ int Slider_setOrientation(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    Slider *userdata = ObjectUtil<Slider, tableName>::checkUserData(L, 1);
+    Slider *self = ObjectUtil<Slider, tableName>::checkUserData(L, 1);
     int orientation = static_cast<int>(lua_tointegerx(L, 2, nullptr));
 
-    userdata->setOrientation(static_cast<Qt::Orientation>(orientation));
+    self->setOrientation(static_cast<Qt::Orientation>(orientation));
 
     return 0;
 }

@@ -49,12 +49,9 @@ int Label_new(lua_State *L)
     if (lua_gettop(L) > 2)
         return luaL_error(L, "expecting 0 or 1 arguments");
 
-    void *userdata = lua_touserdata(L, 2);
+    QLabel *self = new QLabel(lua_tolstring(L, 2, nullptr));
 
-    if (!userdata)
-        userdata = new QLabel(lua_tolstring(L, 2, nullptr));
-
-    ObjectUtil<QLabel, tableName>::newUserData(L, 1, (QLabel *)userdata);
+    ObjectUtil<QLabel, tableName>::newUserData(L, 1, self);
 
     return 0;
 }
@@ -64,8 +61,8 @@ int Label_setText(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QLabel *userdata = ObjectUtil<QLabel, tableName>::checkUserData(L, 1);
-    userdata->setText(luaL_checklstring(L, 2, nullptr));
+    QLabel *self = ObjectUtil<QLabel, tableName>::checkUserData(L, 1);
+    self->setText(luaL_checklstring(L, 2, nullptr));
 
     return 0;
 }
@@ -75,10 +72,10 @@ int Label_setAlignment(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QLabel *userdata = ObjectUtil<QLabel, tableName>::checkUserData(L, 1);
+    QLabel *self = ObjectUtil<QLabel, tableName>::checkUserData(L, 1);
     int alignment = static_cast<int>(lua_tointegerx(L, 2, nullptr));
 
-    userdata->setAlignment(static_cast<Qt::Alignment>(alignment));
+    self->setAlignment(static_cast<Qt::Alignment>(alignment));
 
     return 0;
 }

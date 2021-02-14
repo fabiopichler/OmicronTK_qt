@@ -50,10 +50,10 @@ int Widget_setLayout(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QWidget *userdata = toUserData<QWidget>(L, 1);
+    QWidget *self = toUserData<QWidget>(L, 1);
     QBoxLayout *layout = ObjectUtil<QBoxLayout, BoxLayoutName>::checkUserData(L, 2);
 
-    userdata->setLayout(layout);
+    self->setLayout(layout);
 
     return 0;
 }
@@ -63,8 +63,8 @@ int Widget_windowTitle(lua_State *L)
     if (lua_gettop(L) != 1)
         return luaL_error(L, "expecting exactly 0 arguments");
 
-    QWidget *userdata = toUserData<QWidget>(L, 1);
-    lua_pushstring(L, userdata->windowTitle().toUtf8().constData());
+    QWidget *self = toUserData<QWidget>(L, 1);
+    lua_pushstring(L, self->windowTitle().toUtf8().constData());
 
     return 1;
 }
@@ -74,8 +74,8 @@ int Widget_setStyleSheet(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QWidget *userdata = toUserData<QWidget>(L, 1);
-    userdata->setStyleSheet(luaL_checklstring(L, 2, nullptr));
+    QWidget *self = toUserData<QWidget>(L, 1);
+    self->setStyleSheet(luaL_checklstring(L, 2, nullptr));
 
     return 0;
 }
@@ -85,8 +85,8 @@ int Widget_setToolTip(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QWidget *userdata = toUserData<QWidget>(L, 1);
-    userdata->setToolTip(luaL_checklstring(L, 2, nullptr));
+    QWidget *self = toUserData<QWidget>(L, 1);
+    self->setToolTip(luaL_checklstring(L, 2, nullptr));
 
     return 0;
 }
@@ -96,8 +96,8 @@ int Widget_setEnabled(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QWidget *userdata = toUserData<QWidget>(L, 1);
-    userdata->setEnabled(lua_toboolean(L, 2));
+    QWidget *self = toUserData<QWidget>(L, 1);
+    self->setEnabled(lua_toboolean(L, 2));
 
     return 0;
 }
@@ -107,8 +107,8 @@ int Widget_setMaximumHeight(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QWidget *userdata = toUserData<QWidget>(L, 1);
-    userdata->setMaximumHeight(lua_tonumber(L, 2));
+    QWidget *self = toUserData<QWidget>(L, 1);
+    self->setMaximumHeight(lua_tonumber(L, 2));
 
     return 0;
 }
@@ -118,8 +118,8 @@ int Widget_setMinimumWidth(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QWidget *userdata = toUserData<QWidget>(L, 1);
-    userdata->setMinimumWidth(lua_tonumber(L, 2));
+    QWidget *self = toUserData<QWidget>(L, 1);
+    self->setMinimumWidth(lua_tonumber(L, 2));
 
     return 0;
 }

@@ -44,15 +44,10 @@ static const char tableName[] = "ProgressBar";
 
 int ProgressBar_new(lua_State *L)
 {
-    if (lua_gettop(L) > 2)
-        return luaL_error(L, "expecting 0 or 1 arguments");
+    if (lua_gettop(L) > 1)
+        return luaL_error(L, "expecting 0 arguments");
 
-    void *userdata = lua_touserdata(L, 2);
-
-    if (!userdata)
-        userdata = new QProgressBar;
-
-    ObjectUtil<QProgressBar, tableName>::newUserData(L, 1, (QProgressBar *)userdata);
+    ObjectUtil<QProgressBar, tableName>::newUserData(L, 1, new QProgressBar);
 
     return 0;
 }
@@ -62,10 +57,10 @@ int ProgressBar_setOrientation(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QProgressBar *userdata = ObjectUtil<QProgressBar, tableName>::checkUserData(L, 1);
+    QProgressBar *self = ObjectUtil<QProgressBar, tableName>::checkUserData(L, 1);
     int orientation = static_cast<int>(lua_tointegerx(L, 2, nullptr));
 
-    userdata->setOrientation(static_cast<Qt::Orientation>(orientation));
+    self->setOrientation(static_cast<Qt::Orientation>(orientation));
 
     return 0;
 }
@@ -75,8 +70,8 @@ int ProgressBar_setInvertedAppearance(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QProgressBar *userdata = ObjectUtil<QProgressBar, tableName>::checkUserData(L, 1);
-    userdata->setInvertedAppearance(lua_toboolean(L, 2));
+    QProgressBar *self = ObjectUtil<QProgressBar, tableName>::checkUserData(L, 1);
+    self->setInvertedAppearance(lua_toboolean(L, 2));
 
     return 0;
 }
@@ -86,8 +81,8 @@ int ProgressBar_setTextVisible(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    QProgressBar *userdata = ObjectUtil<QProgressBar, tableName>::checkUserData(L, 1);
-    userdata->setTextVisible(lua_toboolean(L, 2));
+    QProgressBar *self = ObjectUtil<QProgressBar, tableName>::checkUserData(L, 1);
+    self->setTextVisible(lua_toboolean(L, 2));
 
     return 0;
 }
