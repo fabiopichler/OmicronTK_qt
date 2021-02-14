@@ -45,10 +45,12 @@ static const char className[] = "PushButton";
 
 static mrb_value initialize(mrb_state *mrb, mrb_value self)
 {
-//    if (lua_gettop(L) > 2)
-//        return luaL_error(L, "QPushButton: expecting 0 or 1 arguments");
+    // expecting 0 or 1 arguments
 
-//    DATA_PTR(self) = new QPushButton(lua_tolstring(L, 2, nullptr));
+    mrb_value text;
+    mrb_get_args(mrb, "S", &text);
+
+    DATA_PTR(self) = new QPushButton(RSTRING_PTR(text));
 
     return self;
 }
@@ -57,7 +59,10 @@ static mrb_value setText(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QPushButton *>(DATA_PTR(self));
 
-//    _this->setText(luaL_checklstring(L, 2, nullptr));
+    mrb_value text;
+    mrb_get_args(mrb, "S", &text);
+
+    _this->setText(RSTRING_PTR(text));
 
     return mrb_nil_value();
 }
