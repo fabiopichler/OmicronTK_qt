@@ -27,43 +27,23 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/Qt/Lua/LuaWidget.hpp"
-#include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
+#pragma once
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
-#include <iostream>
-
-#include <QWidget>
-
-#include <QDebug>
-
-using namespace OmicronTK::lua;
+#include "OmicronTK/Qt/global.h"
 
 namespace OmicronTK {
+
+namespace lua {
+class Lua;
+}
+
 namespace QT {
 
-static const char tableName[] = "Widget";
-
-int Widget_new(lua_State *L)
+class OTKQT_LUA_EXPORT LuaTitleBarWidget
 {
-    if (lua_gettop(L) > 1)
-        return luaL_error(L, "QWidget: expecting 0 arguments");
-
-    ObjectUtil<QWidget, tableName>::newUserData(L, 1, new QWidget);
-
-    return 0;
-}
-
-void LuaWidget::require(lua::Lua *state)
-{
-    lua::Class luaClass(tableName);
-
-    luaClass.setMembers(LuaWidgetBase::methods());
-
-    luaClass.addConstructor(Widget_new);
-
-    state->createClass(luaClass);
-}
+    static void require(lua::Lua *state);
+    friend class lua::Lua;
+};
 
 }
 }

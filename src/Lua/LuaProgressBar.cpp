@@ -45,7 +45,7 @@ static const char tableName[] = "ProgressBar";
 int ProgressBar_new(lua_State *L)
 {
     if (lua_gettop(L) > 1)
-        return luaL_error(L, "expecting 0 arguments");
+        return luaL_error(L, "QProgressBar: expecting 0 arguments");
 
     ObjectUtil<QProgressBar, tableName>::newUserData(L, 1, new QProgressBar);
 

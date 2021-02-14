@@ -42,8 +42,8 @@ static const char tableName[] = "VolumeControl";
 
 int VolumeControl_new(lua_State *L)
 {
-    if (lua_gettop(L) != 1)
-        return luaL_error(L, "expecting 1 argument");
+    if (lua_gettop(L) != 2)
+        return luaL_error(L, "VolumeControl: expecting 1 argument");
 
     auto pointer = static_cast<VolumeControl *>(lua_touserdata(L, 2));
 

@@ -49,7 +49,7 @@ static const char tableName[] = "BoxLayout";
 int BoxLayout_new(lua_State *L)
 {
     if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting 0 or 1 arguments");
+        return luaL_error(L, "QBoxLayout: expecting 0 or 1 arguments");
 
     double direction = lua_tointegerx(L, 2, nullptr);
     QBoxLayout *self = new QBoxLayout(static_cast<QBoxLayout::Direction>(static_cast<int>(direction)));

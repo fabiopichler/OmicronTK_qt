@@ -47,7 +47,7 @@ static const char tableName[] = "Label";
 int Label_new(lua_State *L)
 {
     if (lua_gettop(L) > 2)
-        return luaL_error(L, "expecting 0 or 1 arguments");
+        return luaL_error(L, "QLabel: expecting 0 or 1 arguments");
 
     QLabel *self = new QLabel(lua_tolstring(L, 2, nullptr));
 

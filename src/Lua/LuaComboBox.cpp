@@ -45,7 +45,7 @@ static const char tableName[] = "ComboBox";
 int ComboBox_new(lua_State *L)
 {
     if (lua_gettop(L) > 1)
-        return luaL_error(L, "expecting 0 arguments");
+        return luaL_error(L, "ComboBox: expecting 0 arguments");
 
     ObjectUtil<ComboBox, tableName>::newUserData(L, 1, new ComboBox);
 

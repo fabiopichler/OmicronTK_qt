@@ -45,7 +45,7 @@ static const char tableName[] = "Slider";
 int Slider_new(lua_State *L)
 {
     if (lua_gettop(L) > 1)
-        return luaL_error(L, "expecting 0 arguments");
+        return luaL_error(L, "Slider: expecting 0 arguments");
 
     ObjectUtil<Slider, tableName>::newUserData(L, 1, new Slider);
 

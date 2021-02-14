@@ -27,40 +27,38 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/Qt/Lua/LuaWidget.hpp"
+#include "OmicronTK/Qt/Lua/LuaTitleBarWidget.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
+#include "OmicronTK/Qt/TitleBarWidget.hpp"
 
 #include <OmicronTK/lua/util/ObjectUtil.hpp>
-#include <iostream>
-
-#include <QWidget>
-
-#include <QDebug>
 
 using namespace OmicronTK::lua;
 
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "Widget";
+static const char tableName[] = "TitleBarWidget";
 
-int Widget_new(lua_State *L)
+int TitleBarWidget_new(lua_State *L)
 {
-    if (lua_gettop(L) > 1)
-        return luaL_error(L, "QWidget: expecting 0 arguments");
+    if (lua_gettop(L) != 2)
+        return luaL_error(L, "TitleBarWidget: expecting 1 argument");
 
-    ObjectUtil<QWidget, tableName>::newUserData(L, 1, new QWidget);
+    auto pointer = static_cast<TitleBarWidget *>(lua_touserdata(L, 2));
+
+    lua::ObjectUtil<TitleBarWidget, tableName>::newUserData(L, 1, pointer);
 
     return 0;
 }
 
-void LuaWidget::require(lua::Lua *state)
+void LuaTitleBarWidget::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 
     luaClass.setMembers(LuaWidgetBase::methods());
 
-    luaClass.addConstructor(Widget_new);
+    luaClass.addConstructor(TitleBarWidget_new);
 
     state->createClass(luaClass);
 }

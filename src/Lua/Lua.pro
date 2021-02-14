@@ -71,6 +71,7 @@ SOURCES += \
     LuaComboBox.cpp \
     LuaObject.cpp \
     LuaVolumeControl.cpp \
+    LuaTitleBarWidget.cpp \
     LuaWidget.cpp \
     LuaLabel.cpp \
     LuaLayout.cpp \
@@ -85,6 +86,7 @@ HEADERS += \
     ../../include/OmicronTK/Qt/Lua/LuaComboBox.hpp \
     ../../include/OmicronTK/Qt/Lua/LuaObject.hpp \
     ../../include/OmicronTK/Qt/Lua/LuaVolumeControl.hpp \
+    ../../include/OmicronTK/Qt/Lua/LuaTitleBarWidget.hpp \
     ../../include/OmicronTK/Qt/Lua/LuaWidget.hpp \
     ../../include/OmicronTK/Qt/Lua/LuaLabel.hpp \
     ../../include/OmicronTK/Qt/Lua/LuaLayout.hpp \
