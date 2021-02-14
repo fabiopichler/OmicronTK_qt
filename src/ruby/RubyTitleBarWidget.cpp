@@ -42,14 +42,10 @@ static const char className[] = "TitleBarWidget";
 
 static mrb_value initialize(mrb_state *mrb, mrb_value self)
 {
-//    if (lua_gettop(L) != 2)
-//        return luaL_error(L, "TitleBarWidget: expecting 1 argument");
+    mrb_value pointer;
+    mrb_get_args(mrb, "I", &pointer);
 
-//    auto pointer = static_cast<TitleBarWidget *>(lua_touserdata(L, 2));
-
-//    lua::ObjectUtil<TitleBarWidget, tableName>::newUserData(L, 1, pointer);
-
-//    DATA_PTR(self) = ;
+    DATA_PTR(self) = mrb_ptr(pointer);
 
     return self;
 }

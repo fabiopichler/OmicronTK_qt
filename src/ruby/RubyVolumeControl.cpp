@@ -42,14 +42,10 @@ static const char className[] = "VolumeControl";
 
 static mrb_value initialize(mrb_state *mrb, mrb_value self)
 {
-//    if (lua_gettop(L) != 2)
-//        return luaL_error(L, "VolumeControl: expecting 1 argument");
+    mrb_value pointer;
+    mrb_get_args(mrb, "I", &pointer);
 
-//    auto pointer = static_cast<VolumeControl *>(lua_touserdata(L, 2));
-
-//    lua::ObjectUtil<VolumeControl, tableName>::newUserData(L, 1, pointer);
-
-//    DATA_PTR(self) = ;
+    DATA_PTR(self) = mrb_ptr(pointer);
 
     return self;
 }

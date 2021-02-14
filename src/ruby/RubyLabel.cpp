@@ -71,9 +71,10 @@ static mrb_value setAlignment(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QLabel *>(DATA_PTR(self));
 
-//    int alignment = static_cast<int>(lua_tointegerx(L, 2, nullptr));
+    mrb_value alignment;
+    mrb_get_args(mrb, "i", &alignment);
 
-//    _this->setAlignment(static_cast<Qt::Alignment>(alignment));
+    _this->setAlignment(static_cast<Qt::AlignmentFlag>(mrb_fixnum(alignment)));
 
     return mrb_nil_value();
 }

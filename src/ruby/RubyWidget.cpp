@@ -45,12 +45,7 @@ static const char className[] = "Widget";
 
 static mrb_value initialize(mrb_state *mrb, mrb_value self)
 {
-//    if (lua_gettop(L) > 1)
-//        return luaL_error(L, "QWidget: expecting 0 arguments");
-
-//    ObjectUtil<QWidget, tableName>::newUserData(L, 1, new QWidget);
-
-//    DATA_PTR(self) = ;
+    DATA_PTR(self) = new QWidget;
 
     return self;
 }
