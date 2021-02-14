@@ -41,7 +41,7 @@
 namespace OmicronTK {
 namespace QT {
 
-static const char className[] = "Object";
+static const char className[] = "QObject";
 
 static mrb_value connect(mrb_state *mrb, mrb_value self)
 {

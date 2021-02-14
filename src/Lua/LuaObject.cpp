@@ -44,7 +44,7 @@ using namespace OmicronTK::lua;
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "Object";
+static const char tableName[] = "QObject";
 
 int Object_connect(lua_State *L)
 {
