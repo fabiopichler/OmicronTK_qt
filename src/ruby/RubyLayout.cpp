@@ -61,15 +61,14 @@ static mrb_value addWidget(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
-//    QWidget *widget = toUserData<QWidget>(L, 2);
+    mrb_value widget, stretch, alignment;
+    mrb_get_args(mrb, "oii", &widget, &stretch, &alignment);
 
-//    if (!widget)
-//        return luaL_error(L, "widget error");
-
-//    int stretch = static_cast<int>(lua_tointegerx(L, 3, nullptr));
-//    int alignment = static_cast<int>(lua_tointegerx(L, 4, nullptr));
-
-//    _this->addWidget(widget, stretch, static_cast<Qt::AlignmentFlag>(alignment));
+    _this->addWidget(
+                static_cast<QWidget *>(DATA_PTR(widget)),
+                mrb_fixnum(stretch),
+                static_cast<Qt::AlignmentFlag>(mrb_fixnum(alignment))
+                );
 
     return mrb_nil_value();
 }
@@ -78,10 +77,10 @@ static mrb_value addLayout(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
-//    QBoxLayout *layout = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 2);
-//    int stretch = static_cast<int>(lua_tointegerx(L, 3, nullptr));
+    mrb_value layout, stretch;
+    mrb_get_args(mrb, "oi", &layout, &stretch);
 
-//    _this->addLayout(layout, stretch);
+    _this->addLayout(static_cast<QBoxLayout *>(DATA_PTR(layout)), mrb_fixnum(stretch));
 
     return mrb_nil_value();
 }
@@ -90,7 +89,10 @@ static mrb_value setAlignment(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
-//    _this->setAlignment(static_cast<Qt::AlignmentFlag>(static_cast<int>(luaL_checknumber(L, 2))));
+    mrb_value alignment;
+    mrb_get_args(mrb, "i", &alignment);
+
+    _this->setAlignment(static_cast<Qt::AlignmentFlag>(mrb_fixnum(alignment)));
 
     return mrb_nil_value();
 }
@@ -99,7 +101,10 @@ static mrb_value setSpacing(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
-//    _this->setSpacing(static_cast<int>(luaL_checknumber(L, 2)));
+    mrb_value spacing;
+    mrb_get_args(mrb, "i", &spacing);
+
+    _this->setSpacing(mrb_fixnum(spacing));
 
     return mrb_nil_value();
 }
@@ -108,7 +113,10 @@ static mrb_value setMargin(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
-//    _this->setMargin(static_cast<int>(luaL_checknumber(L, 2)));
+    mrb_value margin;
+    mrb_get_args(mrb, "i", &margin);
+
+    _this->setMargin(mrb_fixnum(margin));
 
     return mrb_nil_value();
 }
@@ -117,7 +125,10 @@ static mrb_value addStretch(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
-//    _this->addStretch(static_cast<int>(luaL_checknumber(L, 2)));
+    mrb_value stretch;
+    mrb_get_args(mrb, "i", &stretch);
+
+    _this->addStretch(mrb_fixnum(stretch));
 
     return mrb_nil_value();
 }
@@ -126,7 +137,10 @@ static mrb_value addSpacing(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
-//    _this->addSpacing(static_cast<int>(luaL_checknumber(L, 2)));
+    mrb_value spacing;
+    mrb_get_args(mrb, "i", &spacing);
+
+    _this->addSpacing(mrb_fixnum(spacing));
 
     return mrb_nil_value();
 }
@@ -135,12 +149,10 @@ static mrb_value setContentsMargins(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
-//    int left = static_cast<int>(luaL_checknumber(L, 2));
-//    int top = static_cast<int>(luaL_checknumber(L, 3));
-//    int right = static_cast<int>(luaL_checknumber(L, 4));
-//    int bottom = static_cast<int>(luaL_checknumber(L, 5));
+    mrb_value left, top, right, bottom;
+    mrb_get_args(mrb, "iiii", &left, &top, &right, &bottom);
 
-//    _this->setContentsMargins(left, top, right, bottom);
+    _this->setContentsMargins(mrb_fixnum(left), mrb_fixnum(top), mrb_fixnum(right), mrb_fixnum(bottom));
 
     return mrb_nil_value();
 }
