@@ -70,6 +70,7 @@ win32:RC_FILE = lua.rc
 SOURCES += \
     LuaComboBox.cpp \
     LuaObject.cpp \
+    LuaVolumeControl.cpp \
     LuaWidget.cpp \
     LuaLabel.cpp \
     LuaLayout.cpp \
@@ -83,6 +84,7 @@ SOURCES += \
 HEADERS += \
     ../../include/OmicronTK/Qt/Lua/LuaComboBox.hpp \
     ../../include/OmicronTK/Qt/Lua/LuaObject.hpp \
+    ../../include/OmicronTK/Qt/Lua/LuaVolumeControl.hpp \
     ../../include/OmicronTK/Qt/Lua/LuaWidget.hpp \
     ../../include/OmicronTK/Qt/Lua/LuaLabel.hpp \
     ../../include/OmicronTK/Qt/Lua/LuaLayout.hpp \
@@ -90,7 +92,7 @@ HEADERS += \
     ../../include/OmicronTK/Qt/Lua/LuaProgressBar.hpp \
     ../../include/OmicronTK/Qt/Lua/LuaLineEdit.hpp \
     ../../include/OmicronTK/Qt/Lua/LuaPushButton.hpp \
-    base/LuaObjectBase.hpp \
-    base/LuaWidgetBase.hpp
+    ../../include/OmicronTK/Qt/Lua/base/LuaObjectBase.hpp \
+    ../../include/OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp
 
 

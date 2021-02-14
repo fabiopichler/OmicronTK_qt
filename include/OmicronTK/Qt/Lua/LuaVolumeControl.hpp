@@ -27,56 +27,23 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/Qt/Lua/LuaObject.hpp"
-#include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
+#pragma once
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
-#include <OmicronTK/lua/Class.hpp>
-
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
-
-#include <iostream>
-
-#include <QObject>
-
-using namespace OmicronTK::lua;
+#include "OmicronTK/Qt/global.h"
 
 namespace OmicronTK {
+
+namespace lua {
+class Lua;
+}
+
 namespace QT {
 
-static const char tableName[] = "Object";
-
-int Object_connect(lua_State *L)
+class OTKQT_LUA_EXPORT LuaVolumeControl
 {
-    QObject *sender = toUserData<QObject>(L, 1);
-    const char *signal = lua_tolstring(L, 2, nullptr);
-    QObject *receiver = toUserData<QObject>(L, 3);
-    const char *member = lua_tolstring(L, 4, nullptr);
-
-    if (!sender || !signal || !receiver || !member)
-    {
-        std::cerr << "ERRO connect" << std::endl;
-        return 0;
-    }
-#ifndef QLOCATION
-# define QLOCATION "\0" __FILE__ ":" QT_STRINGIFY(__LINE__)
-#endif
-    QObject::connect(sender,
-                     qFlagLocation(QString("2").append(signal).append(QLOCATION).toUtf8().constData()),
-                     receiver,
-                     qFlagLocation(QString("1").append(member).append(QLOCATION).toUtf8().constData()));
-
-    return 0;
-}
-
-void LuaObject::require(lua::Lua *state)
-{
-    lua::Class luaClass(tableName);
-
-    luaClass.addStatic("connect", Object_connect);
-
-    state->createClass(luaClass);
-}
+    static void require(lua::Lua *state);
+    friend class lua::Lua;
+};
 
 }
 }

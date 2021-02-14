@@ -28,7 +28,7 @@
 *******************************************************************************/
 
 #include "OmicronTK/Qt/Lua/LuaLabel.hpp"
-#include "base/LuaWidgetBase.hpp"
+#include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
 #include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <OmicronTK/lua/Class.hpp>

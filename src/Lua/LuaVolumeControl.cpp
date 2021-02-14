@@ -27,53 +27,38 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/Qt/Lua/LuaObject.hpp"
+#include "OmicronTK/Qt/Lua/LuaVolumeControl.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
+#include "OmicronTK/Qt/VolumeControl.hpp"
 
 #include <OmicronTK/lua/util/ObjectUtil.hpp>
-#include <OmicronTK/lua/Class.hpp>
-
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
-
-#include <iostream>
-
-#include <QObject>
 
 using namespace OmicronTK::lua;
 
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "Object";
+static const char tableName[] = "VolumeControl";
 
-int Object_connect(lua_State *L)
+int VolumeControl_new(lua_State *L)
 {
-    QObject *sender = toUserData<QObject>(L, 1);
-    const char *signal = lua_tolstring(L, 2, nullptr);
-    QObject *receiver = toUserData<QObject>(L, 3);
-    const char *member = lua_tolstring(L, 4, nullptr);
+    if (lua_gettop(L) != 1)
+        return luaL_error(L, "expecting 1 argument");
 
-    if (!sender || !signal || !receiver || !member)
-    {
-        std::cerr << "ERRO connect" << std::endl;
-        return 0;
-    }
-#ifndef QLOCATION
-# define QLOCATION "\0" __FILE__ ":" QT_STRINGIFY(__LINE__)
-#endif
-    QObject::connect(sender,
-                     qFlagLocation(QString("2").append(signal).append(QLOCATION).toUtf8().constData()),
-                     receiver,
-                     qFlagLocation(QString("1").append(member).append(QLOCATION).toUtf8().constData()));
+    auto pointer = static_cast<VolumeControl *>(lua_touserdata(L, 2));
+
+    lua::ObjectUtil<VolumeControl, tableName>::newUserData(L, 1, pointer);
 
     return 0;
 }
 
-void LuaObject::require(lua::Lua *state)
+void LuaVolumeControl::require(lua::Lua *state)
 {
     lua::Class luaClass(tableName);
 
-    luaClass.addStatic("connect", Object_connect);
+    luaClass.setMembers(LuaWidgetBase::methods());
+
+    luaClass.addConstructor(VolumeControl_new);
 
     state->createClass(luaClass);
 }

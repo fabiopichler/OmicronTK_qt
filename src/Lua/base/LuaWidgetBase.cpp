@@ -27,8 +27,8 @@
 
 *******************************************************************************/
 
-#include "LuaWidgetBase.hpp"
-#include "LuaObjectBase.hpp"
+#include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
+#include "OmicronTK/Qt/Lua/base/LuaObjectBase.hpp"
 
 #include <OmicronTK/lua/util/ObjectUtil.hpp>
 

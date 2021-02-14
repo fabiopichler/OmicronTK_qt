@@ -28,7 +28,7 @@
 *******************************************************************************/
 
 #include "OmicronTK/Qt/Lua/LuaComboBox.hpp"
-#include "base/LuaWidgetBase.hpp"
+#include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
 #include <OmicronTK/Qt/ComboBox.hpp>
 #include <OmicronTK/lua/util/ObjectUtil.hpp>
