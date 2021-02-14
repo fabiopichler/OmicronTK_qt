@@ -45,23 +45,26 @@ static const char className[] = "Object";
 
 static mrb_value connect(mrb_state *mrb, mrb_value self)
 {
-//    QObject *sender = toUserData<QObject>(L, 1);
-//    const char *signal = lua_tolstring(L, 2, nullptr);
-//    QObject *receiver = toUserData<QObject>(L, 3);
-//    const char *member = lua_tolstring(L, 4, nullptr);
+    mrb_value _sender, _signal, _receiver, _member;
+    mrb_get_args(mrb, "oSoS", &_sender, &_signal, &_receiver, &_member);
 
-//    if (!sender || !signal || !receiver || !member)
-//    {
-//        std::cerr << "ERRO connect" << std::endl;
-//        return mrb_nil_value();
-//    }
-//#ifndef QLOCATION
-//# define QLOCATION "\0" __FILE__ ":" QT_STRINGIFY(__LINE__)
-//#endif
-//    QObject::connect(sender,
-//                     qFlagLocation(QString("2").append(signal).append(QLOCATION).toUtf8().constData()),
-//                     receiver,
-//                     qFlagLocation(QString("1").append(member).append(QLOCATION).toUtf8().constData()));
+    QObject *sender = static_cast<QObject *>(DATA_PTR(_sender));
+    const char *signal = RSTRING_PTR(_signal);
+    QObject *receiver = static_cast<QObject *>(DATA_PTR(_receiver));
+    const char *member = RSTRING_PTR(_member);
+
+    if (!sender || !signal || !receiver || !member)
+    {
+        std::cerr << "ERRO connect" << std::endl;
+        return mrb_nil_value();
+    }
+#ifndef QLOCATION
+# define QLOCATION "\0" __FILE__ ":" QT_STRINGIFY(__LINE__)
+#endif
+    QObject::connect(sender,
+                     qFlagLocation(QString("2").append(signal).append(QLOCATION).toUtf8().constData()),
+                     receiver,
+                     qFlagLocation(QString("1").append(member).append(QLOCATION).toUtf8().constData()));
 
     return mrb_nil_value();
 }

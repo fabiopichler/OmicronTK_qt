@@ -45,10 +45,12 @@ static const char className[] = "LineEdit";
 
 static mrb_value initialize(mrb_state *mrb, mrb_value self)
 {
-//    if (lua_gettop(L) > 2)
-//        return luaL_error(L, "QLineEdit: expecting 0 or 1 arguments");
+    // expecting 0 or 1 arguments
 
-//    DATA_PTR(self) = new QLineEdit(lua_tolstring(L, 2, nullptr));
+    mrb_value text;
+    mrb_get_args(mrb, "S", &text);
+
+    DATA_PTR(self) = new QLineEdit(RSTRING_PTR(text));
 
     return self;
 }
@@ -57,7 +59,10 @@ static mrb_value setPlaceholderText(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QLineEdit *>(DATA_PTR(self));
 
-//    _this->setPlaceholderText(luaL_checklstring(L, 2, nullptr));
+    mrb_value text;
+    mrb_get_args(mrb, "S", &text);
+
+    _this->setPlaceholderText(RSTRING_PTR(text));
 
     return mrb_nil_value();
 }
@@ -66,7 +71,10 @@ static mrb_value setClearButtonEnabled(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QLineEdit *>(DATA_PTR(self));
 
-//    _this->setClearButtonEnabled(lua_toboolean(L, 2));
+    mrb_value enabled;
+    mrb_get_args(mrb, "b", &enabled);
+
+    _this->setClearButtonEnabled(mrb_bool(enabled));
 
     return mrb_nil_value();
 }
