@@ -70,8 +70,7 @@ int BoxLayout_addWidget(lua_State *L)
         return luaL_error(L, "expecting 1, 2 or 3 arguments");
 
     QBoxLayout *userdata = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    lua_getfield(L, 2, "__userdata");
-    QWidget *widget = *static_cast<QWidget **>(lua_touserdata(L, -1));
+    QWidget *widget = toUserData<QWidget>(L, 2);
 
     if (!widget)
         return luaL_error(L, "widget error");
@@ -90,8 +89,7 @@ int BoxLayout_addLayout(lua_State *L)
         return luaL_error(L, "expecting 0 or 1 arguments");
 
     QBoxLayout *userdata = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    lua_getfield(L, 2, "__userdata");
-    QBoxLayout *layout = *static_cast<QBoxLayout **>(luaL_checkudata(L, -1, tableName));
+    QBoxLayout *layout = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 2);
     int stretch = static_cast<int>(lua_tointegerx(L, 3, nullptr));
 
     userdata->addLayout(layout, stretch);

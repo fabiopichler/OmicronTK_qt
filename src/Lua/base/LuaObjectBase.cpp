@@ -29,6 +29,8 @@
 
 #include "LuaObjectBase.hpp"
 
+#include <OmicronTK/lua/util/ObjectUtil.hpp>
+
 #include <lua.hpp>
 #include <iostream>
 
@@ -44,8 +46,7 @@ int Object_setObjectName(lua_State *L)
     if (lua_gettop(L) != 2)
         return luaL_error(L, "expecting exactly 1 argument");
 
-    lua_getfield(L, 1, "__userdata");
-    QObject *userdata = *static_cast<QObject **>(lua_touserdata(L, -1));
+    QObject *userdata = toUserData<QObject>(L, 1);
     userdata->setObjectName(luaL_checklstring(L, 2, nullptr));
 
     return 0;
@@ -56,8 +57,7 @@ int Object_deleteLater(lua_State *L)
     if (lua_gettop(L) != 1)
         return luaL_error(L, "expecting 0 arguments");
 
-    lua_getfield(L, 1, "__userdata");
-    QObject *userdata = *static_cast<QObject **>(lua_touserdata(L, -1));
+    QObject *userdata = toUserData<QObject>(L, 1);
     userdata->deleteLater();
 
     return 0;

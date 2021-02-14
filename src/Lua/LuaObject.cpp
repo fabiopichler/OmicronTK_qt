@@ -33,9 +33,13 @@
 #include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <OmicronTK/lua/Class.hpp>
 
+#include <OmicronTK/lua/util/ObjectUtil.hpp>
+
 #include <iostream>
 
 #include <QObject>
+
+using namespace OmicronTK::lua;
 
 namespace OmicronTK {
 namespace QT {
@@ -44,11 +48,9 @@ static const char tableName[] = "Object";
 
 int Object_connect(lua_State *L)
 {
-    lua_getfield(L, 1, "__userdata");
-    void *sender = lua_touserdata(L, -1);
+    QObject *sender = toUserData<QObject>(L, 1);
     const char *signal = lua_tolstring(L, 2, nullptr);
-    lua_getfield(L, 3, "__userdata");
-    void *receiver = lua_touserdata(L, -1);
+    QObject *receiver = toUserData<QObject>(L, 3);
     const char *member = lua_tolstring(L, 4, nullptr);
 
     if (!sender || !signal || !receiver || !member)
@@ -59,9 +61,9 @@ int Object_connect(lua_State *L)
 #ifndef QLOCATION
 # define QLOCATION "\0" __FILE__ ":" QT_STRINGIFY(__LINE__)
 #endif
-    QObject::connect(*static_cast<QObject **>(sender),
+    QObject::connect(sender,
                      qFlagLocation(QString("2").append(signal).append(QLOCATION).toUtf8().constData()),
-                     *static_cast<QObject **>(receiver),
+                     receiver,
                      qFlagLocation(QString("1").append(member).append(QLOCATION).toUtf8().constData()));
 
     return 0;
