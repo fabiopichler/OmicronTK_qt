@@ -47,8 +47,6 @@ static const char className[] = "BoxLayout";
 
 static mrb_value initialize(mrb_state *mrb, mrb_value self)
 {
-    // expecting 0 or 1 arguments
-
     mrb_value direction;
     mrb_get_args(mrb, "i", &direction);
 
@@ -61,8 +59,8 @@ static mrb_value addWidget(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
-    mrb_value widget, stretch, alignment;
-    mrb_get_args(mrb, "oii", &widget, &stretch, &alignment);
+    mrb_value widget, stretch = mrb_fixnum_value(0), alignment = mrb_fixnum_value(0);
+    mrb_get_args(mrb, "o|ii", &widget, &stretch, &alignment);
 
     _this->addWidget(
                 static_cast<QWidget *>(DATA_PTR(widget)),
@@ -77,8 +75,8 @@ static mrb_value addLayout(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
-    mrb_value layout, stretch;
-    mrb_get_args(mrb, "oi", &layout, &stretch);
+    mrb_value layout, stretch = mrb_fixnum_value(0);
+    mrb_get_args(mrb, "o|i", &layout, &stretch);
 
     _this->addLayout(static_cast<QBoxLayout *>(DATA_PTR(layout)), mrb_fixnum(stretch));
 
@@ -163,9 +161,9 @@ void RubyLayout_Init(mrb_state *mrb)
 
     RubyWidgetBase_Init(mrb, rclass);
 
-    mrb_define_method(mrb, rclass, "initialize", initialize, MRB_ARGS_REQ(1));// 0 or 1 arguments
-    mrb_define_method(mrb, rclass, "addLayout", addLayout, MRB_ARGS_REQ(1));// 0 or 1 arguments
-    mrb_define_method(mrb, rclass, "addWidget", addWidget, MRB_ARGS_REQ(1));// expecting 1, 2 or 3 arguments
+    mrb_define_method(mrb, rclass, "initialize", initialize, MRB_ARGS_REQ(1));
+    mrb_define_method(mrb, rclass, "addLayout", addLayout, MRB_ARGS_ARG(1, 1));
+    mrb_define_method(mrb, rclass, "addWidget", addWidget, MRB_ARGS_ARG(1, 2));
     mrb_define_method(mrb, rclass, "setAlignment", setAlignment, MRB_ARGS_REQ(1));
     mrb_define_method(mrb, rclass, "setSpacing", setSpacing, MRB_ARGS_REQ(1));
     mrb_define_method(mrb, rclass, "setMargin", setMargin, MRB_ARGS_REQ(1));

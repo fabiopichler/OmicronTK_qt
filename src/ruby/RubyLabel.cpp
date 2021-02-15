@@ -45,12 +45,17 @@ static const char className[] = "Label";
 
 static mrb_value initialize(mrb_state *mrb, mrb_value self)
 {
-    // expecting 0 or 1 arguments
+    if (mrb_get_argc(mrb) == 0)
+    {
+        DATA_PTR(self) = new QLabel;
+    }
+    else
+    {
+        mrb_value text;
+        mrb_get_args(mrb, "S", &text);
 
-    mrb_value text;
-    mrb_get_args(mrb, "S", &text);
-
-    DATA_PTR(self) = new QLabel(RSTRING_PTR(text));
+        DATA_PTR(self) = new QLabel(RSTRING_PTR(text));
+    }
 
     return self;
 }
@@ -85,7 +90,7 @@ void RubyLabel_Init(mrb_state *mrb)
 
     RubyWidgetBase_Init(mrb, rclass);
 
-    mrb_define_method(mrb, rclass, "initialize", initialize, MRB_ARGS_REQ(1));// 0 or 1 arguments
+    mrb_define_method(mrb, rclass, "initialize", initialize, MRB_ARGS_OPT(1));
     mrb_define_method(mrb, rclass, "setText", setText, MRB_ARGS_REQ(1));
     mrb_define_method(mrb, rclass, "setAlignment", setAlignment, MRB_ARGS_REQ(1));
 }
