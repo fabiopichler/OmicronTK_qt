@@ -80,7 +80,8 @@ SOURCES += \
     LuaLineEdit.cpp \
     LuaPushButton.cpp \
     base/LuaObjectBase.cpp \
-    base/LuaWidgetBase.cpp
+    base/LuaWidgetBase.cpp \
+    LuaWidgetWrapper.cpp
 
 HEADERS += \
     ../../include/OmicronTK/Qt/Lua/LuaComboBox.hpp \
@@ -95,6 +96,7 @@ HEADERS += \
     ../../include/OmicronTK/Qt/Lua/LuaLineEdit.hpp \
     ../../include/OmicronTK/Qt/Lua/LuaPushButton.hpp \
     ../../include/OmicronTK/Qt/Lua/base/LuaObjectBase.hpp \
-    ../../include/OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp
+    ../../include/OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp \
+    ../../include/OmicronTK/Qt/Lua/LuaWidgetWrapper.hpp
 
 

@@ -62,7 +62,8 @@ SOURCES += \
     RubyVolumeControl.cpp \
     RubyWidget.cpp \
     base/RubyObjectBase.cpp \
-    base/RubyWidgetBase.cpp
+    base/RubyWidgetBase.cpp \
+    RubyWidgetWrapper.cpp
 
 HEADERS += \
     ../../include/OmicronTK/Qt/ruby/RubyComboBox.hpp \
@@ -77,6 +78,7 @@ HEADERS += \
     ../../include/OmicronTK/Qt/ruby/RubyVolumeControl.hpp \
     ../../include/OmicronTK/Qt/ruby/RubyWidget.hpp \
     ../../include/OmicronTK/Qt/ruby/base/RubyObjectBase.hpp \
-    ../../include/OmicronTK/Qt/ruby/base/RubyWidgetBase.hpp
+    ../../include/OmicronTK/Qt/ruby/base/RubyWidgetBase.hpp \
+    ../../include/OmicronTK/Qt/ruby/RubyWidgetWrapper.hpp
 
 
