@@ -91,10 +91,10 @@ static mrb_value setEnabled(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QWidget *>(DATA_PTR(self));
 
-    mrb_value enabled;
+    mrb_bool enabled;
     mrb_get_args(mrb, "b", &enabled);
 
-    _this->setEnabled(mrb_bool(enabled));
+    _this->setEnabled(enabled);
 
     return mrb_nil_value();
 }

@@ -76,10 +76,10 @@ static mrb_value setClearButtonEnabled(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QLineEdit *>(DATA_PTR(self));
 
-    mrb_value enabled;
+    mrb_bool enabled;
     mrb_get_args(mrb, "b", &enabled);
 
-    _this->setClearButtonEnabled(mrb_bool(enabled));
+    _this->setClearButtonEnabled(enabled);
 
     return mrb_nil_value();
 }

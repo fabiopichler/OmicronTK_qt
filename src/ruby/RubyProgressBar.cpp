@@ -66,10 +66,10 @@ static mrb_value setInvertedAppearance(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QProgressBar *>(DATA_PTR(self));
 
-    mrb_value boolean;
+    mrb_bool boolean;
     mrb_get_args(mrb, "b", &boolean);
 
-    _this->setInvertedAppearance(mrb_bool(boolean));
+    _this->setInvertedAppearance(boolean);
 
     return mrb_nil_value();
 }
@@ -78,10 +78,10 @@ static mrb_value setTextVisible(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QProgressBar *>(DATA_PTR(self));
 
-    mrb_value boolean;
+    mrb_bool boolean;
     mrb_get_args(mrb, "b", &boolean);
 
-    _this->setTextVisible(mrb_bool(boolean));
+    _this->setTextVisible(boolean);
 
     return mrb_nil_value();
 }
