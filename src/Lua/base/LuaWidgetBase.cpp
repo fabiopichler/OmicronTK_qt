@@ -30,7 +30,7 @@
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaObjectBase.hpp"
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
+#include <OmicronTK/lua/CallbackInfo.hpp>
 
 #include <lua.hpp>
 #include <iostream>
@@ -43,83 +43,83 @@ using namespace OmicronTK::lua;
 namespace OmicronTK {
 namespace QT {
 
-static const char BoxLayoutName[] = "BoxLayout";
+static const char boxLayoutName[] = "BoxLayout";
 
-int Widget_setLayout(lua_State *L)
+static int setLayout(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QWidget *self = toUserData<QWidget>(L, 1);
-    QBoxLayout *layout = ObjectUtil<QBoxLayout, BoxLayoutName>::checkUserData(L, 2);
+    QWidget *self = info.getUserData<QWidget>(1);
+    QBoxLayout *layout = info.checkUserData<QBoxLayout>(2, boxLayoutName);
 
     self->setLayout(layout);
 
     return 0;
 }
 
-int Widget_windowTitle(lua_State *L)
+static int windowTitle(CallbackInfo info)
 {
-    if (lua_gettop(L) != 1)
-        return luaL_error(L, "expecting exactly 0 arguments");
+    if (info.length() != 1)
+        return info.error("expecting exactly 0 arguments");
 
-    QWidget *self = toUserData<QWidget>(L, 1);
-    lua_pushstring(L, self->windowTitle().toUtf8().constData());
+    QWidget *self = info.getUserData<QWidget>(1);
+    lua_pushstring(info.state(), self->windowTitle().toUtf8().constData());
 
     return 1;
 }
 
-int Widget_setStyleSheet(lua_State *L)
+static int setStyleSheet(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QWidget *self = toUserData<QWidget>(L, 1);
-    self->setStyleSheet(luaL_checklstring(L, 2, nullptr));
+    QWidget *self = info.getUserData<QWidget>(1);
+    self->setStyleSheet(info.getCString(2));
 
     return 0;
 }
 
-int Widget_setToolTip(lua_State *L)
+static int setToolTip(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QWidget *self = toUserData<QWidget>(L, 1);
-    self->setToolTip(luaL_checklstring(L, 2, nullptr));
+    QWidget *self = info.getUserData<QWidget>(1);
+    self->setToolTip(info.getCString(2));
 
     return 0;
 }
 
-int Widget_setEnabled(lua_State *L)
+static int setEnabled(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QWidget *self = toUserData<QWidget>(L, 1);
-    self->setEnabled(lua_toboolean(L, 2));
+    QWidget *self = info.getUserData<QWidget>(1);
+    self->setEnabled(info.getBoolean(2));
 
     return 0;
 }
 
-int Widget_setMaximumHeight(lua_State *L)
+static int setMaximumHeight(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QWidget *self = toUserData<QWidget>(L, 1);
-    self->setMaximumHeight(lua_tonumber(L, 2));
+    QWidget *self = info.getUserData<QWidget>(1);
+    self->setMaximumHeight(info.getInteger(2));
 
     return 0;
 }
 
-int Widget_setMinimumWidth(lua_State *L)
+static int setMinimumWidth(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QWidget *self = toUserData<QWidget>(L, 1);
-    self->setMinimumWidth(lua_tonumber(L, 2));
+    QWidget *self = info.getUserData<QWidget>(1);
+    self->setMinimumWidth(info.getInteger(2));
 
     return 0;
 }
@@ -132,13 +132,13 @@ const lua::RegVector &LuaWidgetBase::methods()
         return s_methods;
 
     s_methods = LuaObjectBase::methods();
-    s_methods.push_back({ "setLayout", Widget_setLayout });
-    s_methods.push_back({ "windowTitle", Widget_windowTitle });
-    s_methods.push_back({ "setStyleSheet", Widget_setStyleSheet });
-    s_methods.push_back({ "setToolTip", Widget_setToolTip });
-    s_methods.push_back({ "setEnabled", Widget_setEnabled });
-    s_methods.push_back({ "setMaximumHeight", Widget_setMaximumHeight });
-    s_methods.push_back({ "setMinimumWidth", Widget_setMinimumWidth });
+    s_methods.push_back({ "setLayout", setLayout });
+    s_methods.push_back({ "windowTitle", windowTitle });
+    s_methods.push_back({ "setStyleSheet", setStyleSheet });
+    s_methods.push_back({ "setToolTip", setToolTip });
+    s_methods.push_back({ "setEnabled", setEnabled });
+    s_methods.push_back({ "setMaximumHeight", setMaximumHeight });
+    s_methods.push_back({ "setMinimumWidth", setMinimumWidth });
 
     return s_methods;
 }

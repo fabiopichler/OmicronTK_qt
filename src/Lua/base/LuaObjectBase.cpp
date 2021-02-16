@@ -29,7 +29,7 @@
 
 #include "OmicronTK/Qt/Lua/base/LuaObjectBase.hpp"
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
+#include <OmicronTK/lua/CallbackInfo.hpp>
 
 #include <lua.hpp>
 #include <iostream>
@@ -41,23 +41,23 @@ using namespace OmicronTK::lua;
 namespace OmicronTK {
 namespace QT {
 
-int Object_setObjectName(lua_State *L)
+static int setObjectName(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QObject *self = toUserData<QObject>(L, 1);
-    self->setObjectName(luaL_checklstring(L, 2, nullptr));
+    QObject *self = info.getUserData<QObject>(1);
+    self->setObjectName(info.getCString(2));
 
     return 0;
 }
 
-int Object_deleteLater(lua_State *L)
+static int deleteLater(CallbackInfo info)
 {
-    if (lua_gettop(L) != 1)
-        return luaL_error(L, "expecting 0 arguments");
+    if (info.length() != 1)
+        return info.error("expecting 0 arguments");
 
-    QObject *self = toUserData<QObject>(L, 1);
+    QObject *self = info.getUserData<QObject>(1);
     self->deleteLater();
 
     return 0;
@@ -70,8 +70,8 @@ const lua::RegVector &LuaObjectBase::methods()
     if (!s_methods.empty())
         return s_methods;
 
-    s_methods.push_back({ "setObjectName", Object_setObjectName });
-    s_methods.push_back({ "deleteLater", Object_deleteLater });
+    s_methods.push_back({ "setObjectName", setObjectName });
+    s_methods.push_back({ "deleteLater", deleteLater });
 
     return s_methods;
 }
