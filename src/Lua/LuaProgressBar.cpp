@@ -41,7 +41,7 @@ namespace QT {
 
 static const char className[] = "ProgressBar";
 
-static int constructor(CallbackInfo info)
+static int constructor(const CallbackInfo &info)
 {
     if (info.length() > 1)
         return info.error("QProgressBar: expecting 0 arguments");
@@ -51,7 +51,7 @@ static int constructor(CallbackInfo info)
     return 0;
 }
 
-static int setOrientation(CallbackInfo info)
+static int setOrientation(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -64,7 +64,7 @@ static int setOrientation(CallbackInfo info)
     return 0;
 }
 
-static int setInvertedAppearance(CallbackInfo info)
+static int setInvertedAppearance(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -75,7 +75,7 @@ static int setInvertedAppearance(CallbackInfo info)
     return 0;
 }
 
-static int setTextVisible(CallbackInfo info)
+static int setTextVisible(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -90,13 +90,13 @@ void LuaProgressBar::require(lua::Lua *state)
 {
     lua::Class luaClass(className);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
+    LuaWidgetBase::methods(luaClass);
 
-    luaClass.addConstructor(constructor);
+    luaClass.addConstructor<constructor>();
 
-    luaClass.addMember("setOrientation", setOrientation);
-    luaClass.addMember("setInvertedAppearance", setInvertedAppearance);
-    luaClass.addMember("setTextVisible", setTextVisible);
+    luaClass.addMember<setOrientation>("setOrientation");
+    luaClass.addMember<setInvertedAppearance>("setInvertedAppearance");
+    luaClass.addMember<setTextVisible>("setTextVisible");
 
     state->createClass(luaClass);
 }

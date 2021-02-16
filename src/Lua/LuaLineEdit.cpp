@@ -41,19 +41,21 @@ namespace QT {
 
 static const char className[] = "LineEdit";
 
-static int constructor(CallbackInfo info)
+static int constructor(const CallbackInfo &info)
 {
-    if (info.length() > 2)
+    const int length = info.length();
+
+    if (length > 2)
         return info.error("QLineEdit: expecting 0 or 1 arguments");
 
-    QLineEdit *self = info.length() == 1 ? new QLineEdit : new QLineEdit(info.getCString(2));
+    QLineEdit *self = length == 1 ? new QLineEdit : new QLineEdit(info.getCString(2));
 
     info.newUserData<QLineEdit>(1, className, self);
 
     return 0;
 }
 
-static int setPlaceholderText(CallbackInfo info)
+static int setPlaceholderText(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -64,7 +66,7 @@ static int setPlaceholderText(CallbackInfo info)
     return 0;
 }
 
-static int setClearButtonEnabled(CallbackInfo info)
+static int setClearButtonEnabled(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -79,12 +81,12 @@ void LuaLineEdit::require(lua::Lua *state)
 {
     lua::Class luaClass(className);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
+    LuaWidgetBase::methods(luaClass);
 
-    luaClass.addConstructor(constructor);
+    luaClass.addConstructor<constructor>();
 
-    luaClass.addMember("setPlaceholderText", setPlaceholderText);
-    luaClass.addMember("setClearButtonEnabled", setClearButtonEnabled);
+    luaClass.addMember<setPlaceholderText>("setPlaceholderText");
+    luaClass.addMember<setClearButtonEnabled>("setClearButtonEnabled");
 
     state->createClass(luaClass);
 }

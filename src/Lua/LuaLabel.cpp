@@ -43,19 +43,21 @@ namespace QT {
 
 static const char className[] = "Label";
 
-static int constructor(CallbackInfo info)
+static int constructor(const CallbackInfo &info)
 {
-    if (info.length() > 2)
+    const int length = info.length();
+
+    if (length > 2)
         return info.error("QLabel: expecting 0 or 1 arguments");
 
-    QLabel *self = info.length() == 1 ? new QLabel : new QLabel(info.getCString(2));
+    QLabel *self = length == 1 ? new QLabel : new QLabel(info.getCString(2));
 
     info.newUserData<QLabel>(1, className, self);
 
     return 0;
 }
 
-static int setText(CallbackInfo info)
+static int setText(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -66,7 +68,7 @@ static int setText(CallbackInfo info)
     return 0;
 }
 
-static int setAlignment(CallbackInfo info)
+static int setAlignment(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -83,12 +85,12 @@ void LuaLabel::require(lua::Lua *state)
 {
     lua::Class luaClass(className);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
+    LuaWidgetBase::methods(luaClass);
 
-    luaClass.addConstructor(constructor);
+    luaClass.addConstructor<constructor>();
 
-    luaClass.addMember("setText", setText);
-    luaClass.addMember("setAlignment", setAlignment);
+    luaClass.addMember<setText>("setText");
+    luaClass.addMember<setAlignment>("setAlignment");
 
     state->createClass(luaClass);
 }

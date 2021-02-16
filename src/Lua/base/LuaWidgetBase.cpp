@@ -45,7 +45,7 @@ namespace QT {
 
 static const char boxLayoutName[] = "BoxLayout";
 
-static int setLayout(CallbackInfo info)
+static int setLayout(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -58,7 +58,7 @@ static int setLayout(CallbackInfo info)
     return 0;
 }
 
-static int windowTitle(CallbackInfo info)
+static int windowTitle(const CallbackInfo &info)
 {
     if (info.length() != 1)
         return info.error("expecting exactly 0 arguments");
@@ -69,7 +69,7 @@ static int windowTitle(CallbackInfo info)
     return 1;
 }
 
-static int setStyleSheet(CallbackInfo info)
+static int setStyleSheet(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -80,7 +80,7 @@ static int setStyleSheet(CallbackInfo info)
     return 0;
 }
 
-static int setToolTip(CallbackInfo info)
+static int setToolTip(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -91,7 +91,7 @@ static int setToolTip(CallbackInfo info)
     return 0;
 }
 
-static int setEnabled(CallbackInfo info)
+static int setEnabled(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -102,7 +102,7 @@ static int setEnabled(CallbackInfo info)
     return 0;
 }
 
-static int setMaximumHeight(CallbackInfo info)
+static int setMaximumHeight(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -113,7 +113,7 @@ static int setMaximumHeight(CallbackInfo info)
     return 0;
 }
 
-static int setMinimumWidth(CallbackInfo info)
+static int setMinimumWidth(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -124,23 +124,17 @@ static int setMinimumWidth(CallbackInfo info)
     return 0;
 }
 
-lua::RegVector LuaWidgetBase::s_methods;
-
-const lua::RegVector &LuaWidgetBase::methods()
+void LuaWidgetBase::methods(lua::Class &luaClass)
 {
-    if (!s_methods.empty())
-        return s_methods;
+    LuaObjectBase::methods(luaClass);
 
-    s_methods = LuaObjectBase::methods();
-    s_methods.push_back({ "setLayout", setLayout });
-    s_methods.push_back({ "windowTitle", windowTitle });
-    s_methods.push_back({ "setStyleSheet", setStyleSheet });
-    s_methods.push_back({ "setToolTip", setToolTip });
-    s_methods.push_back({ "setEnabled", setEnabled });
-    s_methods.push_back({ "setMaximumHeight", setMaximumHeight });
-    s_methods.push_back({ "setMinimumWidth", setMinimumWidth });
-
-    return s_methods;
+    luaClass.addMember<setLayout>("setLayout");
+    luaClass.addMember<windowTitle>("windowTitle");
+    luaClass.addMember<setStyleSheet>("setStyleSheet");
+    luaClass.addMember<setToolTip>("setToolTip");
+    luaClass.addMember<setEnabled>("setEnabled");
+    luaClass.addMember<setMaximumHeight>("setMaximumHeight");
+    luaClass.addMember<setMinimumWidth>("setMinimumWidth");
 }
 
 }

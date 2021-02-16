@@ -41,7 +41,7 @@ using namespace OmicronTK::lua;
 namespace OmicronTK {
 namespace QT {
 
-static int setObjectName(CallbackInfo info)
+static int setObjectName(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -52,7 +52,7 @@ static int setObjectName(CallbackInfo info)
     return 0;
 }
 
-static int deleteLater(CallbackInfo info)
+static int deleteLater(const CallbackInfo &info)
 {
     if (info.length() != 1)
         return info.error("expecting 0 arguments");
@@ -63,17 +63,10 @@ static int deleteLater(CallbackInfo info)
     return 0;
 }
 
-lua::RegVector LuaObjectBase::s_methods;
-
-const lua::RegVector &LuaObjectBase::methods()
+void LuaObjectBase::methods(lua::Class &luaClass)
 {
-    if (!s_methods.empty())
-        return s_methods;
-
-    s_methods.push_back({ "setObjectName", setObjectName });
-    s_methods.push_back({ "deleteLater", deleteLater });
-
-    return s_methods;
+    luaClass.addMember<setObjectName>("setObjectName");
+    luaClass.addMember<deleteLater>("deleteLater");
 }
 
 }

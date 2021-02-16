@@ -37,10 +37,7 @@ namespace QT {
 class LuaWidgetBase
 {
 public:
-    static const lua::RegVector &methods();
-
-private:
-    static lua::RegVector s_methods;
+    static void methods(lua::Class &luaClass);
 };
 
 }

@@ -37,7 +37,7 @@ namespace QT {
 
 static const char className[] = "WidgetWrapper";
 
-static int constructor(CallbackInfo info)
+static int constructor(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("WidgetWrapper: expecting 1 argument");
@@ -51,9 +51,9 @@ void LuaWidgetWrapper::require(lua::Lua *state)
 {
     lua::Class luaClass(className);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
+    LuaWidgetBase::methods(luaClass);
 
-    luaClass.addConstructor(constructor);
+    luaClass.addConstructor<constructor>();
 
     state->createClass(luaClass);
 }

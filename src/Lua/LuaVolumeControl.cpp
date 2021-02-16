@@ -38,7 +38,7 @@ namespace QT {
 
 static const char className[] = "VolumeControl";
 
-static int constructor(CallbackInfo info)
+static int constructor(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("VolumeControl: expecting 1 argument");
@@ -54,9 +54,9 @@ void LuaVolumeControl::require(lua::Lua *state)
 {
     lua::Class luaClass(className);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
+    LuaWidgetBase::methods(luaClass);
 
-    luaClass.addConstructor(constructor);
+    luaClass.addConstructor<constructor>();
 
     state->createClass(luaClass);
 }

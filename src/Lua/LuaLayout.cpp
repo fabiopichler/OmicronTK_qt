@@ -45,7 +45,7 @@ namespace QT {
 
 static const char className[] = "BoxLayout";
 
-static int constructor(CallbackInfo info)
+static int constructor(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("QBoxLayout: expecting 1 argument");
@@ -57,9 +57,11 @@ static int constructor(CallbackInfo info)
     return 0;
 }
 
-static int addWidget(CallbackInfo info)
+static int addWidget(const CallbackInfo &info)
 {
-    if (info.length() < 2)
+    const int length = info.length();
+
+    if (length < 2)
         return info.error("expecting 1, 2 or 3 arguments");
 
     QBoxLayout *self = info.checkUserData<QBoxLayout>(1, className);
@@ -68,29 +70,31 @@ static int addWidget(CallbackInfo info)
     if (!widget)
         return info.error("widget error");
 
-    int stretch = info.getInteger(3);
-    int alignment = info.getInteger(4);
+    int stretch = length >= 3 ? info.getInteger(3) : 0;
+    int alignment = length >= 4 ? info.getInteger(4) : 0;
 
     self->addWidget(widget, stretch, static_cast<Qt::AlignmentFlag>(alignment));
 
     return 0;
 }
 
-static int addLayout(CallbackInfo info)
+static int addLayout(const CallbackInfo &info)
 {
-    if (info.length() < 2)
-        return info.error("expecting 0 or 1 arguments");
+    const int length = info.length();
+
+    if (length < 2)
+        return info.error("expecting 1 or 2 arguments");
 
     QBoxLayout *self = info.checkUserData<QBoxLayout>(1, className);
-    QBoxLayout *layout = info.checkUserData<QBoxLayout>(1, className);
-    int stretch = info.getInteger(3);
+    QBoxLayout *layout = info.checkUserData<QBoxLayout>(2, className);
+    int stretch = length >= 3 ? info.getInteger(3) : 0;
 
     self->addLayout(layout, stretch);
 
     return 0;
 }
 
-static int setAlignment(CallbackInfo info)
+static int setAlignment(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -101,7 +105,7 @@ static int setAlignment(CallbackInfo info)
     return 0;
 }
 
-static int setSpacing(CallbackInfo info)
+static int setSpacing(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -112,7 +116,7 @@ static int setSpacing(CallbackInfo info)
     return 0;
 }
 
-static int setMargin(CallbackInfo info)
+static int setMargin(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -123,7 +127,7 @@ static int setMargin(CallbackInfo info)
     return 0;
 }
 
-static int addStretch(CallbackInfo info)
+static int addStretch(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -134,7 +138,7 @@ static int addStretch(CallbackInfo info)
     return 0;
 }
 
-static int addSpacing(CallbackInfo info)
+static int addSpacing(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -145,7 +149,7 @@ static int addSpacing(CallbackInfo info)
     return 0;
 }
 
-static int setContentsMargins(CallbackInfo info)
+static int setContentsMargins(const CallbackInfo &info)
 {
     if (info.length() != 5)
         return info.error("expecting exactly 4 arguments");
@@ -166,18 +170,18 @@ void LuaLayout::require(lua::Lua *state)
 {
     lua::Class luaClass(className);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
+    LuaWidgetBase::methods(luaClass);
 
-    luaClass.addConstructor(constructor);
+    luaClass.addConstructor<constructor>();
 
-    luaClass.addMember("addWidget", addWidget);
-    luaClass.addMember("addLayout", addLayout);
-    luaClass.addMember("setAlignment", setAlignment);
-    luaClass.addMember("setSpacing", setSpacing);
-    luaClass.addMember("setMargin", setMargin);
-    luaClass.addMember("addStretch", addStretch);
-    luaClass.addMember("addSpacing", addSpacing);
-    luaClass.addMember("setContentsMargins", setContentsMargins);
+    luaClass.addMember<addWidget>("addWidget");
+    luaClass.addMember<addLayout>("addLayout");
+    luaClass.addMember<setAlignment>("setAlignment");
+    luaClass.addMember<setSpacing>("setSpacing");
+    luaClass.addMember<setMargin>("setMargin");
+    luaClass.addMember<addStretch>("addStretch");
+    luaClass.addMember<addSpacing>("addSpacing");
+    luaClass.addMember<setContentsMargins>("setContentsMargins");
 
     state->createClass(luaClass);
 }

@@ -41,7 +41,7 @@ namespace QT {
 
 static const char className[] = "ComboBox";
 
-static int constructor(CallbackInfo info)
+static int constructor(const CallbackInfo &info)
 {
     if (info.length() > 1)
         return info.error("ComboBox: expecting 0 arguments");
@@ -55,9 +55,9 @@ void LuaComboBox::require(lua::Lua *state)
 {
     lua::Class luaClass(className);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
+    LuaWidgetBase::methods(luaClass);
 
-    luaClass.addConstructor(constructor);
+    luaClass.addConstructor<constructor>();
 
     state->createClass(luaClass);
 }

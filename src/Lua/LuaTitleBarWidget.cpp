@@ -38,7 +38,7 @@ namespace QT {
 
 static const char className[] = "TitleBarWidget";
 
-static int constructor(CallbackInfo info)
+static int constructor(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("TitleBarWidget: expecting 1 argument");
@@ -54,9 +54,9 @@ void LuaTitleBarWidget::require(lua::Lua *state)
 {
     lua::Class luaClass(className);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
+    LuaWidgetBase::methods(luaClass);
 
-    luaClass.addConstructor(constructor);
+    luaClass.addConstructor<constructor>();
 
     state->createClass(luaClass);
 }

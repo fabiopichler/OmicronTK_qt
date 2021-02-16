@@ -43,7 +43,7 @@ namespace QT {
 
 static const char className[] = "Widget";
 
-static int constructor(CallbackInfo info)
+static int constructor(const CallbackInfo &info)
 {
     if (info.length() > 1)
         return info.error("QWidget: expecting 0 arguments");
@@ -57,9 +57,9 @@ void LuaWidget::require(lua::Lua *state)
 {
     lua::Class luaClass(className);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
+    LuaWidgetBase::methods(luaClass);
 
-    luaClass.addConstructor(constructor);
+    luaClass.addConstructor<constructor>();
 
     state->createClass(luaClass);
 }

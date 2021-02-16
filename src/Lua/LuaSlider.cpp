@@ -41,7 +41,7 @@ namespace QT {
 
 static const char className[] = "Slider";
 
-static int constructor(CallbackInfo info)
+static int constructor(const CallbackInfo &info)
 {
     if (info.length() > 1)
         return info.error("Slider: expecting 0 arguments");
@@ -51,7 +51,7 @@ static int constructor(CallbackInfo info)
     return 0;
 }
 
-static int setOrientation(CallbackInfo info)
+static int setOrientation(const CallbackInfo &info)
 {
     if (info.length() != 2)
         return info.error("expecting exactly 1 argument");
@@ -67,11 +67,11 @@ void LuaSlider::require(lua::Lua *state)
 {
     lua::Class luaClass(className);
 
-    luaClass.setMembers(LuaWidgetBase::methods());
+    LuaWidgetBase::methods(luaClass);
 
-    luaClass.addConstructor(constructor);
+    luaClass.addConstructor<constructor>();
 
-    luaClass.addMember("setOrientation", setOrientation);
+    luaClass.addMember<setOrientation>("setOrientation");
 
     state->createClass(luaClass);
 }

@@ -45,7 +45,7 @@ namespace QT {
 
 static const char className[] = "QObject";
 
-static int connect(CallbackInfo info)
+static int connect(const CallbackInfo &info)
 {
     QObject *sender = info.getUserData<QObject>(1);
     const char *signal = info.getCString(2);
@@ -74,7 +74,7 @@ void LuaObject::require(lua::Lua *state)
 {
     lua::Class luaClass(className);
 
-    luaClass.addStatic("connect", connect);
+    luaClass.addStatic<connect>("connect");
 
     state->createClass(luaClass);
 }
