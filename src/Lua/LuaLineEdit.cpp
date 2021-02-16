@@ -30,7 +30,6 @@
 #include "OmicronTK/Qt/Lua/LuaLineEdit.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <iostream>
 
 #include <QLineEdit>
@@ -40,52 +39,52 @@ using namespace OmicronTK::lua;
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "LineEdit";
+static const char className[] = "LineEdit";
 
-int LineEdit_new(lua_State *L)
+static int constructor(CallbackInfo info)
 {
-    if (lua_gettop(L) > 2)
-        return luaL_error(L, "QLineEdit: expecting 0 or 1 arguments");
+    if (info.length() > 2)
+        return info.error("QLineEdit: expecting 0 or 1 arguments");
 
-    QLineEdit *self = new QLineEdit(lua_tolstring(L, 2, nullptr));
+    QLineEdit *self = info.length() == 1 ? new QLineEdit : new QLineEdit(info.getCString(2));
 
-    ObjectUtil<QLineEdit, tableName>::newUserData(L, 1, self);
+    info.newUserData<QLineEdit>(1, className, self);
 
     return 0;
 }
 
-int LineEdit_setPlaceholderText(lua_State *L)
+static int setPlaceholderText(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QLineEdit *self = ObjectUtil<QLineEdit, tableName>::checkUserData(L, 1);
-    self->setPlaceholderText(luaL_checklstring(L, 2, nullptr));
+    QLineEdit *self = info.checkUserData<QLineEdit>(1, className);
+    self->setPlaceholderText(info.getCString(2));
 
     return 0;
 }
 
-int LineEdit_setClearButtonEnabled(lua_State *L)
+static int setClearButtonEnabled(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QLineEdit *self = ObjectUtil<QLineEdit, tableName>::checkUserData(L, 1);
-    self->setClearButtonEnabled(lua_toboolean(L, 2));
+    QLineEdit *self = info.checkUserData<QLineEdit>(1, className);
+    self->setClearButtonEnabled(info.getBoolean(2));
 
     return 0;
 }
 
 void LuaLineEdit::require(lua::Lua *state)
 {
-    lua::Class luaClass(tableName);
+    lua::Class luaClass(className);
 
     luaClass.setMembers(LuaWidgetBase::methods());
 
-    luaClass.addConstructor(LineEdit_new);
+    luaClass.addConstructor(constructor);
 
-    luaClass.addMember("setPlaceholderText", LineEdit_setPlaceholderText);
-    luaClass.addMember("setClearButtonEnabled", LineEdit_setClearButtonEnabled);
+    luaClass.addMember("setPlaceholderText", setPlaceholderText);
+    luaClass.addMember("setClearButtonEnabled", setClearButtonEnabled);
 
     state->createClass(luaClass);
 }

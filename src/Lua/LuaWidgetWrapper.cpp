@@ -30,28 +30,26 @@
 #include "OmicronTK/Qt/Lua/LuaWidgetWrapper.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
-
 using namespace OmicronTK::lua;
 
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "WidgetWrapper";
+static const char className[] = "WidgetWrapper";
 
-static int constructor(lua_State *L)
+static int constructor(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "WidgetWrapper: expecting 1 argument");
+    if (info.length() != 2)
+        return info.error("WidgetWrapper: expecting 1 argument");
 
-    lua::ObjectUtil<void, tableName>::newUserData(L, 1, lua_touserdata(L, 2));
+    info.newUserData(1, className, info.getLightUserData(2));
 
     return 0;
 }
 
 void LuaWidgetWrapper::require(lua::Lua *state)
 {
-    lua::Class luaClass(tableName);
+    lua::Class luaClass(className);
 
     luaClass.setMembers(LuaWidgetBase::methods());
 

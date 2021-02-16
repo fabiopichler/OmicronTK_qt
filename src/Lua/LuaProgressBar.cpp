@@ -30,7 +30,6 @@
 #include "OmicronTK/Qt/Lua/LuaProgressBar.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <iostream>
 
 #include <QProgressBar>
@@ -40,64 +39,64 @@ using namespace OmicronTK::lua;
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "ProgressBar";
+static const char className[] = "ProgressBar";
 
-int ProgressBar_new(lua_State *L)
+static int constructor(CallbackInfo info)
 {
-    if (lua_gettop(L) > 1)
-        return luaL_error(L, "QProgressBar: expecting 0 arguments");
+    if (info.length() > 1)
+        return info.error("QProgressBar: expecting 0 arguments");
 
-    ObjectUtil<QProgressBar, tableName>::newUserData(L, 1, new QProgressBar);
+    info.newUserData<QProgressBar>(1, className, new QProgressBar);
 
     return 0;
 }
 
-int ProgressBar_setOrientation(lua_State *L)
+static int setOrientation(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QProgressBar *self = ObjectUtil<QProgressBar, tableName>::checkUserData(L, 1);
-    int orientation = static_cast<int>(lua_tointegerx(L, 2, nullptr));
+    QProgressBar *self = info.checkUserData<QProgressBar>(1, className);
+    int orientation = info.getInteger(2);
 
     self->setOrientation(static_cast<Qt::Orientation>(orientation));
 
     return 0;
 }
 
-int ProgressBar_setInvertedAppearance(lua_State *L)
+static int setInvertedAppearance(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QProgressBar *self = ObjectUtil<QProgressBar, tableName>::checkUserData(L, 1);
-    self->setInvertedAppearance(lua_toboolean(L, 2));
+    QProgressBar *self = info.checkUserData<QProgressBar>(1, className);
+    self->setInvertedAppearance(info.getBoolean(2));
 
     return 0;
 }
 
-int ProgressBar_setTextVisible(lua_State *L)
+static int setTextVisible(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QProgressBar *self = ObjectUtil<QProgressBar, tableName>::checkUserData(L, 1);
-    self->setTextVisible(lua_toboolean(L, 2));
+    QProgressBar *self = info.checkUserData<QProgressBar>(1, className);
+    self->setTextVisible(info.getBoolean(2));
 
     return 0;
 }
 
 void LuaProgressBar::require(lua::Lua *state)
 {
-    lua::Class luaClass(tableName);
+    lua::Class luaClass(className);
 
     luaClass.setMembers(LuaWidgetBase::methods());
 
-    luaClass.addConstructor(ProgressBar_new);
+    luaClass.addConstructor(constructor);
 
-    luaClass.addMember("setOrientation", ProgressBar_setOrientation);
-    luaClass.addMember("setInvertedAppearance", ProgressBar_setInvertedAppearance);
-    luaClass.addMember("setTextVisible", ProgressBar_setTextVisible);
+    luaClass.addMember("setOrientation", setOrientation);
+    luaClass.addMember("setInvertedAppearance", setInvertedAppearance);
+    luaClass.addMember("setTextVisible", setTextVisible);
 
     state->createClass(luaClass);
 }

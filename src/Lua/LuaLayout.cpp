@@ -30,7 +30,6 @@
 #include "OmicronTK/Qt/Lua/LuaLayout.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <iostream>
 
 #include <QBoxLayout>
@@ -44,120 +43,119 @@ using namespace OmicronTK::lua;
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "BoxLayout";
+static const char className[] = "BoxLayout";
 
-int BoxLayout_new(lua_State *L)
+static int constructor(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "QBoxLayout: expecting 0 or 1 arguments");
+    if (info.length() != 2)
+        return info.error("QBoxLayout: expecting 1 argument");
 
-    double direction = lua_tointegerx(L, 2, nullptr);
-    QBoxLayout *self = new QBoxLayout(static_cast<QBoxLayout::Direction>(static_cast<int>(direction)));
+    QBoxLayout::Direction direction = static_cast<QBoxLayout::Direction>(info.getInteger(2));
 
-    ObjectUtil<QBoxLayout, tableName>::newUserData(L, 1, self);
+    info.newUserData<QBoxLayout>(1, className, new QBoxLayout(direction));
 
     return 0;
 }
 
-int BoxLayout_addWidget(lua_State *L)
+static int addWidget(CallbackInfo info)
 {
-    if (lua_gettop(L) < 2)
-        return luaL_error(L, "expecting 1, 2 or 3 arguments");
+    if (info.length() < 2)
+        return info.error("expecting 1, 2 or 3 arguments");
 
-    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    QWidget *widget = toUserData<QWidget>(L, 2);
+    QBoxLayout *self = info.checkUserData<QBoxLayout>(1, className);
+    QWidget *widget = info.getUserData<QWidget>(2);
 
     if (!widget)
-        return luaL_error(L, "widget error");
+        return info.error("widget error");
 
-    int stretch = static_cast<int>(lua_tointegerx(L, 3, nullptr));
-    int alignment = static_cast<int>(lua_tointegerx(L, 4, nullptr));
+    int stretch = info.getInteger(3);
+    int alignment = info.getInteger(4);
 
     self->addWidget(widget, stretch, static_cast<Qt::AlignmentFlag>(alignment));
 
     return 0;
 }
 
-int BoxLayout_addLayout(lua_State *L)
+static int addLayout(CallbackInfo info)
 {
-    if (lua_gettop(L) < 2)
-        return luaL_error(L, "expecting 0 or 1 arguments");
+    if (info.length() < 2)
+        return info.error("expecting 0 or 1 arguments");
 
-    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    QBoxLayout *layout = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 2);
-    int stretch = static_cast<int>(lua_tointegerx(L, 3, nullptr));
+    QBoxLayout *self = info.checkUserData<QBoxLayout>(1, className);
+    QBoxLayout *layout = info.checkUserData<QBoxLayout>(1, className);
+    int stretch = info.getInteger(3);
 
     self->addLayout(layout, stretch);
 
     return 0;
 }
 
-int BoxLayout_setAlignment(lua_State *L)
+static int setAlignment(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    self->setAlignment(static_cast<Qt::AlignmentFlag>(static_cast<int>(luaL_checknumber(L, 2))));
+    QBoxLayout *self = info.checkUserData<QBoxLayout>(1, className);
+    self->setAlignment(static_cast<Qt::AlignmentFlag>(info.getInteger(2)));
 
     return 0;
 }
 
-int BoxLayout_setSpacing(lua_State *L)
+static int setSpacing(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    self->setSpacing(static_cast<int>(luaL_checknumber(L, 2)));
+    QBoxLayout *self = info.checkUserData<QBoxLayout>(1, className);
+    self->setSpacing(info.getInteger(2));
 
     return 0;
 }
 
-int BoxLayout_setMargin(lua_State *L)
+static int setMargin(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    self->setMargin(static_cast<int>(luaL_checknumber(L, 2)));
+    QBoxLayout *self = info.checkUserData<QBoxLayout>(1, className);
+    self->setMargin(info.getInteger(2));
 
     return 0;
 }
 
-int BoxLayout_addStretch(lua_State *L)
+static int addStretch(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    self->addStretch(static_cast<int>(luaL_checknumber(L, 2)));
+    QBoxLayout *self = info.checkUserData<QBoxLayout>(1, className);
+    self->addStretch(info.getInteger(2));
 
     return 0;
 }
 
-int BoxLayout_addSpacing(lua_State *L)
+static int addSpacing(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
-    self->addSpacing(static_cast<int>(luaL_checknumber(L, 2)));
+    QBoxLayout *self = info.checkUserData<QBoxLayout>(1, className);
+    self->addSpacing(info.getInteger(2));
 
     return 0;
 }
 
-int BoxLayout_setContentsMargins(lua_State *L)
+static int setContentsMargins(CallbackInfo info)
 {
-    if (lua_gettop(L) != 5)
-        return luaL_error(L, "expecting exactly 4 arguments");
+    if (info.length() != 5)
+        return info.error("expecting exactly 4 arguments");
 
-    QBoxLayout *self = ObjectUtil<QBoxLayout, tableName>::checkUserData(L, 1);
+    QBoxLayout *self = info.checkUserData<QBoxLayout>(1, className);
 
-    int left = static_cast<int>(luaL_checknumber(L, 2));
-    int top = static_cast<int>(luaL_checknumber(L, 3));
-    int right = static_cast<int>(luaL_checknumber(L, 4));
-    int bottom = static_cast<int>(luaL_checknumber(L, 5));
+    int left = info.getInteger(2);
+    int top = info.getInteger(3);
+    int right = info.getInteger(4);
+    int bottom = info.getInteger(5);
 
     self->setContentsMargins(left, top, right, bottom);
 
@@ -166,20 +164,20 @@ int BoxLayout_setContentsMargins(lua_State *L)
 
 void LuaLayout::require(lua::Lua *state)
 {
-    lua::Class luaClass(tableName);
+    lua::Class luaClass(className);
 
     luaClass.setMembers(LuaWidgetBase::methods());
 
-    luaClass.addConstructor(BoxLayout_new);
+    luaClass.addConstructor(constructor);
 
-    luaClass.addMember("addLayout", BoxLayout_addLayout);
-    luaClass.addMember("addWidget", BoxLayout_addWidget);
-    luaClass.addMember("setAlignment", BoxLayout_setAlignment);
-    luaClass.addMember("setSpacing", BoxLayout_setSpacing);
-    luaClass.addMember("setMargin", BoxLayout_setMargin);
-    luaClass.addMember("addStretch", BoxLayout_addStretch);
-    luaClass.addMember("addSpacing", BoxLayout_addSpacing);
-    luaClass.addMember("setContentsMargins", BoxLayout_setContentsMargins);
+    luaClass.addMember("addWidget", addWidget);
+    luaClass.addMember("addLayout", addLayout);
+    luaClass.addMember("setAlignment", setAlignment);
+    luaClass.addMember("setSpacing", setSpacing);
+    luaClass.addMember("setMargin", setMargin);
+    luaClass.addMember("addStretch", addStretch);
+    luaClass.addMember("addSpacing", addSpacing);
+    luaClass.addMember("setContentsMargins", setContentsMargins);
 
     state->createClass(luaClass);
 }

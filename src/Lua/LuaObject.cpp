@@ -30,7 +30,6 @@
 #include "OmicronTK/Qt/Lua/LuaObject.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <OmicronTK/lua/Class.hpp>
 
 #include <OmicronTK/lua/util/ObjectUtil.hpp>
@@ -44,23 +43,25 @@ using namespace OmicronTK::lua;
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "QObject";
+static const char className[] = "QObject";
 
-int Object_connect(lua_State *L)
+static int connect(CallbackInfo info)
 {
-    QObject *sender = toUserData<QObject>(L, 1);
-    const char *signal = lua_tolstring(L, 2, nullptr);
-    QObject *receiver = toUserData<QObject>(L, 3);
-    const char *member = lua_tolstring(L, 4, nullptr);
+    QObject *sender = info.getUserData<QObject>(1);
+    const char *signal = info.getCString(2);
+    QObject *receiver = info.getUserData<QObject>(3);
+    const char *member = info.getCString(4);
 
     if (!sender || !signal || !receiver || !member)
     {
         std::cerr << "ERRO connect" << std::endl;
         return 0;
     }
+
 #ifndef QLOCATION
 # define QLOCATION "\0" __FILE__ ":" QT_STRINGIFY(__LINE__)
 #endif
+
     QObject::connect(sender,
                      qFlagLocation(QString("2").append(signal).append(QLOCATION).toUtf8().constData()),
                      receiver,
@@ -71,9 +72,9 @@ int Object_connect(lua_State *L)
 
 void LuaObject::require(lua::Lua *state)
 {
-    lua::Class luaClass(tableName);
+    lua::Class luaClass(className);
 
-    luaClass.addStatic("connect", Object_connect);
+    luaClass.addStatic("connect", connect);
 
     state->createClass(luaClass);
 }

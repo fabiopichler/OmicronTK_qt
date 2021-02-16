@@ -30,7 +30,6 @@
 #include "OmicronTK/Qt/Lua/LuaSlider.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <iostream>
 
 #include "OmicronTK/Qt/Slider.hpp"
@@ -40,40 +39,39 @@ using namespace OmicronTK::lua;
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "Slider";
+static const char className[] = "Slider";
 
-int Slider_new(lua_State *L)
+static int constructor(CallbackInfo info)
 {
-    if (lua_gettop(L) > 1)
-        return luaL_error(L, "Slider: expecting 0 arguments");
+    if (info.length() > 1)
+        return info.error("Slider: expecting 0 arguments");
 
-    ObjectUtil<Slider, tableName>::newUserData(L, 1, new Slider);
+    info.newUserData<Slider>(1, className, new Slider);
 
     return 0;
 }
 
-int Slider_setOrientation(lua_State *L)
+static int setOrientation(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    Slider *self = ObjectUtil<Slider, tableName>::checkUserData(L, 1);
-    int orientation = static_cast<int>(lua_tointegerx(L, 2, nullptr));
+    Slider *self = info.checkUserData<Slider>(1, className);
 
-    self->setOrientation(static_cast<Qt::Orientation>(orientation));
+    self->setOrientation(static_cast<Qt::Orientation>(info.getInteger(2)));
 
     return 0;
 }
 
 void LuaSlider::require(lua::Lua *state)
 {
-    lua::Class luaClass(tableName);
+    lua::Class luaClass(className);
 
     luaClass.setMembers(LuaWidgetBase::methods());
 
-    luaClass.addConstructor(Slider_new);
+    luaClass.addConstructor(constructor);
 
-    luaClass.addMember("setOrientation", Slider_setOrientation);
+    luaClass.addMember("setOrientation", setOrientation);
 
     state->createClass(luaClass);
 }

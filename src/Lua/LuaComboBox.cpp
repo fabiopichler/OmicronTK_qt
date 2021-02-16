@@ -31,7 +31,6 @@
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
 #include <OmicronTK/Qt/ComboBox.hpp>
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
 
 #include <iostream>
 
@@ -40,25 +39,25 @@ using namespace OmicronTK::lua;
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "ComboBox";
+static const char className[] = "ComboBox";
 
-int ComboBox_new(lua_State *L)
+static int constructor(CallbackInfo info)
 {
-    if (lua_gettop(L) > 1)
-        return luaL_error(L, "ComboBox: expecting 0 arguments");
+    if (info.length() > 1)
+        return info.error("ComboBox: expecting 0 arguments");
 
-    ObjectUtil<ComboBox, tableName>::newUserData(L, 1, new ComboBox);
+    info.newUserData<ComboBox>(1, className, new ComboBox);
 
     return 0;
 }
 
 void LuaComboBox::require(lua::Lua *state)
 {
-    lua::Class luaClass(tableName);
+    lua::Class luaClass(className);
 
     luaClass.setMembers(LuaWidgetBase::methods());
 
-    luaClass.addConstructor(ComboBox_new);
+    luaClass.addConstructor(constructor);
 
     state->createClass(luaClass);
 }

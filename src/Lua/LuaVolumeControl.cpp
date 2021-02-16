@@ -31,34 +31,32 @@
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 #include "OmicronTK/Qt/VolumeControl.hpp"
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
-
 using namespace OmicronTK::lua;
 
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "VolumeControl";
+static const char className[] = "VolumeControl";
 
-int VolumeControl_new(lua_State *L)
+static int constructor(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "VolumeControl: expecting 1 argument");
+    if (info.length() != 2)
+        return info.error("VolumeControl: expecting 1 argument");
 
-    auto pointer = static_cast<VolumeControl *>(lua_touserdata(L, 2));
+    auto self = info.getLightUserData<VolumeControl>(2);
 
-    lua::ObjectUtil<VolumeControl, tableName>::newUserData(L, 1, pointer);
+    info.newUserData<VolumeControl>(1, className, self);
 
     return 0;
 }
 
 void LuaVolumeControl::require(lua::Lua *state)
 {
-    lua::Class luaClass(tableName);
+    lua::Class luaClass(className);
 
     luaClass.setMembers(LuaWidgetBase::methods());
 
-    luaClass.addConstructor(VolumeControl_new);
+    luaClass.addConstructor(constructor);
 
     state->createClass(luaClass);
 }

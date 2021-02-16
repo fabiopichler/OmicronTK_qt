@@ -31,34 +31,32 @@
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 #include "OmicronTK/Qt/TitleBarWidget.hpp"
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
-
 using namespace OmicronTK::lua;
 
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "TitleBarWidget";
+static const char className[] = "TitleBarWidget";
 
-int TitleBarWidget_new(lua_State *L)
+static int constructor(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "TitleBarWidget: expecting 1 argument");
+    if (info.length() != 2)
+        return info.error("TitleBarWidget: expecting 1 argument");
 
-    auto pointer = static_cast<TitleBarWidget *>(lua_touserdata(L, 2));
+    auto self = info.getLightUserData<TitleBarWidget>(2);
 
-    lua::ObjectUtil<TitleBarWidget, tableName>::newUserData(L, 1, pointer);
+    info.newUserData<TitleBarWidget>(1, className, self);
 
     return 0;
 }
 
 void LuaTitleBarWidget::require(lua::Lua *state)
 {
-    lua::Class luaClass(tableName);
+    lua::Class luaClass(className);
 
     luaClass.setMembers(LuaWidgetBase::methods());
 
-    luaClass.addConstructor(TitleBarWidget_new);
+    luaClass.addConstructor(constructor);
 
     state->createClass(luaClass);
 }

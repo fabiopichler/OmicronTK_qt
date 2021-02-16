@@ -30,7 +30,6 @@
 #include "OmicronTK/Qt/Lua/LuaWidget.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <iostream>
 
 #include <QWidget>
@@ -42,25 +41,25 @@ using namespace OmicronTK::lua;
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "Widget";
+static const char className[] = "Widget";
 
-int Widget_new(lua_State *L)
+static int constructor(CallbackInfo info)
 {
-    if (lua_gettop(L) > 1)
-        return luaL_error(L, "QWidget: expecting 0 arguments");
+    if (info.length() > 1)
+        return info.error("QWidget: expecting 0 arguments");
 
-    ObjectUtil<QWidget, tableName>::newUserData(L, 1, new QWidget);
+    info.newUserData<QWidget>(1, className, new QWidget);
 
     return 0;
 }
 
 void LuaWidget::require(lua::Lua *state)
 {
-    lua::Class luaClass(tableName);
+    lua::Class luaClass(className);
 
     luaClass.setMembers(LuaWidgetBase::methods());
 
-    luaClass.addConstructor(Widget_new);
+    luaClass.addConstructor(constructor);
 
     state->createClass(luaClass);
 }

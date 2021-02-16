@@ -30,7 +30,6 @@
 #include "OmicronTK/Qt/Lua/LuaPushButton.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <iostream>
 
 #include <QPushButton>
@@ -40,40 +39,40 @@ using namespace OmicronTK::lua;
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "PushButton";
+static const char className[] = "PushButton";
 
-int PushButton_new(lua_State *L)
+static int constructor(CallbackInfo info)
 {
-    if (lua_gettop(L) > 2)
-        return luaL_error(L, "QPushButton: expecting 0 or 1 arguments");
+    if (info.length() > 2)
+        return info.error("QPushButton: expecting 0 or 1 arguments");
 
-    QPushButton *self = new QPushButton(lua_tolstring(L, 2, nullptr));
+    QPushButton *self = info.length() == 1 ? new QPushButton : new QPushButton(info.getCString(2));
 
-    ObjectUtil<QPushButton, tableName>::newUserData(L, 1, self);
+    info.newUserData<QPushButton>(1, className, self);
 
     return 0;
 }
 
-int PushButton_setText(lua_State *L)
+static int setText(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QPushButton *self = ObjectUtil<QPushButton, tableName>::checkUserData(L, 1);
-    self->setText(luaL_checklstring(L, 2, nullptr));
+    QPushButton *self = info.checkUserData<QPushButton>(1, className);
+    self->setText(info.getCString(2));
 
     return 0;
 }
 
 void LuaPushButton::require(lua::Lua *state)
 {
-    lua::Class luaClass(tableName);
+    lua::Class luaClass(className);
 
     luaClass.setMembers(LuaWidgetBase::methods());
 
-    luaClass.addConstructor(PushButton_new);
+    luaClass.addConstructor(constructor);
 
-    luaClass.addMember("setText", PushButton_setText);
+    luaClass.addMember("setText", setText);
 
     state->createClass(luaClass);
 }

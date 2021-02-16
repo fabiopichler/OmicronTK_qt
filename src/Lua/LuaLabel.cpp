@@ -30,7 +30,6 @@
 #include "OmicronTK/Qt/Lua/LuaLabel.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
 #include <OmicronTK/lua/Class.hpp>
 
 #include <iostream>
@@ -42,38 +41,38 @@ using namespace OmicronTK::lua;
 namespace OmicronTK {
 namespace QT {
 
-static const char tableName[] = "Label";
+static const char className[] = "Label";
 
-int Label_new(lua_State *L)
+static int constructor(CallbackInfo info)
 {
-    if (lua_gettop(L) > 2)
-        return luaL_error(L, "QLabel: expecting 0 or 1 arguments");
+    if (info.length() > 2)
+        return info.error("QLabel: expecting 0 or 1 arguments");
 
-    QLabel *self = new QLabel(lua_tolstring(L, 2, nullptr));
+    QLabel *self = info.length() == 1 ? new QLabel : new QLabel(info.getCString(2));
 
-    ObjectUtil<QLabel, tableName>::newUserData(L, 1, self);
+    info.newUserData<QLabel>(1, className, self);
 
     return 0;
 }
 
-int Label_setText(lua_State *L)
+static int setText(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QLabel *self = ObjectUtil<QLabel, tableName>::checkUserData(L, 1);
-    self->setText(luaL_checklstring(L, 2, nullptr));
+    QLabel *self = info.checkUserData<QLabel>(1, className);
+    self->setText(info.getCString(2));
 
     return 0;
 }
 
-int Label_setAlignment(lua_State *L)
+static int setAlignment(CallbackInfo info)
 {
-    if (lua_gettop(L) != 2)
-        return luaL_error(L, "expecting exactly 1 argument");
+    if (info.length() != 2)
+        return info.error("expecting exactly 1 argument");
 
-    QLabel *self = ObjectUtil<QLabel, tableName>::checkUserData(L, 1);
-    int alignment = static_cast<int>(lua_tointegerx(L, 2, nullptr));
+    QLabel *self = info.checkUserData<QLabel>(1, className);
+    int alignment = info.getInteger(2);
 
     self->setAlignment(static_cast<Qt::Alignment>(alignment));
 
@@ -82,14 +81,14 @@ int Label_setAlignment(lua_State *L)
 
 void LuaLabel::require(lua::Lua *state)
 {
-    lua::Class luaClass(tableName);
+    lua::Class luaClass(className);
 
     luaClass.setMembers(LuaWidgetBase::methods());
 
-    luaClass.addConstructor(Label_new);
+    luaClass.addConstructor(constructor);
 
-    luaClass.addMember("setText", Label_setText);
-    luaClass.addMember("setAlignment", Label_setAlignment);
+    luaClass.addMember("setText", setText);
+    luaClass.addMember("setAlignment", setAlignment);
 
     state->createClass(luaClass);
 }
