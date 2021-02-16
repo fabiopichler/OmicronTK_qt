@@ -88,9 +88,7 @@ static mrb_value setTextVisible(mrb_state *mrb, mrb_value self)
 
 void RubyProgressBar_Init(mrb_state *mrb)
 {
-    struct RClass *rclass = mrb_define_class(mrb, className, mrb->object_class);
-
-    RubyWidgetBase_Init(mrb, rclass);
+    struct RClass *rclass = mrb_define_class(mrb, className, RubyWidgetBase_Init(mrb));
 
     mrb_define_method(mrb, rclass, "initialize", initialize, MRB_ARGS_NONE());
     mrb_define_method(mrb, rclass, "setOrientation", setOrientation, MRB_ARGS_REQ(1));

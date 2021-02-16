@@ -40,6 +40,9 @@
 namespace OmicronTK {
 namespace QT {
 
+static const char className[] = "QObjectBase";
+static RClass *rclass = nullptr;
+
 static mrb_value setObjectName(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QObject *>(DATA_PTR(self));
@@ -61,10 +64,17 @@ static mrb_value deleteLater(mrb_state *mrb, mrb_value self)
     return mrb_nil_value();
 }
 
-void RubyObjectBase_Init(mrb_state *mrb, RClass *rclass)
+RClass *RubyObjectBase_Init(mrb_state *mrb)
 {
+    if (rclass)
+        return rclass;
+
+    rclass = mrb_define_class(mrb, className, mrb->object_class);
+
     mrb_define_method(mrb, rclass, "setObjectName", setObjectName, MRB_ARGS_REQ(1));
     mrb_define_method(mrb, rclass, "deleteLater", deleteLater, MRB_ARGS_NONE());
+
+    return rclass;
 }
 
 }

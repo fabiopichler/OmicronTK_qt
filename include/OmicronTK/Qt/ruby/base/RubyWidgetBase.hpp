@@ -34,7 +34,7 @@
 namespace OmicronTK {
 namespace QT {
 
-void RubyWidgetBase_Init(mrb_state *mrb, RClass *rclass);
+RClass *RubyWidgetBase_Init(mrb_state *mrb);
 
 }
 }

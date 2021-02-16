@@ -86,9 +86,7 @@ static mrb_value setClearButtonEnabled(mrb_state *mrb, mrb_value self)
 
 void RubyLineEdit_Init(mrb_state *mrb)
 {
-    struct RClass *rclass = mrb_define_class(mrb, className, mrb->object_class);
-
-    RubyWidgetBase_Init(mrb, rclass);
+    struct RClass *rclass = mrb_define_class(mrb, className, RubyWidgetBase_Init(mrb));
 
     mrb_define_method(mrb, rclass, "initialize", initialize, MRB_ARGS_OPT(1));
     mrb_define_method(mrb, rclass, "setPlaceholderText", setPlaceholderText, MRB_ARGS_REQ(1));

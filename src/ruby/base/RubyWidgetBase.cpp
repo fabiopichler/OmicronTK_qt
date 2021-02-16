@@ -42,6 +42,9 @@
 namespace OmicronTK {
 namespace QT {
 
+static const char className[] = "QWidgetBase";
+static RClass *rclass = nullptr;
+
 static mrb_value setLayout(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QWidget *>(DATA_PTR(self));
@@ -123,9 +126,12 @@ static mrb_value setMinimumWidth(mrb_state *mrb, mrb_value self)
     return mrb_nil_value();
 }
 
-void RubyWidgetBase_Init(mrb_state *mrb, RClass *rclass)
+RClass *RubyWidgetBase_Init(mrb_state *mrb)
 {
-    RubyObjectBase_Init(mrb, rclass);
+    if (rclass)
+        return rclass;
+
+    rclass = mrb_define_class(mrb, className, RubyObjectBase_Init(mrb));
 
     mrb_define_method(mrb, rclass, "setLayout", setLayout, MRB_ARGS_REQ(1));
     mrb_define_method(mrb, rclass, "windowTitle", windowTitle, MRB_ARGS_NONE());
@@ -134,6 +140,8 @@ void RubyWidgetBase_Init(mrb_state *mrb, RClass *rclass)
     mrb_define_method(mrb, rclass, "setEnabled", setEnabled, MRB_ARGS_REQ(1));
     mrb_define_method(mrb, rclass, "setMaximumHeight", setMaximumHeight, MRB_ARGS_REQ(1));
     mrb_define_method(mrb, rclass, "setMinimumWidth", setMinimumWidth, MRB_ARGS_REQ(1));
+
+    return rclass;
 }
 
 }
