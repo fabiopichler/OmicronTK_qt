@@ -41,26 +41,20 @@ using namespace OmicronTK::lua;
 namespace OmicronTK {
 namespace QT {
 
-static int setObjectName(const CallbackInfo &info)
+static void setObjectName(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QObject *self = info.getUserData<QObject>(1);
     self->setObjectName(info.getCString(2));
-
-    return 0;
 }
 
-static int deleteLater(const CallbackInfo &info)
+static void deleteLater(CallbackInfo &info)
 {
-    if (info.length() != 1)
-        return info.error("expecting 0 arguments");
+    info.required(1);
 
     QObject *self = info.getUserData<QObject>(1);
     self->deleteLater();
-
-    return 0;
 }
 
 void LuaObjectBase::methods(lua::Class &luaClass)

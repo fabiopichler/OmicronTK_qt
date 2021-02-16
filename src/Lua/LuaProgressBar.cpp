@@ -41,49 +41,37 @@ namespace QT {
 
 static const char className[] = "ProgressBar";
 
-static int constructor(const CallbackInfo &info)
+static void constructor(CallbackInfo &info)
 {
-    if (info.length() > 1)
-        return info.error("QProgressBar: expecting 0 arguments");
+    info.required(1);
 
     info.newUserData<QProgressBar>(1, className, new QProgressBar);
-
-    return 0;
 }
 
-static int setOrientation(const CallbackInfo &info)
+static void setOrientation(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QProgressBar *self = info.checkUserData<QProgressBar>(1, className);
     int orientation = info.getInteger(2);
 
     self->setOrientation(static_cast<Qt::Orientation>(orientation));
-
-    return 0;
 }
 
-static int setInvertedAppearance(const CallbackInfo &info)
+static void setInvertedAppearance(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QProgressBar *self = info.checkUserData<QProgressBar>(1, className);
     self->setInvertedAppearance(info.getBoolean(2));
-
-    return 0;
 }
 
-static int setTextVisible(const CallbackInfo &info)
+static void setTextVisible(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QProgressBar *self = info.checkUserData<QProgressBar>(1, className);
     self->setTextVisible(info.getBoolean(2));
-
-    return 0;
 }
 
 void LuaProgressBar::require(lua::Lua *state)

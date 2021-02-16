@@ -45,83 +45,63 @@ namespace QT {
 
 static const char boxLayoutName[] = "BoxLayout";
 
-static int setLayout(const CallbackInfo &info)
+static void setLayout(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QWidget *self = info.getUserData<QWidget>(1);
     QBoxLayout *layout = info.checkUserData<QBoxLayout>(2, boxLayoutName);
 
     self->setLayout(layout);
-
-    return 0;
 }
 
-static int windowTitle(const CallbackInfo &info)
+static void windowTitle(CallbackInfo &info)
 {
-    if (info.length() != 1)
-        return info.error("expecting exactly 0 arguments");
+    info.required(1);
 
     QWidget *self = info.getUserData<QWidget>(1);
-    lua_pushstring(info.state(), self->windowTitle().toUtf8().constData());
 
-    return 1;
+    info.getReturnValue().add(self->windowTitle().toUtf8().constData());
 }
 
-static int setStyleSheet(const CallbackInfo &info)
+static void setStyleSheet(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QWidget *self = info.getUserData<QWidget>(1);
     self->setStyleSheet(info.getCString(2));
-
-    return 0;
 }
 
-static int setToolTip(const CallbackInfo &info)
+static void setToolTip(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QWidget *self = info.getUserData<QWidget>(1);
     self->setToolTip(info.getCString(2));
-
-    return 0;
 }
 
-static int setEnabled(const CallbackInfo &info)
+static void setEnabled(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QWidget *self = info.getUserData<QWidget>(1);
     self->setEnabled(info.getBoolean(2));
-
-    return 0;
 }
 
-static int setMaximumHeight(const CallbackInfo &info)
+static void setMaximumHeight(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QWidget *self = info.getUserData<QWidget>(1);
     self->setMaximumHeight(info.getInteger(2));
-
-    return 0;
 }
 
-static int setMinimumWidth(const CallbackInfo &info)
+static void setMinimumWidth(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QWidget *self = info.getUserData<QWidget>(1);
     self->setMinimumWidth(info.getInteger(2));
-
-    return 0;
 }
 
 void LuaWidgetBase::methods(lua::Class &luaClass)

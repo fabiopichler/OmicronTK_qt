@@ -43,42 +43,33 @@ namespace QT {
 
 static const char className[] = "Label";
 
-static int constructor(const CallbackInfo &info)
+static void constructor(CallbackInfo &info)
 {
     const int length = info.length();
 
-    if (length > 2)
-        return info.error("QLabel: expecting 0 or 1 arguments");
+    info.required(1, 2);
 
     QLabel *self = length == 1 ? new QLabel : new QLabel(info.getCString(2));
 
     info.newUserData<QLabel>(1, className, self);
-
-    return 0;
 }
 
-static int setText(const CallbackInfo &info)
+static void setText(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QLabel *self = info.checkUserData<QLabel>(1, className);
     self->setText(info.getCString(2));
-
-    return 0;
 }
 
-static int setAlignment(const CallbackInfo &info)
+static void setAlignment(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QLabel *self = info.checkUserData<QLabel>(1, className);
     int alignment = info.getInteger(2);
 
     self->setAlignment(static_cast<Qt::Alignment>(alignment));
-
-    return 0;
 }
 
 void LuaLabel::require(lua::Lua *state)

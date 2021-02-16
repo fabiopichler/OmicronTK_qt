@@ -41,40 +41,31 @@ namespace QT {
 
 static const char className[] = "LineEdit";
 
-static int constructor(const CallbackInfo &info)
+static void constructor(CallbackInfo &info)
 {
-    const int length = info.length();
+    info.required(1, 2);
 
-    if (length > 2)
-        return info.error("QLineEdit: expecting 0 or 1 arguments");
+    const int length = info.length();
 
     QLineEdit *self = length == 1 ? new QLineEdit : new QLineEdit(info.getCString(2));
 
     info.newUserData<QLineEdit>(1, className, self);
-
-    return 0;
 }
 
-static int setPlaceholderText(const CallbackInfo &info)
+static void setPlaceholderText(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QLineEdit *self = info.checkUserData<QLineEdit>(1, className);
     self->setPlaceholderText(info.getCString(2));
-
-    return 0;
 }
 
-static int setClearButtonEnabled(const CallbackInfo &info)
+static void setClearButtonEnabled(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QLineEdit *self = info.checkUserData<QLineEdit>(1, className);
     self->setClearButtonEnabled(info.getBoolean(2));
-
-    return 0;
 }
 
 void LuaLineEdit::require(lua::Lua *state)

@@ -41,26 +41,20 @@ namespace QT {
 
 static const char className[] = "Slider";
 
-static int constructor(const CallbackInfo &info)
+static void constructor(CallbackInfo &info)
 {
-    if (info.length() > 1)
-        return info.error("Slider: expecting 0 arguments");
+    info.required(1);
 
     info.newUserData<Slider>(1, className, new Slider);
-
-    return 0;
 }
 
-static int setOrientation(const CallbackInfo &info)
+static void setOrientation(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     Slider *self = info.checkUserData<Slider>(1, className);
 
     self->setOrientation(static_cast<Qt::Orientation>(info.getInteger(2)));
-
-    return 0;
 }
 
 void LuaSlider::require(lua::Lua *state)

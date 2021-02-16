@@ -41,14 +41,11 @@ namespace QT {
 
 static const char className[] = "ComboBox";
 
-static int constructor(const CallbackInfo &info)
+static void constructor(CallbackInfo &info)
 {
-    if (info.length() > 1)
-        return info.error("ComboBox: expecting 0 arguments");
+    info.required(1);
 
     info.newUserData<ComboBox>(1, className, new ComboBox);
-
-    return 0;
 }
 
 void LuaComboBox::require(lua::Lua *state)

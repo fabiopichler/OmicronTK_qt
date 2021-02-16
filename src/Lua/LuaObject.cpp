@@ -45,18 +45,17 @@ namespace QT {
 
 static const char className[] = "QObject";
 
-static int connect(const CallbackInfo &info)
+static void connect(CallbackInfo &info)
 {
+    info.required(4);
+
     QObject *sender = info.getUserData<QObject>(1);
     const char *signal = info.getCString(2);
     QObject *receiver = info.getUserData<QObject>(3);
     const char *member = info.getCString(4);
 
     if (!sender || !signal || !receiver || !member)
-    {
-        std::cerr << "ERRO connect" << std::endl;
-        return 0;
-    }
+        throw std::runtime_error("connect error");
 
 #ifndef QLOCATION
 # define QLOCATION "\0" __FILE__ ":" QT_STRINGIFY(__LINE__)
@@ -66,8 +65,6 @@ static int connect(const CallbackInfo &info)
                      qFlagLocation(QString("2").append(signal).append(QLOCATION).toUtf8().constData()),
                      receiver,
                      qFlagLocation(QString("1").append(member).append(QLOCATION).toUtf8().constData()));
-
-    return 0;
 }
 
 void LuaObject::require(lua::Lua *state)

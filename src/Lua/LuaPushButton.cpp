@@ -41,29 +41,23 @@ namespace QT {
 
 static const char className[] = "PushButton";
 
-static int constructor(const CallbackInfo &info)
+static void constructor(CallbackInfo &info)
 {
-    const int length = info.length();
+    info.required(1, 2);
 
-    if (length > 2)
-        return info.error("QPushButton: expecting 0 or 1 arguments");
+    const int length = info.length();
 
     QPushButton *self = length == 1 ? new QPushButton : new QPushButton(info.getCString(2));
 
     info.newUserData<QPushButton>(1, className, self);
-
-    return 0;
 }
 
-static int setText(const CallbackInfo &info)
+static void setText(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("expecting exactly 1 argument");
+    info.required(2);
 
     QPushButton *self = info.checkUserData<QPushButton>(1, className);
     self->setText(info.getCString(2));
-
-    return 0;
 }
 
 void LuaPushButton::require(lua::Lua *state)

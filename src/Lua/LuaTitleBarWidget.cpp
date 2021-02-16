@@ -38,16 +38,13 @@ namespace QT {
 
 static const char className[] = "TitleBarWidget";
 
-static int constructor(const CallbackInfo &info)
+static void constructor(CallbackInfo &info)
 {
-    if (info.length() != 2)
-        return info.error("TitleBarWidget: expecting 1 argument");
+    info.required(2);
 
     auto self = info.getLightUserData<TitleBarWidget>(2);
 
     info.newUserData<TitleBarWidget>(1, className, self);
-
-    return 0;
 }
 
 void LuaTitleBarWidget::require(lua::Lua *state)

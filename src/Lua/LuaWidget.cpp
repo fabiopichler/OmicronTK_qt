@@ -43,14 +43,11 @@ namespace QT {
 
 static const char className[] = "Widget";
 
-static int constructor(const CallbackInfo &info)
+static void constructor(CallbackInfo &info)
 {
-    if (info.length() > 1)
-        return info.error("QWidget: expecting 0 arguments");
+    info.required(1);
 
     info.newUserData<QWidget>(1, className, new QWidget);
-
-    return 0;
 }
 
 void LuaWidget::require(lua::Lua *state)
