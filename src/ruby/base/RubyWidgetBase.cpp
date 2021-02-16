@@ -58,9 +58,9 @@ static mrb_value windowTitle(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QWidget *>(DATA_PTR(self));
 
-    QString title = _this->windowTitle();
+    std::string title = _this->windowTitle().toStdString();
 
-    return mrb_str_new(mrb, title.toUtf8().constData(), title.size());
+    return mrb_str_new(mrb, title.c_str(), title.size());
 }
 
 static mrb_value setStyleSheet(mrb_state *mrb, mrb_value self)
