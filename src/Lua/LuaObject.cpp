@@ -55,7 +55,7 @@ static void connect(CallbackInfo &info)
     const char *member = info.getCString(4);
 
     if (!sender || !signal || !receiver || !member)
-        throw std::runtime_error("connect error");
+        throw std::runtime_error("QObject::connect error");
 
 #ifndef QLOCATION
 # define QLOCATION "\0" __FILE__ ":" QT_STRINGIFY(__LINE__)

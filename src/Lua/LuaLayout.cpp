@@ -56,8 +56,6 @@ static void constructor(CallbackInfo &info)
 
 static void addWidget(CallbackInfo &info)
 {
-    const int length = info.length();
-
     info.required(2, 4);
 
     QBoxLayout *self = info.checkUserData<QBoxLayout>(1, className);
@@ -66,21 +64,19 @@ static void addWidget(CallbackInfo &info)
     if (!widget)
         throw std::runtime_error("widget error");
 
-    int stretch = length >= 3 ? info.getInteger(3) : 0;
-    int alignment = length >= 4 ? info.getInteger(4) : 0;
+    int stretch = info.getInteger(3);
+    int alignment = info.getInteger(4);
 
     self->addWidget(widget, stretch, static_cast<Qt::AlignmentFlag>(alignment));
 }
 
 static void addLayout(CallbackInfo &info)
 {
-    const int length = info.length();
-
     info.required(2, 3);
 
     QBoxLayout *self = info.checkUserData<QBoxLayout>(1, className);
     QBoxLayout *layout = info.checkUserData<QBoxLayout>(2, className);
-    int stretch = length >= 3 ? info.getInteger(3) : 0;
+    int stretch = info.getInteger(3);
 
     self->addLayout(layout, stretch);
 }

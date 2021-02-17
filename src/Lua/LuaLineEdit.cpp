@@ -45,9 +45,7 @@ static void constructor(CallbackInfo &info)
 {
     info.required(1, 2);
 
-    const int length = info.length();
-
-    QLineEdit *self = length == 1 ? new QLineEdit : new QLineEdit(info.getCString(2));
+    QLineEdit *self = info.length() == 1 ? new QLineEdit : new QLineEdit(info.getCString(2));
 
     info.newUserData<QLineEdit>(1, className, self);
 }

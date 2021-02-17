@@ -45,11 +45,9 @@ static const char className[] = "Label";
 
 static void constructor(CallbackInfo &info)
 {
-    const int length = info.length();
-
     info.required(1, 2);
 
-    QLabel *self = length == 1 ? new QLabel : new QLabel(info.getCString(2));
+    QLabel *self = info.length() == 1 ? new QLabel : new QLabel(info.getCString(2));
 
     info.newUserData<QLabel>(1, className, self);
 }

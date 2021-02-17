@@ -45,9 +45,7 @@ static void constructor(CallbackInfo &info)
 {
     info.required(1, 2);
 
-    const int length = info.length();
-
-    QPushButton *self = length == 1 ? new QPushButton : new QPushButton(info.getCString(2));
+    QPushButton *self = info.length() == 1 ? new QPushButton : new QPushButton(info.getCString(2));
 
     info.newUserData<QPushButton>(1, className, self);
 }
