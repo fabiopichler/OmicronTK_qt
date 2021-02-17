@@ -30,8 +30,6 @@
 #include "OmicronTK/Qt/Lua/LuaPushButton.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
-#include <iostream>
-
 #include <QPushButton>
 
 using namespace OmicronTK::lua;

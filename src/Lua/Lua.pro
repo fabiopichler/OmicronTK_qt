@@ -36,29 +36,14 @@ DEFINES += OTKQT_BUILD_LUA_LIB
 unix:INCLUDEPATH += "$${OTKLUA_UNIX}/include"
 win32:INCLUDEPATH += "$${OTKLUA_WIN}\\include"
 
-unix:LIBS += -ldl -lluajit
-win32:LIBS +=  -llua53
-
 LIBS += -lOmicronTK+Qt$${DEBUG} -lOmicronTK_lua
 
 contains(QMAKE_HOST.arch, x86_64) {
-
-    unix:INCLUDEPATH += $${LUA_INCLUDE_PATH_UNIX64}
-    unix:LIBS += -L$${LUA_LIB_PATH_UNIX64}
-
-    win32:INCLUDEPATH += $${LUA_INCLUDE_PATH_WIN64}
-    win32:LIBS += -L$${LUA_LIB_PATH_WIN64}
 
     unix:LIBS += -L"$${OTKLUA_UNIX}/lib/debug"
     win32:LIBS += -L"$${OTKLUA_WIN}/win64/build"
 
 } else {
-
-    unix:INCLUDEPATH += $${LUA_INCLUDE_PATH_UNIX32}
-    unix:LIBS += -L$${LUA_LIB_PATH_UNIX32}
-
-    win32:INCLUDEPATH += $${LUA_INCLUDE_PATH_WIN32}
-    win32:LIBS += -L$${LUA_LIB_PATH_WIN32}
 
     unix:LIBS += -L"$${OTKLUA_UNIX}/linux32/build"
     win32:LIBS += -L"$${OTKLUA_WIN}/win32/build"

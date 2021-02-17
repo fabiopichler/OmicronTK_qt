@@ -30,11 +30,7 @@
 #include "OmicronTK/Qt/Lua/LuaWidget.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
-#include <iostream>
-
 #include <QWidget>
-
-#include <QDebug>
 
 using namespace OmicronTK::lua;
 

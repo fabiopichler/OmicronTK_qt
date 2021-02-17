@@ -30,8 +30,6 @@
 #include "OmicronTK/Qt/Lua/LuaProgressBar.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
-#include <iostream>
-
 #include <QProgressBar>
 
 using namespace OmicronTK::lua;

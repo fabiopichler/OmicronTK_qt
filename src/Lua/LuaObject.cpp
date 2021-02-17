@@ -32,10 +32,6 @@
 
 #include <OmicronTK/lua/Class.hpp>
 
-#include <OmicronTK/lua/util/ObjectUtil.hpp>
-
-#include <iostream>
-
 #include <QObject>
 
 using namespace OmicronTK::lua;

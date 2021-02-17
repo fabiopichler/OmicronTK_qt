@@ -32,8 +32,6 @@
 
 #include <OmicronTK/lua/Class.hpp>
 
-#include <iostream>
-
 #include <QLabel>
 
 using namespace OmicronTK::lua;

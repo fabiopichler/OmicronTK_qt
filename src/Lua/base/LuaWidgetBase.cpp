@@ -32,9 +32,6 @@
 
 #include <OmicronTK/lua/CallbackInfo.hpp>
 
-#include <lua.hpp>
-#include <iostream>
-
 #include <QWidget>
 #include <QBoxLayout>
 

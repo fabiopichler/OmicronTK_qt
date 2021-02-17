@@ -30,8 +30,6 @@
 #include "OmicronTK/Qt/Lua/LuaSlider.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
-#include <iostream>
-
 #include "OmicronTK/Qt/Slider.hpp"
 
 using namespace OmicronTK::lua;

@@ -32,8 +32,6 @@
 
 #include <OmicronTK/Qt/ComboBox.hpp>
 
-#include <iostream>
-
 using namespace OmicronTK::lua;
 
 namespace OmicronTK {

@@ -31,9 +31,6 @@
 
 #include <OmicronTK/lua/CallbackInfo.hpp>
 
-#include <lua.hpp>
-#include <iostream>
-
 #include <QObject>
 
 using namespace OmicronTK::lua;

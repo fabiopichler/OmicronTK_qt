@@ -30,8 +30,6 @@
 #include "OmicronTK/Qt/Lua/LuaLineEdit.hpp"
 #include "OmicronTK/Qt/Lua/base/LuaWidgetBase.hpp"
 
-#include <iostream>
-
 #include <QLineEdit>
 
 using namespace OmicronTK::lua;
