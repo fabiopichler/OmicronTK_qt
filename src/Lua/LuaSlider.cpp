@@ -45,7 +45,7 @@ static void constructor(CallbackInfo &info)
 {
     info.required(1);
 
-    info.newUserData<Slider>(1, className, new Slider);
+    info.newUserData(1, className, new Slider);
 }
 
 static void setOrientation(CallbackInfo &info)

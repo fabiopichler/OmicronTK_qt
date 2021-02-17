@@ -45,7 +45,7 @@ static void constructor(CallbackInfo &info)
 {
     info.required(1);
 
-    info.newUserData<QProgressBar>(1, className, new QProgressBar);
+    info.newUserData(1, className, new QProgressBar);
 }
 
 static void setOrientation(CallbackInfo &info)

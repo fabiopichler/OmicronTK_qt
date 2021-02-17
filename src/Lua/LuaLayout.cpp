@@ -51,7 +51,7 @@ static void constructor(CallbackInfo &info)
 
     QBoxLayout::Direction direction = static_cast<QBoxLayout::Direction>(info.getInteger(2));
 
-    info.newUserData<QBoxLayout>(1, className, new QBoxLayout(direction));
+    info.newUserData(1, className, new QBoxLayout(direction));
 }
 
 static void addWidget(CallbackInfo &info)

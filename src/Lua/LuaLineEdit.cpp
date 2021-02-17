@@ -47,7 +47,7 @@ static void constructor(CallbackInfo &info)
 
     QLineEdit *self = info.length() == 1 ? new QLineEdit : new QLineEdit(info.getCString(2));
 
-    info.newUserData<QLineEdit>(1, className, self);
+    info.newUserData(1, className, self);
 }
 
 static void setPlaceholderText(CallbackInfo &info)

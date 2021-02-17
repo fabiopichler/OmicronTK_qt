@@ -49,7 +49,7 @@ static void constructor(CallbackInfo &info)
 
     QLabel *self = info.length() == 1 ? new QLabel : new QLabel(info.getCString(2));
 
-    info.newUserData<QLabel>(1, className, self);
+    info.newUserData(1, className, self);
 }
 
 static void setText(CallbackInfo &info)

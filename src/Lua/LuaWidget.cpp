@@ -47,7 +47,7 @@ static void constructor(CallbackInfo &info)
 {
     info.required(1);
 
-    info.newUserData<QWidget>(1, className, new QWidget);
+    info.newUserData(1, className, new QWidget);
 }
 
 void LuaWidget::require(lua::Lua *state)

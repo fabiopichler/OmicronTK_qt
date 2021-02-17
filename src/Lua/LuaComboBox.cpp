@@ -45,7 +45,7 @@ static void constructor(CallbackInfo &info)
 {
     info.required(1);
 
-    info.newUserData<ComboBox>(1, className, new ComboBox);
+    info.newUserData(1, className, new ComboBox);
 }
 
 void LuaComboBox::require(lua::Lua *state)

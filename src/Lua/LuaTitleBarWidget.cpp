@@ -44,7 +44,7 @@ static void constructor(CallbackInfo &info)
 
     auto self = info.getLightUserData<TitleBarWidget>(2);
 
-    info.newUserData<TitleBarWidget>(1, className, self);
+    info.newUserData(1, className, self);
 }
 
 void LuaTitleBarWidget::require(lua::Lua *state)

@@ -44,7 +44,7 @@ static void constructor(CallbackInfo &info)
 
     auto self = info.getLightUserData<VolumeControl>(2);
 
-    info.newUserData<VolumeControl>(1, className, self);
+    info.newUserData(1, className, self);
 }
 
 void LuaVolumeControl::require(lua::Lua *state)
