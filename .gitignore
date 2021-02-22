@@ -1,3 +1,8 @@
-*.pro.user*
+.idea
+*.txt.user*
 .directory
-config.local.pri
+/cmake-build*
+/build*
+.env.cmake
+/lib/*
+!/lib/.gitignore
