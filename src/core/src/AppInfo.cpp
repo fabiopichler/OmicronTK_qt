@@ -32,7 +32,7 @@
 #include <QStandardPaths>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 QString AppInfo::s_appName;
 QString AppInfo::s_appVersion;

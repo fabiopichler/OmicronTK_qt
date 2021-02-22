@@ -32,7 +32,7 @@
 #include <mruby.h>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 void RubyWidgetWrapper_Init(mrb_state *mrb);
 

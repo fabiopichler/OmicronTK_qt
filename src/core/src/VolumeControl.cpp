@@ -38,7 +38,7 @@
 #include <QEvent>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 VolumeControl::VolumeControl(QWidget *parent)
     : QPushButton(parent)

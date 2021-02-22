@@ -32,7 +32,7 @@
 #include <mruby.h>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 void RubyComboBox_Init(mrb_state *mrb);
 

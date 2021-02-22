@@ -35,7 +35,7 @@ class QLabel;
 class QPushButton;
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 class OTKQT_CORE_EXPORT TitleBar : public Widget
 {

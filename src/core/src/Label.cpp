@@ -30,7 +30,7 @@
 #include "OmicronTK/qt/Label.hpp"
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 Label::Label(QWidget *parent)
     : QLabel(parent)

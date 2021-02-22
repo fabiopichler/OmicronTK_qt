@@ -37,7 +37,7 @@
 class QLocalServer;
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 class LocalSocket;
 

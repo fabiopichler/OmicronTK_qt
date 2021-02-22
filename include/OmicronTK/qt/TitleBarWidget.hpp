@@ -32,7 +32,7 @@
 #include "Widget.hpp"
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 class OTKQT_CORE_EXPORT TitleBarWidget : public Widget
 {

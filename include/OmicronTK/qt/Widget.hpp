@@ -34,7 +34,7 @@
 #include <QWidget>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 class OTKQT_CORE_EXPORT Widget : public QWidget
 {

@@ -32,7 +32,7 @@
 #include <QMouseEvent>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 Slider::Slider(QWidget *parent)
     : QSlider(parent)

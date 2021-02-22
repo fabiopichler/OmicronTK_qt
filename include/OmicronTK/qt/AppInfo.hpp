@@ -32,7 +32,7 @@
 #include "global.h"
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 class OTKQT_CORE_EXPORT AppInfo
 {

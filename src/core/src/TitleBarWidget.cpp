@@ -35,7 +35,7 @@
 #include <QMouseEvent>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 TitleBarWidget::TitleBarWidget(QWidget *parent)
     : Widget(parent),

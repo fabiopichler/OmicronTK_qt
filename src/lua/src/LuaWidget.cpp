@@ -35,7 +35,7 @@
 using namespace OmicronTK::lua;
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 static const char className[] = "Widget";
 

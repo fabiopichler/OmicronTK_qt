@@ -32,7 +32,7 @@
 #include <mruby.h>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 void RubyLabel_Init(mrb_state *mrb);
 

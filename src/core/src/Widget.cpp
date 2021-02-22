@@ -33,7 +33,7 @@
 #include <QPainter>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 Widget::Widget(QWidget *parent)
     : QWidget(parent)

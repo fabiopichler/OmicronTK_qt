@@ -34,7 +34,7 @@
 #include <QSlider>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 class OTKQT_CORE_EXPORT Slider : public QSlider
 {

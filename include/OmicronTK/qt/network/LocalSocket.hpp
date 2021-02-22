@@ -35,7 +35,7 @@
 #include <QVector>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 class LocalServer;
 

@@ -35,7 +35,7 @@ class QLabel;
 class QTextEdit;
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 class OTKQT_CORE_EXPORT ErrorWindow : public Dialog
 {

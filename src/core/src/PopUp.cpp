@@ -36,7 +36,7 @@
 #include <QBoxLayout>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 PopUp::PopUp(QWidget *parent)
     : QWidget(parent)

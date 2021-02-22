@@ -40,7 +40,7 @@
 #include <QBoxLayout>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 static const char className[] = "QWidgetBase";
 static RClass *rclass = nullptr;

@@ -37,7 +37,7 @@ namespace lua {
 class Lua;
 }
 
-namespace QT {
+namespace qt {
 
 class OTKQT_LUA_EXPORT LuaTitleBarWidget
 {

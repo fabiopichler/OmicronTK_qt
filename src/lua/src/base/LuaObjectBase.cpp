@@ -36,7 +36,7 @@
 using namespace OmicronTK::lua;
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 static void setObjectName(CallbackInfo &info)
 {

@@ -39,7 +39,7 @@
 #include "OmicronTK/qt/Slider.hpp"
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 static const char className[] = "Slider";
 

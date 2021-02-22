@@ -38,7 +38,7 @@
 #include <iostream>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 static const char className[] = "QObjectBase";
 static RClass *rclass = nullptr;

@@ -39,7 +39,7 @@
 #include <QDebug>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 QSettings *Theme::s_settings = nullptr;
 QString Theme::s_defaultTheme;

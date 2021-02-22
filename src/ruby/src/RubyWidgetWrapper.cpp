@@ -35,7 +35,7 @@
 #include <mruby/string.h>
 
 namespace OmicronTK {
-namespace QT {
+namespace qt {
 
 static const char className[] = "WidgetWrapper";
 
