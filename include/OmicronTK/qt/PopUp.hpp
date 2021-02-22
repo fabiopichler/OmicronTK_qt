@@ -1,5 +1,5 @@
 /*******************************************************************************
-  OmicronTK+Qt
+  OmicronTK_qt
 
   Author: Fábio Pichler
   Website: http://fabiopichler.net

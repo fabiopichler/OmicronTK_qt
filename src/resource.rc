@@ -1,11 +1,11 @@
 /*******************************************************************************
-  OmicronTK+Qt
+  OmicronTK_qt
 
-  Author: Fábio Pichler
+  Author: Fï¿½bio Pichler
   Website: http://fabiopichler.net
   License: MIT License
 
-  Copyright 2018-2019, Fábio Pichler
+  Copyright 2018-2019, Fï¿½bio Pichler
 
   Permission is hereby granted, free of charge, to any person obtaining
   a copy of this software and associated documentation files (the "Software"),
@@ -47,13 +47,13 @@ BEGIN
     BEGIN
         BLOCK "040904b0"
         BEGIN
-            VALUE "CompanyName",       "Fábio Pichler"
+            VALUE "CompanyName",       "Fï¿½bio Pichler"
             VALUE "FileDescription",   "Omicron ToolKit + Qt"
             VALUE "FileVersion",       OTKQT_FILE_VERSION
             VALUE "InternalName",      ORIGINAL_FILENAME
-            VALUE "LegalCopyright",    "Copyright © 2018-2019, Fábio Pichler"
+            VALUE "LegalCopyright",    "Copyright ï¿½ 2018-2019, Fï¿½bio Pichler"
             VALUE "OriginalFilename",  ORIGINAL_FILENAME ".dll"
-            VALUE "ProductName",       "OmicronTK+Qt"
+            VALUE "ProductName",       "OmicronTK_qt"
             VALUE "ProductVersion",    OTKQT_PRODUCT_VERSION_STR
         END
     END

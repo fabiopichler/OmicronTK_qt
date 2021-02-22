@@ -1,2 +1,2 @@
-# OmicronTK+Qt
-O OmicronTK+Qt (Omicron Toolkit + Qt) é uma biblioteca com componentes Qt, escrito em C++ 14.
+# OmicronTK_qt
+O OmicronTK_qt (Omicron Toolkit + Qt) é uma biblioteca com componentes Qt, escrito em C++ 14.
