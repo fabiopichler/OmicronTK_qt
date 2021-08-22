@@ -54,10 +54,10 @@ static void deleteLater(CallbackInfo &info)
     self->deleteLater();
 }
 
-void LuaObjectBase::methods(lua::Class &luaClass)
+void LuaObjectBase::methods(NativeClass &nClass)
 {
-    luaClass.addMember<setObjectName>("setObjectName");
-    luaClass.addMember<deleteLater>("deleteLater");
+    nClass.addMember<setObjectName>("setObjectName");
+    nClass.addMember<deleteLater>("deleteLater");
 }
 
 }

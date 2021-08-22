@@ -41,8 +41,8 @@ namespace qt {
 
 class OTKQT_LUA_EXPORT LuaObject
 {
-    static void require(lua::Lua *state);
-    friend class lua::Lua;
+public:
+    static void init(lua::Lua &lua);
 };
 
 }

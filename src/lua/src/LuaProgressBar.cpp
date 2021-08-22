@@ -30,6 +30,9 @@
 #include "OmicronTK/qt/lua/LuaProgressBar.hpp"
 #include "OmicronTK/qt/lua/base/LuaWidgetBase.hpp"
 
+#include <OmicronTK/lua/CallbackInfo.hpp>
+#include <OmicronTK/lua/NativeClass.hpp>
+
 #include <QProgressBar>
 
 using namespace OmicronTK::lua;
@@ -72,19 +75,19 @@ static void setTextVisible(CallbackInfo &info)
     self->setTextVisible(info.getBoolean(2));
 }
 
-void LuaProgressBar::require(lua::Lua *state)
+void LuaProgressBar::init(Lua &lua)
 {
-    lua::Class luaClass(className);
+    NativeClass nClass(lua, className);
 
-    LuaWidgetBase::methods(luaClass);
+    LuaWidgetBase::methods(nClass);
 
-    luaClass.addConstructor<constructor>();
+    nClass.addConstructor<constructor>();
 
-    luaClass.addMember<setOrientation>("setOrientation");
-    luaClass.addMember<setInvertedAppearance>("setInvertedAppearance");
-    luaClass.addMember<setTextVisible>("setTextVisible");
+    nClass.addMember<setOrientation>("setOrientation");
+    nClass.addMember<setInvertedAppearance>("setInvertedAppearance");
+    nClass.addMember<setTextVisible>("setTextVisible");
 
-    state->createClass(luaClass);
+    nClass.create();
 }
 
 }

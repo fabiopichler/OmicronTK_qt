@@ -29,7 +29,8 @@
 
 #pragma once
 
-#include "OmicronTK/lua/Lua.hpp"
+#include <OmicronTK/lua/Lua.hpp>
+#include <OmicronTK/lua/NativeClass.hpp>
 
 namespace OmicronTK {
 namespace qt {
@@ -37,7 +38,7 @@ namespace qt {
 class LuaObjectBase
 {
 public:
-    static void methods(lua::Class &luaClass);
+    static void methods(OmicronTK::lua::NativeClass &nClass);
 };
 
 }

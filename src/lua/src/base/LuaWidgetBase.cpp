@@ -58,7 +58,7 @@ static void windowTitle(CallbackInfo &info)
 
     QWidget *self = info.getUserData<QWidget>(1);
 
-    info.getReturnValue().add(self->windowTitle().toUtf8().constData());
+    info.getReturnValue().pushValue(self->windowTitle().toUtf8().constData());
 }
 
 static void setStyleSheet(CallbackInfo &info)
@@ -101,17 +101,17 @@ static void setMinimumWidth(CallbackInfo &info)
     self->setMinimumWidth(info.getInteger(2));
 }
 
-void LuaWidgetBase::methods(lua::Class &luaClass)
+void LuaWidgetBase::methods(NativeClass &nClass)
 {
-    LuaObjectBase::methods(luaClass);
+    LuaObjectBase::methods(nClass);
 
-    luaClass.addMember<setLayout>("setLayout");
-    luaClass.addMember<windowTitle>("windowTitle");
-    luaClass.addMember<setStyleSheet>("setStyleSheet");
-    luaClass.addMember<setToolTip>("setToolTip");
-    luaClass.addMember<setEnabled>("setEnabled");
-    luaClass.addMember<setMaximumHeight>("setMaximumHeight");
-    luaClass.addMember<setMinimumWidth>("setMinimumWidth");
+    nClass.addMember<setLayout>("setLayout");
+    nClass.addMember<windowTitle>("windowTitle");
+    nClass.addMember<setStyleSheet>("setStyleSheet");
+    nClass.addMember<setToolTip>("setToolTip");
+    nClass.addMember<setEnabled>("setEnabled");
+    nClass.addMember<setMaximumHeight>("setMaximumHeight");
+    nClass.addMember<setMinimumWidth>("setMinimumWidth");
 }
 
 }

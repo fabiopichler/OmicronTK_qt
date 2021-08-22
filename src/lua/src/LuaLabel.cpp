@@ -30,7 +30,8 @@
 #include "OmicronTK/qt/lua/LuaLabel.hpp"
 #include "OmicronTK/qt/lua/base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/lua/Class.hpp>
+#include <OmicronTK/lua/CallbackInfo.hpp>
+#include <OmicronTK/lua/NativeClass.hpp>
 
 #include <QLabel>
 
@@ -68,18 +69,18 @@ static void setAlignment(CallbackInfo &info)
     self->setAlignment(static_cast<Qt::Alignment>(alignment));
 }
 
-void LuaLabel::require(lua::Lua *state)
+void LuaLabel::init(Lua &lua)
 {
-    lua::Class luaClass(className);
+    NativeClass nClass(lua, className);
 
-    LuaWidgetBase::methods(luaClass);
+    LuaWidgetBase::methods(nClass);
 
-    luaClass.addConstructor<constructor>();
+    nClass.addConstructor<constructor>();
 
-    luaClass.addMember<setText>("setText");
-    luaClass.addMember<setAlignment>("setAlignment");
+    nClass.addMember<setText>("setText");
+    nClass.addMember<setAlignment>("setAlignment");
 
-    state->createClass(luaClass);
+    nClass.create();
 }
 
 }

@@ -30,6 +30,9 @@
 #include "OmicronTK/qt/lua/LuaLineEdit.hpp"
 #include "OmicronTK/qt/lua/base/LuaWidgetBase.hpp"
 
+#include <OmicronTK/lua/CallbackInfo.hpp>
+#include <OmicronTK/lua/NativeClass.hpp>
+
 #include <QLineEdit>
 
 using namespace OmicronTK::lua;
@@ -64,18 +67,18 @@ static void setClearButtonEnabled(CallbackInfo &info)
     self->setClearButtonEnabled(info.getBoolean(2));
 }
 
-void LuaLineEdit::require(lua::Lua *state)
+void LuaLineEdit::init(Lua &lua)
 {
-    lua::Class luaClass(className);
+    NativeClass nClass(lua, className);
 
-    LuaWidgetBase::methods(luaClass);
+    LuaWidgetBase::methods(nClass);
 
-    luaClass.addConstructor<constructor>();
+    nClass.addConstructor<constructor>();
 
-    luaClass.addMember<setPlaceholderText>("setPlaceholderText");
-    luaClass.addMember<setClearButtonEnabled>("setClearButtonEnabled");
+    nClass.addMember<setPlaceholderText>("setPlaceholderText");
+    nClass.addMember<setClearButtonEnabled>("setClearButtonEnabled");
 
-    state->createClass(luaClass);
+    nClass.create();
 }
 
 }

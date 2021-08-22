@@ -32,6 +32,9 @@
 
 #include "OmicronTK/qt/Slider.hpp"
 
+#include <OmicronTK/lua/CallbackInfo.hpp>
+#include <OmicronTK/lua/NativeClass.hpp>
+
 using namespace OmicronTK::lua;
 
 namespace OmicronTK {
@@ -55,17 +58,17 @@ static void setOrientation(CallbackInfo &info)
     self->setOrientation(static_cast<Qt::Orientation>(info.getInteger(2)));
 }
 
-void LuaSlider::require(lua::Lua *state)
+void LuaSlider::init(Lua &lua)
 {
-    lua::Class luaClass(className);
+    NativeClass nClass(lua, className);
 
-    LuaWidgetBase::methods(luaClass);
+    LuaWidgetBase::methods(nClass);
 
-    luaClass.addConstructor<constructor>();
+    nClass.addConstructor<constructor>();
 
-    luaClass.addMember<setOrientation>("setOrientation");
+    nClass.addMember<setOrientation>("setOrientation");
 
-    state->createClass(luaClass);
+    nClass.create();
 }
 
 }

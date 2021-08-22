@@ -30,7 +30,8 @@
 #include "OmicronTK/qt/lua/LuaObject.hpp"
 #include "OmicronTK/qt/lua/base/LuaWidgetBase.hpp"
 
-#include <OmicronTK/lua/Class.hpp>
+#include <OmicronTK/lua/CallbackInfo.hpp>
+#include <OmicronTK/lua/NativeClass.hpp>
 
 #include <QObject>
 
@@ -63,13 +64,13 @@ static void connect(CallbackInfo &info)
                      qFlagLocation(QString("1").append(member).append(QLOCATION).toUtf8().constData()));
 }
 
-void LuaObject::require(lua::Lua *state)
+void LuaObject::init(Lua &lua)
 {
-    lua::Class luaClass(className);
+    NativeClass nClass(lua, className);
 
-    luaClass.addStatic<connect>("connect");
+    nClass.addStatic<connect>("connect");
 
-    state->createClass(luaClass);
+    nClass.create();
 }
 
 }

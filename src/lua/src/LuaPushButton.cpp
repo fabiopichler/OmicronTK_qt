@@ -30,6 +30,9 @@
 #include "OmicronTK/qt/lua/LuaPushButton.hpp"
 #include "OmicronTK/qt/lua/base/LuaWidgetBase.hpp"
 
+#include <OmicronTK/lua/CallbackInfo.hpp>
+#include <OmicronTK/lua/NativeClass.hpp>
+
 #include <QPushButton>
 
 using namespace OmicronTK::lua;
@@ -56,17 +59,17 @@ static void setText(CallbackInfo &info)
     self->setText(info.getCString(2));
 }
 
-void LuaPushButton::require(lua::Lua *state)
+void LuaPushButton::init(Lua &lua)
 {
-    lua::Class luaClass(className);
+    NativeClass nClass(lua, className);
 
-    LuaWidgetBase::methods(luaClass);
+    LuaWidgetBase::methods(nClass);
 
-    luaClass.addConstructor<constructor>();
+    nClass.addConstructor<constructor>();
 
-    luaClass.addMember<setText>("setText");
+    nClass.addMember<setText>("setText");
 
-    state->createClass(luaClass);
+    nClass.create();
 }
 
 }

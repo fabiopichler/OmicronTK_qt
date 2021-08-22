@@ -30,6 +30,9 @@
 #include "OmicronTK/qt/lua/LuaWidgetWrapper.hpp"
 #include "OmicronTK/qt/lua/base/LuaWidgetBase.hpp"
 
+#include <OmicronTK/lua/CallbackInfo.hpp>
+#include <OmicronTK/lua/NativeClass.hpp>
+
 using namespace OmicronTK::lua;
 
 namespace OmicronTK {
@@ -44,15 +47,15 @@ static void constructor(CallbackInfo &info)
     info.newUserData(1, className, info.getLightUserData(2));
 }
 
-void LuaWidgetWrapper::require(lua::Lua *state)
+void LuaWidgetWrapper::init(Lua &lua)
 {
-    lua::Class luaClass(className);
+    NativeClass nClass(lua, className);
 
-    LuaWidgetBase::methods(luaClass);
+    LuaWidgetBase::methods(nClass);
 
-    luaClass.addConstructor<constructor>();
+    nClass.addConstructor<constructor>();
 
-    state->createClass(luaClass);
+    nClass.create();
 }
 
 }

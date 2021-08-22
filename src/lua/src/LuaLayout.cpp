@@ -30,6 +30,9 @@
 #include "OmicronTK/qt/lua/LuaLayout.hpp"
 #include "OmicronTK/qt/lua/base/LuaWidgetBase.hpp"
 
+#include <OmicronTK/lua/CallbackInfo.hpp>
+#include <OmicronTK/lua/NativeClass.hpp>
+
 #include <QBoxLayout>
 #include <QWidget>
 #include <QMenuBar>
@@ -131,24 +134,24 @@ static void setContentsMargins(CallbackInfo &info)
     self->setContentsMargins(left, top, right, bottom);
 }
 
-void LuaLayout::require(lua::Lua *state)
+void LuaLayout::init(Lua &lua)
 {
-    lua::Class luaClass(className);
+    NativeClass nClass(lua, className);
 
-    LuaWidgetBase::methods(luaClass);
+    LuaWidgetBase::methods(nClass);
 
-    luaClass.addConstructor<constructor>();
+    nClass.addConstructor<constructor>();
 
-    luaClass.addMember<addWidget>("addWidget");
-    luaClass.addMember<addLayout>("addLayout");
-    luaClass.addMember<setAlignment>("setAlignment");
-    luaClass.addMember<setSpacing>("setSpacing");
-    luaClass.addMember<setMargin>("setMargin");
-    luaClass.addMember<addStretch>("addStretch");
-    luaClass.addMember<addSpacing>("addSpacing");
-    luaClass.addMember<setContentsMargins>("setContentsMargins");
+    nClass.addMember<addWidget>("addWidget");
+    nClass.addMember<addLayout>("addLayout");
+    nClass.addMember<setAlignment>("setAlignment");
+    nClass.addMember<setSpacing>("setSpacing");
+    nClass.addMember<setMargin>("setMargin");
+    nClass.addMember<addStretch>("addStretch");
+    nClass.addMember<addSpacing>("addSpacing");
+    nClass.addMember<setContentsMargins>("setContentsMargins");
 
-    state->createClass(luaClass);
+    nClass.create();
 }
 
 }

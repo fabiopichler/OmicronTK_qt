@@ -41,8 +41,8 @@ namespace qt {
 
 class OTKQT_LUA_EXPORT LuaLineEdit
 {
-    static void require(lua::Lua *state);
-    friend class lua::Lua;
+public:
+    static void init(lua::Lua &lua);
 };
 
 }

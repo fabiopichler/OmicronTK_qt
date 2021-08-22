@@ -30,6 +30,8 @@
 #include "OmicronTK/qt/lua/LuaComboBox.hpp"
 #include "OmicronTK/qt/lua/base/LuaWidgetBase.hpp"
 
+#include <OmicronTK/lua/CallbackInfo.hpp>
+#include <OmicronTK/lua/NativeClass.hpp>
 #include <OmicronTK/qt/ComboBox.hpp>
 
 using namespace OmicronTK::lua;
@@ -46,15 +48,15 @@ static void constructor(CallbackInfo &info)
     info.newUserData(1, className, new ComboBox);
 }
 
-void LuaComboBox::require(lua::Lua *state)
+void LuaComboBox::init(lua::Lua &lua)
 {
-    lua::Class luaClass(className);
+    NativeClass nClass(lua, className);
 
-    LuaWidgetBase::methods(luaClass);
+    LuaWidgetBase::methods(nClass);
 
-    luaClass.addConstructor<constructor>();
+    nClass.addConstructor<constructor>();
 
-    state->createClass(luaClass);
+    nClass.create();
 }
 
 }
