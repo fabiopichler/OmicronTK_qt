@@ -48,7 +48,7 @@ static const char className[] = "BoxLayout";
 static mrb_value initialize(mrb_state *mrb, mrb_value self)
 {
     mrb_value direction;
-    mrb_get_args(mrb, "i", &direction);
+    mrb_get_args(mrb, "o", &direction);
 
     DATA_PTR(self) = new QBoxLayout(static_cast<QBoxLayout::Direction>(mrb_fixnum(direction)));
 
@@ -60,7 +60,7 @@ static mrb_value addWidget(mrb_state *mrb, mrb_value self)
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
     mrb_value widget, stretch = mrb_fixnum_value(0), alignment = mrb_fixnum_value(0);
-    mrb_get_args(mrb, "o|ii", &widget, &stretch, &alignment);
+    mrb_get_args(mrb, "o|oo", &widget, &stretch, &alignment);
 
     _this->addWidget(
                 static_cast<QWidget *>(DATA_PTR(widget)),
@@ -76,7 +76,7 @@ static mrb_value addLayout(mrb_state *mrb, mrb_value self)
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
     mrb_value layout, stretch = mrb_fixnum_value(0);
-    mrb_get_args(mrb, "o|i", &layout, &stretch);
+    mrb_get_args(mrb, "o|o", &layout, &stretch);
 
     _this->addLayout(static_cast<QBoxLayout *>(DATA_PTR(layout)), mrb_fixnum(stretch));
 
@@ -88,7 +88,7 @@ static mrb_value setAlignment(mrb_state *mrb, mrb_value self)
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
     mrb_value alignment;
-    mrb_get_args(mrb, "i", &alignment);
+    mrb_get_args(mrb, "o", &alignment);
 
     _this->setAlignment(static_cast<Qt::AlignmentFlag>(mrb_fixnum(alignment)));
 
@@ -100,7 +100,7 @@ static mrb_value setSpacing(mrb_state *mrb, mrb_value self)
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
     mrb_value spacing;
-    mrb_get_args(mrb, "i", &spacing);
+    mrb_get_args(mrb, "o", &spacing);
 
     _this->setSpacing(mrb_fixnum(spacing));
 
@@ -112,7 +112,7 @@ static mrb_value setMargin(mrb_state *mrb, mrb_value self)
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
     mrb_value margin;
-    mrb_get_args(mrb, "i", &margin);
+    mrb_get_args(mrb, "o", &margin);
 
     _this->setMargin(mrb_fixnum(margin));
 
@@ -124,7 +124,7 @@ static mrb_value addStretch(mrb_state *mrb, mrb_value self)
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
     mrb_value stretch;
-    mrb_get_args(mrb, "i", &stretch);
+    mrb_get_args(mrb, "o", &stretch);
 
     _this->addStretch(mrb_fixnum(stretch));
 
@@ -136,7 +136,7 @@ static mrb_value addSpacing(mrb_state *mrb, mrb_value self)
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
     mrb_value spacing;
-    mrb_get_args(mrb, "i", &spacing);
+    mrb_get_args(mrb, "o", &spacing);
 
     _this->addSpacing(mrb_fixnum(spacing));
 
@@ -148,7 +148,7 @@ static mrb_value setContentsMargins(mrb_state *mrb, mrb_value self)
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
 
     mrb_value left, top, right, bottom;
-    mrb_get_args(mrb, "iiii", &left, &top, &right, &bottom);
+    mrb_get_args(mrb, "oooo", &left, &top, &right, &bottom);
 
     _this->setContentsMargins(mrb_fixnum(left), mrb_fixnum(top), mrb_fixnum(right), mrb_fixnum(bottom));
 

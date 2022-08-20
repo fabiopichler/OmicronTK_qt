@@ -55,7 +55,7 @@ static mrb_value setOrientation(mrb_state *mrb, mrb_value self)
     auto _this = static_cast<QProgressBar *>(DATA_PTR(self));
 
     mrb_value orientation;
-    mrb_get_args(mrb, "i", &orientation);
+    mrb_get_args(mrb, "o", &orientation);
 
     _this->setOrientation(static_cast<Qt::Orientation>(mrb_fixnum(orientation)));
 

@@ -107,7 +107,7 @@ static mrb_value setMaximumHeight(mrb_state *mrb, mrb_value self)
     auto _this = static_cast<QWidget *>(DATA_PTR(self));
 
     mrb_value height;
-    mrb_get_args(mrb, "i", &height);
+    mrb_get_args(mrb, "o", &height);
 
     _this->setMaximumHeight(mrb_fixnum(height));
 
@@ -119,7 +119,7 @@ static mrb_value setMinimumWidth(mrb_state *mrb, mrb_value self)
     auto _this = static_cast<QWidget *>(DATA_PTR(self));
 
     mrb_value width;
-    mrb_get_args(mrb, "i", &width);
+    mrb_get_args(mrb, "o", &width);
 
     _this->setMinimumWidth(mrb_fixnum(width));
 
