@@ -48,7 +48,7 @@ static void constructor(CallbackInfo &info)
 
     QPushButton *self = info.length() == 1 ? new QPushButton : new QPushButton(info.getCString(2));
 
-    info.newUserData(1, className, self);
+    info.newUserData(1, self);
 }
 
 static void setText(CallbackInfo &info)
@@ -65,7 +65,7 @@ void LuaPushButton::init(Lua &lua)
 
     LuaWidgetBase::methods(nClass);
 
-    nClass.addConstructor<constructor>();
+    nClass.setConstructor<constructor>();
 
     nClass.addMember<setText>("setText");
 

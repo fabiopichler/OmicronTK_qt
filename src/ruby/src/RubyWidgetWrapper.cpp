@@ -44,7 +44,7 @@ static mrb_value initialize(mrb_state *mrb, mrb_value self)
     mrb_value pointer;
     mrb_get_args(mrb, "o", &pointer);
 
-    DATA_PTR(self) = mrb_ptr(pointer);
+    DATA_PTR(self) = mrb_cptr(pointer);
 
     return self;
 }

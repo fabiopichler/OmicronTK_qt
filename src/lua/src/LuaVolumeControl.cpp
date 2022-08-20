@@ -47,7 +47,7 @@ static void constructor(CallbackInfo &info)
 
     auto self = info.getLightUserData<VolumeControl>(2);
 
-    info.newUserData(1, className, self);
+    info.newUserData(1, self);
 }
 
 void LuaVolumeControl::init(Lua &lua)
@@ -56,7 +56,7 @@ void LuaVolumeControl::init(Lua &lua)
 
     LuaWidgetBase::methods(nClass);
 
-    nClass.addConstructor<constructor>();
+    nClass.setConstructor<constructor>();
 
     nClass.create();
 }

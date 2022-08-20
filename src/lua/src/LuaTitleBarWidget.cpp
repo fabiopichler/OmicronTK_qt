@@ -47,7 +47,7 @@ static void constructor(CallbackInfo &info)
 
     auto self = info.getLightUserData<TitleBarWidget>(2);
 
-    info.newUserData(1, className, self);
+    info.newUserData(1, self);
 }
 
 void LuaTitleBarWidget::init(Lua &lua)
@@ -56,7 +56,7 @@ void LuaTitleBarWidget::init(Lua &lua)
 
     LuaWidgetBase::methods(nClass);
 
-    nClass.addConstructor<constructor>();
+    nClass.setConstructor<constructor>();
 
     nClass.create();
 }

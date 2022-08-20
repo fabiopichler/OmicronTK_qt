@@ -46,7 +46,7 @@ static void constructor(CallbackInfo &info)
 {
     info.required(1);
 
-    info.newUserData(1, className, new QWidget);
+    info.newUserData(1, new QWidget);
 }
 
 void LuaWidget::init(Lua &lua)
@@ -55,7 +55,7 @@ void LuaWidget::init(Lua &lua)
 
     LuaWidgetBase::methods(nClass);
 
-    nClass.addConstructor<constructor>();
+    nClass.setConstructor<constructor>();
 
     nClass.create();
 }

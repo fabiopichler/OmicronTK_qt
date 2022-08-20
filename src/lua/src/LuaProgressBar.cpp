@@ -46,7 +46,7 @@ static void constructor(CallbackInfo &info)
 {
     info.required(1);
 
-    info.newUserData(1, className, new QProgressBar);
+    info.newUserData(1, new QProgressBar);
 }
 
 static void setOrientation(CallbackInfo &info)
@@ -81,7 +81,7 @@ void LuaProgressBar::init(Lua &lua)
 
     LuaWidgetBase::methods(nClass);
 
-    nClass.addConstructor<constructor>();
+    nClass.setConstructor<constructor>();
 
     nClass.addMember<setOrientation>("setOrientation");
     nClass.addMember<setInvertedAppearance>("setInvertedAppearance");

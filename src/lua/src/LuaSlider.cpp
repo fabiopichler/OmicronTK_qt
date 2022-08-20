@@ -46,7 +46,7 @@ static void constructor(CallbackInfo &info)
 {
     info.required(1);
 
-    info.newUserData(1, className, new Slider);
+    info.newUserData(1, new Slider);
 }
 
 static void setOrientation(CallbackInfo &info)
@@ -64,7 +64,7 @@ void LuaSlider::init(Lua &lua)
 
     LuaWidgetBase::methods(nClass);
 
-    nClass.addConstructor<constructor>();
+    nClass.setConstructor<constructor>();
 
     nClass.addMember<setOrientation>("setOrientation");
 

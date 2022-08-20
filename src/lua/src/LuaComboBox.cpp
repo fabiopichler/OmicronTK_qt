@@ -45,7 +45,7 @@ static void constructor(CallbackInfo &info)
 {
     info.required(1);
 
-    info.newUserData(1, className, new ComboBox);
+    info.newUserData(1, new ComboBox);
 }
 
 void LuaComboBox::init(lua::Lua &lua)
@@ -54,7 +54,7 @@ void LuaComboBox::init(lua::Lua &lua)
 
     LuaWidgetBase::methods(nClass);
 
-    nClass.addConstructor<constructor>();
+    nClass.setConstructor<constructor>();
 
     nClass.create();
 }

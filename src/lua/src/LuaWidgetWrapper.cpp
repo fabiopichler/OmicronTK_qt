@@ -44,7 +44,7 @@ static void constructor(CallbackInfo &info)
 {
     info.required(2);
 
-    info.newUserData(1, className, info.getLightUserData(2));
+    info.newUserData(1, info.getLightUserData(2));
 }
 
 void LuaWidgetWrapper::init(Lua &lua)
@@ -53,7 +53,7 @@ void LuaWidgetWrapper::init(Lua &lua)
 
     LuaWidgetBase::methods(nClass);
 
-    nClass.addConstructor<constructor>();
+    nClass.setConstructor<constructor>();
 
     nClass.create();
 }

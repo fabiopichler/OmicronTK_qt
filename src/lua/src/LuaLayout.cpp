@@ -50,7 +50,7 @@ static void constructor(CallbackInfo &info)
 
     QBoxLayout::Direction direction = static_cast<QBoxLayout::Direction>(info.getInteger(2));
 
-    info.newUserData(1, className, new QBoxLayout(direction));
+    info.newUserData(1, new QBoxLayout(direction));
 }
 
 static void addWidget(CallbackInfo &info)
@@ -140,7 +140,7 @@ void LuaLayout::init(Lua &lua)
 
     LuaWidgetBase::methods(nClass);
 
-    nClass.addConstructor<constructor>();
+    nClass.setConstructor<constructor>();
 
     nClass.addMember<addWidget>("addWidget");
     nClass.addMember<addLayout>("addLayout");

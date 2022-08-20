@@ -48,7 +48,7 @@ static void constructor(CallbackInfo &info)
 
     QLabel *self = info.length() == 1 ? new QLabel : new QLabel(info.getCString(2));
 
-    info.newUserData(1, className, self);
+    info.newUserData(1, self);
 }
 
 static void setText(CallbackInfo &info)
@@ -75,7 +75,7 @@ void LuaLabel::init(Lua &lua)
 
     LuaWidgetBase::methods(nClass);
 
-    nClass.addConstructor<constructor>();
+    nClass.setConstructor<constructor>();
 
     nClass.addMember<setText>("setText");
     nClass.addMember<setAlignment>("setAlignment");

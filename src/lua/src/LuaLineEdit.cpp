@@ -48,7 +48,7 @@ static void constructor(CallbackInfo &info)
 
     QLineEdit *self = info.length() == 1 ? new QLineEdit : new QLineEdit(info.getCString(2));
 
-    info.newUserData(1, className, self);
+    info.newUserData(1, self);
 }
 
 static void setPlaceholderText(CallbackInfo &info)
@@ -73,7 +73,7 @@ void LuaLineEdit::init(Lua &lua)
 
     LuaWidgetBase::methods(nClass);
 
-    nClass.addConstructor<constructor>();
+    nClass.setConstructor<constructor>();
 
     nClass.addMember<setPlaceholderText>("setPlaceholderText");
     nClass.addMember<setClearButtonEnabled>("setClearButtonEnabled");
