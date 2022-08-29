@@ -74,7 +74,7 @@ private:
 
 private slots:
     void ok();
-    void close() Q_DECL_OVERRIDE;
+    void close() override;
     void defaultEqualizer();
     void indexChanged();
     void equalizerChanged(int, int);

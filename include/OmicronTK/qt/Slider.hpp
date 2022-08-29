@@ -43,10 +43,16 @@ class OTKQT_CORE_EXPORT Slider : public QSlider
 public:
     Slider(QWidget *parent = nullptr);
 
+signals:
+    void hover(bool hover, QEvent *event);
+
 private:
-    void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
-    void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent *event) override;
+    void mouseMoveEvent(QMouseEvent *event) override;
+    void mouseReleaseEvent(QMouseEvent *event) override;
+
+    void enterEvent(QEvent *event) override;
+    void leaveEvent(QEvent *event) override;
 
     bool m_sendEvent;
 };

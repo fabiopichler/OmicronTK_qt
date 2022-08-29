@@ -86,5 +86,19 @@ void Slider::mouseReleaseEvent(QMouseEvent *event)
     QSlider::mouseReleaseEvent(event);
 }
 
+void Slider::enterEvent(QEvent *event)
+{
+    emit hover(true, event);
+
+    QSlider::enterEvent(event);
+}
+
+void Slider::leaveEvent(QEvent *event)
+{
+    emit hover(false, event);
+
+    QSlider::leaveEvent(event);
+}
+
 }
 }

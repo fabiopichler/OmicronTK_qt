@@ -45,8 +45,8 @@ public:
     TitleBar(QWidget *parent, int flags = -1);
 
 private:
-    void mousePressEvent(QMouseEvent *) Q_DECL_OVERRIDE;
-    void mouseMoveEvent(QMouseEvent *) Q_DECL_OVERRIDE;
+    void mousePressEvent(QMouseEvent *) override;
+    void mouseMoveEvent(QMouseEvent *) override;
 
 private slots:
     void quitApp();

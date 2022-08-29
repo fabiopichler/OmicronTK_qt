@@ -45,7 +45,7 @@ public:
     static void updateStyle(QWidget *widget);
 
 private:
-    void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *) override;
 };
 
 }

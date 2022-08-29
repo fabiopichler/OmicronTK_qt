@@ -75,7 +75,7 @@ public slots:
     virtual void close();
 
 private:
-    void paintEvent(QPaintEvent *) Q_DECL_OVERRIDE;
+    void paintEvent(QPaintEvent *) override;
 
 private:
     TitleBar *m_titleBar;

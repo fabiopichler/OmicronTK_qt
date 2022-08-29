@@ -58,7 +58,7 @@ private slots:
 
 private:
     void mute(bool act, bool event = true);
-    bool eventFilter(QObject *obj, QEvent *event) Q_DECL_OVERRIDE;
+    bool eventFilter(QObject *obj, QEvent *event) override;
 
 signals:
     void volumeChanged(int volume);
