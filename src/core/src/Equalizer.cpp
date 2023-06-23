@@ -107,27 +107,23 @@ void Equalizer::createLabels()
 {
     std::vector<QString> list;
     list.push_back("Pré Amplificador");
-    list.push_back("35Hz");
-    list.push_back("50Hz");
-    list.push_back("75Hz");
+    list.push_back("25Hz");
+    list.push_back("40Hz");
+    list.push_back("63Hz");
     list.push_back("100Hz");
-    list.push_back("150Hz");
-    list.push_back("200Hz");
+    list.push_back("160Hz");
+    list.push_back("250Hz");
     list.push_back("400Hz");
-    list.push_back("600Hz");
-    list.push_back("800Hz");
+    list.push_back("630Hz");
     list.push_back("1KHz");
-    list.push_back("2,5KHz");
+    list.push_back("1.6KHz");
+    list.push_back("2.5KHz");
     list.push_back("4KHz");
-    list.push_back("6KHz");
-    list.push_back("8KHz");
+    list.push_back("6.3KHz");
     list.push_back("10KHz");
-    list.push_back("12KHz");
-    list.push_back("14KHz");
     list.push_back("16KHz");
 
-
-    for (size_t i = 0; i < 19; i++)
+    for (size_t i = 0; i < 16; i++)
     {
         m_eqFr[i] = new QLabel(list[i]);
         m_eqDb[i] = new QLabel(QString("%1dB").arg(m_values[i]));
@@ -160,7 +156,7 @@ void Equalizer::createSlider()
     m_eq[0]->setRange(-50, 50);
     m_eq[0]->setSliderPosition(m_values[0]);
 
-    for (size_t i = 1; i < 19; i++)
+    for (size_t i = 1; i < 16; i++)
     {
         m_eq[i] = new QSlider(Qt::Vertical);
         m_eq[i]->setRange(-30, 30);
@@ -199,9 +195,9 @@ void Equalizer::createBoxLayout()
     QHBoxLayout *eqLayout = new QHBoxLayout;
     eqLayout->setSpacing(10);
 
-    QVBoxLayout *vLayout[18];
+    QVBoxLayout *vLayout[15];
 
-    for (int i = 0; i < 18; i++)
+    for (int i = 0; i < 15; i++)
     {
         vLayout[i] = new QVBoxLayout;
         vLayout[i]->addWidget(m_eqFr[i + 1]);
@@ -245,7 +241,7 @@ void Equalizer::createEvents()
     connect(m_presetCombo, SIGNAL(activated(int)), this, SLOT(loadPreset()));
     connect(m_presetCombo, SIGNAL(currentIndexChanged(int)), this, SLOT(indexChanged()));
 
-    for (int i = 0; i < 19; i++)
+    for (int i = 0; i < 16; i++)
     {
         connect(m_eq[i], &QSlider::valueChanged, [this, i](int arg) {
             equalizerChanged(i, arg);
@@ -263,7 +259,7 @@ void Equalizer::ok()
     QDialog::accept();
     QString val;
 
-    for (size_t i = 0; i < 19; i++)
+    for (size_t i = 0; i < 16; i++)
         val += QString("(%1, %2), ").arg(i).arg(m_values[i]);
 
     val.remove(QRegExp(", $"));
@@ -276,7 +272,7 @@ void Equalizer::close()
 {
     m_values = m_oldValues;
 
-    for (size_t i = 0; i < 19; i++)
+    for (size_t i = 0; i < 16; i++)
     {
         emit updateEqualizer(static_cast<int>(i), m_oldValues[i]);
     }
@@ -286,7 +282,7 @@ void Equalizer::close()
 
 void Equalizer::defaultEqualizer()
 {
-    for (size_t i = 0; i < 19; i++)
+    for (size_t i = 0; i < 16; i++)
     {
         m_eq[i]->setValue(0);
         m_values[i] = 0;
@@ -382,10 +378,10 @@ void Equalizer::loadPreset()
 
     std::vector<int> list = getEqualizerPreset(m_presetCombo->currentData().toInt());
 
-    if (list.size() < 19)
+    if (list.size() < 16)
         return;
 
-    for (size_t i = 0; i < 19; i++)
+    for (size_t i = 0; i < 16; i++)
     {
         m_eq[i]->setValue(list[i]);
         m_values[i] = list[i];

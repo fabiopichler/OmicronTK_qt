@@ -89,9 +89,9 @@ signals:
 
 private:
     QPushButton *m_okButton, *m_cancelButton, *m_defaultButton, *m_saveButton, *m_newButton, *m_deleteButton, *m_editButton;
-    QLabel *m_eqFr[19];
-    QLabel *m_eqDb[19];
-    QSlider *m_eq[19];
+    QLabel *m_eqFr[16];
+    QLabel *m_eqDb[16];
+    QSlider *m_eq[16];
     ComboBox *m_presetCombo;
 
     std::vector<int> &m_values, m_oldValues;
