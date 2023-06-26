@@ -3,7 +3,7 @@ project(${PROJECT_QT_LUA} LANGUAGES CXX)
 
 add_definitions(-DOTKQT_BUILD_LUA_LIB)
 
-include_directories("${OTKLUA}/include")
+include_directories("../../../OmicronTK_lua/include")
 
 set(SRC_FILES
     src/LuaComboBox.cpp
@@ -41,7 +41,7 @@ endif()
 
 add_library(${PROJECT_QT_LUA} SHARED ${SRC_FILES})
 
-target_link_directories(${PROJECT_QT_LUA} PRIVATE "${OTKLUA}/lib/debug")
+target_link_directories(${PROJECT_QT_LUA} PRIVATE "../../../OmicronTK_lua/lib/debug")
 
 target_link_libraries(${PROJECT_QT_LUA} PRIVATE
     Qt5::Core
