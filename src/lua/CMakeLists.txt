@@ -41,7 +41,7 @@ endif()
 
 add_library(${PROJECT_QT_LUA} SHARED ${SRC_FILES})
 
-target_link_directories(${PROJECT_QT_LUA} PRIVATE "../../../OmicronTK_lua/lib/debug")
+target_link_directories(${PROJECT_QT_LUA} PRIVATE "../../../OmicronTK_lua/lib/linux64/debug")
 
 target_link_libraries(${PROJECT_QT_LUA} PRIVATE
     Qt5::Core
