@@ -31,47 +31,64 @@
 
 #include <QLocalServer>
 #include <QLocalSocket>
+#include <QSharedMemory>
+#include <iostream>
 
 namespace OmicronTK {
 namespace qt {
 
-LocalServer::LocalServer(int timeout, const QString &appKey) : timeout(timeout), appKey(appKey)
+std::unique_ptr<LocalServer> LocalServer::create(const QString &appKey, int timeout)
 {
-    qLocalServer = nullptr;
+    std::unique_ptr<LocalServer> server(new LocalServer(appKey, timeout));
 
-    QLocalSocket localSocket(this);
-    localSocket.connectToServer(appKey, QIODevice::NotOpen);
+    //if (server->listen())
+        return std::move(server);
 
-    if (localSocket.waitForConnected(timeout))
+    //return nullptr;
+}
+
+LocalServer::LocalServer(const QString &appKey, int timeout)
+    : m_appKey(appKey)
+    , m_timeout(timeout)
+    , m_running(false)
+    , m_sharedMemory(std::make_unique<QSharedMemory>(appKey))
+{
+    if (m_sharedMemory->attach())
     {
-        running = true;
-        localSocket.disconnectFromServer();
+        m_running = true;
+        m_sharedMemory.reset();
+
+        return;
     }
-    else
+
+    if (!m_sharedMemory->create(1))
     {
-        running = false;
-        createServer();
+        std::cerr << "Unable to create single instance." << std::endl;
+        return;
     }
+
+    listen();
 }
 
 LocalServer::~LocalServer()
 {
-    delete qLocalServer;
 }
 
-bool LocalServer::createServer()
+bool LocalServer::listen()
 {
-    QLocalServer::removeServer(appKey);
+    QLocalServer::removeServer(m_appKey);
 
-    if ((qLocalServer = new QLocalServer(this)))
+    m_localServer = std::make_unique<QLocalServer>(this);
+
+    connect(m_localServer.get(), SIGNAL(newConnection()), this, SLOT(newConnection()));
+
+    if (!m_localServer->listen(m_appKey))
     {
-        connect(qLocalServer, SIGNAL(newConnection()), this, SLOT(newConnection()));
-
-        if (qLocalServer->listen(appKey))
-            return true;
+        std::cerr << "LocalServer::createServer() listen error" << std::endl;
+        return false;
     }
 
-    return false;
+    return true;
 }
 
 //================================================================================================================
@@ -80,9 +97,9 @@ bool LocalServer::createServer()
 
 void LocalServer::newConnection()
 {
-    QLocalSocket *qLocalSocket = qLocalServer->nextPendingConnection();
+    QLocalSocket *qLocalSocket = m_localServer->nextPendingConnection();
 
-    if (!qLocalSocket->waitForReadyRead(timeout))
+    if (!qLocalSocket->waitForReadyRead(m_timeout))
     {
         if (qLocalSocket->error() != QLocalSocket::PeerClosedError)
             qWarning() << qLocalSocket->errorString();

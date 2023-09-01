@@ -44,14 +44,14 @@ class OTKQT_NETWORK_EXPORT LocalSocket : public QObject
     Q_OBJECT
 
 public:
-    LocalSocket(int timeout, const QString &appKey);
+    LocalSocket(const QString &appKey, int timeout = 1000);
     LocalSocket(const LocalServer &localServer);
 
     bool sendMessage(const QVector<QString> &messageList);
 
 private:
-    const int timeout;
-    const QString appKey;
+    const QString m_appKey;
+    const int m_timeout;
 };
 
 }

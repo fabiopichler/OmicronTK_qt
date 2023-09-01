@@ -36,20 +36,24 @@
 namespace OmicronTK {
 namespace qt {
     
-LocalSocket::LocalSocket(int timeout, const QString &appKey) : timeout(timeout), appKey(appKey)
+LocalSocket::LocalSocket(const QString &appKey, int timeout)
+    : m_appKey(appKey)
+    , m_timeout(timeout)
 {
 }
 
-LocalSocket::LocalSocket(const LocalServer &localServer) : timeout(localServer.timeout), appKey(localServer.appKey)
+LocalSocket::LocalSocket(const LocalServer &localServer)
+    : m_appKey(localServer.m_appKey)
+    , m_timeout(localServer.m_timeout)
 {
 }
 
 bool LocalSocket::sendMessage(const QVector<QString> &messageList)
 {
     QLocalSocket localSocket(this);
-    localSocket.connectToServer(appKey, QIODevice::WriteOnly);
+    localSocket.connectToServer(m_appKey, QIODevice::WriteOnly);
 
-    if (!localSocket.waitForConnected(timeout))
+    if (!localSocket.waitForConnected(m_timeout))
     {
         qWarning() << localSocket.errorString();
         return false;
@@ -65,7 +69,7 @@ bool LocalSocket::sendMessage(const QVector<QString> &messageList)
 
     localSocket.write(data);
 
-    if (!localSocket.waitForBytesWritten(timeout))
+    if (!localSocket.waitForBytesWritten(m_timeout))
     {
         qWarning() << localSocket.errorString();
         return false;

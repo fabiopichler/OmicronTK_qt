@@ -31,10 +31,12 @@
 
 #include "../global.h"
 
+#include <memory>
 #include <QObject>
 #include <QVector>
 
 class QLocalServer;
+class QSharedMemory;
 
 namespace OmicronTK {
 namespace qt {
@@ -45,13 +47,15 @@ class OTKQT_NETWORK_EXPORT LocalServer : public QObject
 {
     Q_OBJECT
 
+    LocalServer(const QString &appKey, int timeout);
+
 public:
-    LocalServer(int timeout, const QString &appKey);
+    static std::unique_ptr<LocalServer> create(const QString &appKey, int timeout = 1000);
+
     ~LocalServer();
 
-    bool createServer();
-
-    inline bool isRunning() const { return running; }
+    bool listen();
+    inline bool isRunning() const;
 
 public slots:
     void newConnection();
@@ -62,13 +66,16 @@ signals:
 private:
     friend class LocalSocket;
 
-    const int timeout;
-    const QString appKey;
+    const QString m_appKey;
+    const int m_timeout;
 
-    QLocalServer *qLocalServer;
+    bool m_running;
 
-    bool running;
+    std::unique_ptr<QLocalServer> m_localServer;
+    std::unique_ptr<QSharedMemory> m_sharedMemory;
 };
+
+inline bool LocalServer::isRunning() const { return m_running; }
 
 }
 }
