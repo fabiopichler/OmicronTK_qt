@@ -79,8 +79,7 @@ bool LocalServer::listen()
     QLocalServer::removeServer(m_appKey);
 
     m_localServer = std::make_unique<QLocalServer>(this);
-
-    connect(m_localServer.get(), SIGNAL(newConnection()), this, SLOT(newConnection()));
+    connect(m_localServer.get(), &QLocalServer::newConnection, this, &LocalServer::newConnection);
 
     if (!m_localServer->listen(m_appKey))
     {
