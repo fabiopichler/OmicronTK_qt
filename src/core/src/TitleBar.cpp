@@ -73,7 +73,7 @@ TitleBar::TitleBar(QWidget *parent, int flags)
     layout->addWidget(m_buttonMinimize);
     layout->addWidget(m_buttonMinimizeTray);
     layout->addWidget(m_buttonClose);
-    layout->setMargin(0);
+    layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     setLayout(layout);
 

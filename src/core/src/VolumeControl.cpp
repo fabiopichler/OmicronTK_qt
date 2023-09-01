@@ -67,7 +67,7 @@ VolumeControl::VolumeControl(QWidget *parent)
     connect(m_slider, &QAbstractSlider::valueChanged, this, &VolumeControl::updateVolume);
 
     QBoxLayout *popupLayout = new QHBoxLayout(popup);
-    popupLayout->setMargin(2);
+    popupLayout->setContentsMargins(2, 2, 2, 2);
     popupLayout->addWidget(m_label);
     popupLayout->addWidget(m_slider);
     popupLayout->addSpacing(4);

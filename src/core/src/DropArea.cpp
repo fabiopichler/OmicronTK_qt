@@ -32,6 +32,7 @@
 #include <QDragEnterEvent>
 #include <QMimeData>
 #include <QString>
+#include <QRegularExpression>
 
 namespace OmicronTK {
 namespace qt {
@@ -91,7 +92,7 @@ void DropArea::dropEvent(QDropEvent *event)
         for (int i = 0; i < urls.length(); i++)
             list << urls[i].toString();
 
-        if (list.length() == 1 && list[0].contains(QRegExp(QString(".").append(m_playlistExt).append("$"), Qt::CaseInsensitive)))
+        if (list.length() == 1 && list[0].contains(QRegularExpression(QString(".").append(m_playlistExt).append("$"), QRegularExpression::CaseInsensitiveOption)))
         {
             list[0].remove(prefix);
         }
@@ -104,7 +105,7 @@ void DropArea::dropEvent(QDropEvent *event)
         {
             for (int i = list.length() - 1; i > -1; i--)
             {
-                if (list[i].contains(QRegExp(QString("^").append(prefix).append("(.*)(").append(filter).append(")$"), Qt::CaseInsensitive)))
+                if (list[i].contains(QRegularExpression(QString("^").append(prefix).append("(.*)(").append(filter).append(")$"), QRegularExpression::CaseInsensitiveOption)))
                     list[i].remove(prefix);
                 else
                     list.removeAt(i);

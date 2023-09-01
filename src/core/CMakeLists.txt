@@ -44,7 +44,7 @@ endif()
 add_library(${PROJECT_QT} SHARED ${SRC_FILES})
 
 target_link_libraries(${PROJECT_QT} PRIVATE
-    Qt5::Core
-    Qt5::Gui
-    Qt5::Widgets)
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Widgets)
     

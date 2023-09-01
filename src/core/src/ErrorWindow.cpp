@@ -88,7 +88,7 @@ void ErrorWindow::createLayouts()
     mainLayout->addWidget(m_infoLabel);
     mainLayout->addWidget(m_contentTextEdit);
     mainLayout->addLayout(buttonLayout);
-    mainLayout->setMargin(8);
+    mainLayout->setContentsMargins(8, 8, 8, 8);
     mainLayout->setSpacing(8);
 
     setLayout(mainLayout);

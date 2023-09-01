@@ -34,6 +34,7 @@
 #include <QPushButton>
 #include <QVBoxLayout>
 #include <QDirIterator>
+#include <QRegularExpression>
 
 namespace OmicronTK {
 namespace qt {
@@ -113,7 +114,7 @@ void DirectoryDialog::update(QFileInfo fileInfo)
 void DirectoryDialog::run()
 {
     QDirIterator dirIt(m_dirName, QDirIterator::Subdirectories);
-    QRegExp filter(QString(m_fileNameFilter).replace(" ", "|").remove("*."), Qt::CaseInsensitive);
+    QRegularExpression filter(QString(m_fileNameFilter).replace(" ", "|").remove("*."), QRegularExpression::CaseInsensitiveOption);
 
     while (dirIt.hasNext())
     {

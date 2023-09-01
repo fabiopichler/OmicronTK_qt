@@ -45,9 +45,9 @@ add_library(${PROJECT_QT_RUBY} SHARED ${SRC_FILES})
 target_link_directories(${PROJECT_QT_RUBY} PRIVATE ${MRUBY_LIB_PATH_UNIX64})
 
 target_link_libraries(${PROJECT_QT_RUBY} PRIVATE
-    Qt5::Core
-    Qt5::Gui
-    Qt5::Widgets
+    Qt6::Core
+    Qt6::Gui
+    Qt6::Widgets
     mruby
     ${PROJECT_QT})
     

@@ -86,7 +86,7 @@ void Slider::mouseReleaseEvent(QMouseEvent *event)
     QSlider::mouseReleaseEvent(event);
 }
 
-void Slider::enterEvent(QEvent *event)
+void Slider::enterEvent(QEnterEvent *event)
 {
     emit hover(true, event);
 

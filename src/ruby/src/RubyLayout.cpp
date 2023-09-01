@@ -107,6 +107,7 @@ static mrb_value setSpacing(mrb_state *mrb, mrb_value self)
     return mrb_nil_value();
 }
 
+// Obsoleto: Alterar para setContentsMargins
 static mrb_value setMargin(mrb_state *mrb, mrb_value self)
 {
     auto _this = static_cast<QBoxLayout *>(DATA_PTR(self));
@@ -114,7 +115,8 @@ static mrb_value setMargin(mrb_state *mrb, mrb_value self)
     mrb_value margin;
     mrb_get_args(mrb, "o", &margin);
 
-    _this->setMargin(mrb_fixnum(margin));
+    int _margin = mrb_fixnum(margin);
+    _this->setContentsMargins(_margin, _margin, _margin, _margin);
 
     return mrb_nil_value();
 }

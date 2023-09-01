@@ -262,7 +262,7 @@ void Equalizer::ok()
     for (size_t i = 0; i < 16; i++)
         val += QString("(%1, %2), ").arg(i).arg(m_values[i]);
 
-    val.remove(QRegExp(", $"));
+    val.remove(QRegularExpression(", $"));
 
     setCurrentPresetIndex(m_presetCombo->currentIndex());
     setEqualizerValues(val.toStdString());

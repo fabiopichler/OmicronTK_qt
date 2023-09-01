@@ -37,6 +37,7 @@
 #include <QDirIterator>
 #include <QFontDatabase>
 #include <QDebug>
+#include <QRegularExpression>
 
 namespace OmicronTK {
 namespace qt {
@@ -73,11 +74,11 @@ bool Theme::load()
             style,
             themePath = s_themeValue();
 
-    if (themePath.contains(QRegExp("^app:")))
-        themePath = QString(AppInfo::sharePath()).append(s_themeDir).append(themePath.remove(QRegExp("^app:"))).append("/");
+    if (themePath.contains(QRegularExpression("^app:")))
+        themePath = QString(AppInfo::sharePath()).append(s_themeDir).append(themePath.remove(QRegularExpression("^app:"))).append("/");
 
-    else if (themePath.contains(QRegExp("^config:")))
-        themePath = QString(AppInfo::configPath()).append("/themes/").append(themePath.remove(QRegExp("^config:"))).append("/");
+    else if (themePath.contains(QRegularExpression("^config:")))
+        themePath = QString(AppInfo::configPath()).append("/themes/").append(themePath.remove(QRegularExpression("^config:"))).append("/");
 
     if (!QFile::exists(QString(themePath).append("theme.ini")))
     {
@@ -96,10 +97,10 @@ bool Theme::load()
 
     delete s_settings;
     s_settings = new QSettings(QString(themePath).append("theme.ini"), QSettings::IniFormat);
-    s_settings->setIniCodec("UTF-8");
+    //s_settings->setIniCodec("UTF-8");
 
     QDirIterator dirIterator(QString(themePath).append("fonts"), QDirIterator::Subdirectories);
-    QRegExp suffix("ttf", Qt::CaseInsensitive);
+    QRegularExpression suffix("ttf", QRegularExpression::CaseInsensitiveOption);
 
     while (dirIterator.hasNext())
     {
@@ -180,7 +181,7 @@ QVector<QVector<QString> > Theme::themes()
             {
                 QVector<QString> values;
                 QSettings ini(iniPath, QSettings::IniFormat);
-                ini.setIniCodec("UTF-8");
+                //ini.setIniCodec("UTF-8");
 
                 values << ini.value("Info/Name", "Unnamed").toString();
                 values << QString((i == 0 ? "app:" : "config:")).append(dir.fileName());

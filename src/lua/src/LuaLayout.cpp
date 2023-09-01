@@ -96,12 +96,15 @@ static void setSpacing(CallbackInfo &info)
     self->setSpacing(info.getInteger(2));
 }
 
+// Obsoleto: Alterar para setContentsMargins
 static void setMargin(CallbackInfo &info)
 {
     info.required(2);
 
     QBoxLayout *self = info.checkUserData<QBoxLayout>(1, className);
-    self->setMargin(info.getInteger(2));
+
+    int _margin = info.getInteger(2);
+    self->setContentsMargins(_margin, _margin, _margin, _margin);
 }
 
 static void addStretch(CallbackInfo &info)

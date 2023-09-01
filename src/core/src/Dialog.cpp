@@ -94,7 +94,7 @@ void Dialog::setLayout(QLayout *layout)
 
 int Dialog::marginLayout() const
 {
-    return m_mainLayout->margin();
+    return m_mainLayout->contentsMargins().left();
 }
 
 int Dialog::spacingLayout() const
@@ -104,7 +104,7 @@ int Dialog::spacingLayout() const
 
 void Dialog::setMarginLayout(int margin)
 {
-    m_mainLayout->setMargin(margin);
+    m_mainLayout->setContentsMargins(margin, margin, margin, margin);
 }
 
 void Dialog::setSpacingLayout(int spacing)
@@ -130,7 +130,7 @@ void Dialog::paintEvent(QPaintEvent *)
     QStyleOption o;
     QPainter p(this);
 
-    o.init(this);
+    o.initFrom(this);
     style()->drawPrimitive(QStyle::PE_Widget, &o, &p, this);
 }
 
