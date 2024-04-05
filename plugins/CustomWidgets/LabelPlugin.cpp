@@ -27,42 +27,75 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/TitleBarWidget.hpp"
+#include "../../include/OmicronTK/qt/Label.hpp"
+#include "LabelPlugin.hpp"
 
-#include <QLabel>
-#include <QPushButton>
-#include <QApplication>
-#include <QMouseEvent>
+#include <QtPlugin>
 
 namespace OmicronTK {
 namespace qt {
 
-TitleBarWidget::TitleBarWidget(QWidget *parent)
-    : Widget(parent),
-      m_mainWindow(parent)
+LabelPlugin::LabelPlugin(QObject *parent) : QObject(parent)
 {
+    m_initialized = false;
 }
 
-void TitleBarWidget::closeApp()
+void LabelPlugin::initialize(QDesignerFormEditorInterface * /* core */)
 {
-    m_mainWindow->hide();
-    qApp->quit();
+    if (m_initialized)
+        return;
+
+    m_initialized = true;
 }
 
-//================================================================================================================
-// private
-//================================================================================================================
-
-void TitleBarWidget::mousePressEvent(QMouseEvent *event)
+bool LabelPlugin::isInitialized() const
 {
-    if (event->button() == Qt::LeftButton)
-        m_cursor = mapToParent(event->pos());
+    return m_initialized;
 }
 
-void TitleBarWidget::mouseMoveEvent(QMouseEvent *event)
+QWidget *LabelPlugin::createWidget(QWidget *parent)
 {
-    if (m_mainWindow && event->buttons() == Qt::LeftButton)
-        m_mainWindow->move(event->globalPosition().toPoint() - m_cursor);
+    return new Label(parent);
+}
+
+QString LabelPlugin::name() const
+{
+    return QLatin1String("MyLabel");
+}
+
+QString LabelPlugin::group() const
+{
+    return QLatin1String("");
+}
+
+QIcon LabelPlugin::icon() const
+{
+    return QIcon();
+}
+
+QString LabelPlugin::toolTip() const
+{
+    return QLatin1String("");
+}
+
+QString LabelPlugin::whatsThis() const
+{
+    return QLatin1String("");
+}
+
+bool LabelPlugin::isContainer() const
+{
+    return false;
+}
+
+QString LabelPlugin::domXml() const
+{
+    return QLatin1String("<widget class=\"MyLabel\" name=\"myLabel\">\n</widget>\n");
+}
+
+QString LabelPlugin::includeFile() const
+{
+    return QLatin1String("mylabel.h");
 }
 
 }

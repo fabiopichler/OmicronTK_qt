@@ -20,7 +20,7 @@ endif()
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/lib/linux64/debug)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/lib/linux64)
 
-find_package(Qt6 6.1 COMPONENTS Core Gui Widgets Network REQUIRED)
+find_package(Qt6 6.1 COMPONENTS Core Gui Widgets Network UiTools Designer REQUIRED)
 
 include("${CMAKE_SOURCE_DIR}/.env.cmake")
 
@@ -28,4 +28,5 @@ add_definitions(-DQT_DEPRECATED_WARNINGS)
 
 include_directories(include)
 
+add_subdirectory(plugins)
 add_subdirectory(src)

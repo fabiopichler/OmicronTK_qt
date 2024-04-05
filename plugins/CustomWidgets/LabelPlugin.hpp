@@ -27,43 +27,37 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/TitleBarWidget.hpp"
+#pragma once
 
-#include <QLabel>
-#include <QPushButton>
-#include <QApplication>
-#include <QMouseEvent>
+#include <qglobal.h>
+#include <QtUiPlugin/QDesignerCustomWidgetInterface>
 
 namespace OmicronTK {
 namespace qt {
 
-TitleBarWidget::TitleBarWidget(QWidget *parent)
-    : Widget(parent),
-      m_mainWindow(parent)
+class LabelPlugin : public QObject, public QDesignerCustomWidgetInterface
 {
-}
+    Q_OBJECT
+    Q_INTERFACES(QDesignerCustomWidgetInterface)
 
-void TitleBarWidget::closeApp()
-{
-    m_mainWindow->hide();
-    qApp->quit();
-}
+public:
+    LabelPlugin(QObject *parent = 0);
 
-//================================================================================================================
-// private
-//================================================================================================================
+    bool isContainer() const;
+    bool isInitialized() const;
+    QIcon icon() const;
+    QString domXml() const;
+    QString group() const;
+    QString includeFile() const;
+    QString name() const;
+    QString toolTip() const;
+    QString whatsThis() const;
+    QWidget *createWidget(QWidget *parent);
+    void initialize(QDesignerFormEditorInterface *core);
 
-void TitleBarWidget::mousePressEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton)
-        m_cursor = mapToParent(event->pos());
-}
-
-void TitleBarWidget::mouseMoveEvent(QMouseEvent *event)
-{
-    if (m_mainWindow && event->buttons() == Qt::LeftButton)
-        m_mainWindow->move(event->globalPosition().toPoint() - m_cursor);
-}
+private:
+    bool m_initialized;
+};
 
 }
 }

@@ -27,42 +27,75 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/TitleBarWidget.hpp"
+#include "../../include/OmicronTK/qt/Slider.hpp"
+#include "SliderPlugin.hpp"
 
-#include <QLabel>
-#include <QPushButton>
-#include <QApplication>
-#include <QMouseEvent>
+#include <QtPlugin>
 
 namespace OmicronTK {
 namespace qt {
 
-TitleBarWidget::TitleBarWidget(QWidget *parent)
-    : Widget(parent),
-      m_mainWindow(parent)
+SliderPlugin::SliderPlugin(QObject *parent) : QObject(parent)
 {
+    m_initialized = false;
 }
 
-void TitleBarWidget::closeApp()
+void SliderPlugin::initialize(QDesignerFormEditorInterface * /* core */)
 {
-    m_mainWindow->hide();
-    qApp->quit();
+    if (m_initialized)
+        return;
+
+    m_initialized = true;
 }
 
-//================================================================================================================
-// private
-//================================================================================================================
-
-void TitleBarWidget::mousePressEvent(QMouseEvent *event)
+bool SliderPlugin::isInitialized() const
 {
-    if (event->button() == Qt::LeftButton)
-        m_cursor = mapToParent(event->pos());
+    return m_initialized;
 }
 
-void TitleBarWidget::mouseMoveEvent(QMouseEvent *event)
+QWidget *SliderPlugin::createWidget(QWidget *parent)
 {
-    if (m_mainWindow && event->buttons() == Qt::LeftButton)
-        m_mainWindow->move(event->globalPosition().toPoint() - m_cursor);
+    return new Slider(parent);
+}
+
+QString SliderPlugin::name() const
+{
+    return QLatin1String("MySlider");
+}
+
+QString SliderPlugin::group() const
+{
+    return QLatin1String("");
+}
+
+QIcon SliderPlugin::icon() const
+{
+    return QIcon();
+}
+
+QString SliderPlugin::toolTip() const
+{
+    return QLatin1String("");
+}
+
+QString SliderPlugin::whatsThis() const
+{
+    return QLatin1String("");
+}
+
+bool SliderPlugin::isContainer() const
+{
+    return false;
+}
+
+QString SliderPlugin::domXml() const
+{
+    return QLatin1String("<widget class=\"MySlider\" name=\"mySlider\">\n</widget>\n");
+}
+
+QString SliderPlugin::includeFile() const
+{
+    return QLatin1String("myslider.h");
 }
 
 }

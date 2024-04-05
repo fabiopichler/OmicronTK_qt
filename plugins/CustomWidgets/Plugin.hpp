@@ -27,43 +27,22 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/TitleBarWidget.hpp"
+#pragma once
 
-#include <QLabel>
-#include <QPushButton>
-#include <QApplication>
-#include <QMouseEvent>
+#include <QtDesigner>
+#include <qplugin.h>
 
-namespace OmicronTK {
-namespace qt {
-
-TitleBarWidget::TitleBarWidget(QWidget *parent)
-    : Widget(parent),
-      m_mainWindow(parent)
+class Plugin : public QObject, public QDesignerCustomWidgetCollectionInterface
 {
-}
+    Q_OBJECT
+    Q_INTERFACES(QDesignerCustomWidgetCollectionInterface)
+    Q_PLUGIN_METADATA(IID "org.qt-project.Qt.QDesignerCustomWidgetCollectionInterface")
 
-void TitleBarWidget::closeApp()
-{
-    m_mainWindow->hide();
-    qApp->quit();
-}
+public:
+    explicit Plugin(QObject *parent = nullptr);
 
-//================================================================================================================
-// private
-//================================================================================================================
+    virtual QList<QDesignerCustomWidgetInterface *> customWidgets() const;
 
-void TitleBarWidget::mousePressEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton)
-        m_cursor = mapToParent(event->pos());
-}
-
-void TitleBarWidget::mouseMoveEvent(QMouseEvent *event)
-{
-    if (m_mainWindow && event->buttons() == Qt::LeftButton)
-        m_mainWindow->move(event->globalPosition().toPoint() - m_cursor);
-}
-
-}
-}
+private:
+    QList<QDesignerCustomWidgetInterface*> m_widgets;
+};

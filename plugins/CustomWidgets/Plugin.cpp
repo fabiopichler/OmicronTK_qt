@@ -27,43 +27,20 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/TitleBarWidget.hpp"
+#include "Plugin.hpp"
 
-#include <QLabel>
-#include <QPushButton>
-#include <QApplication>
-#include <QMouseEvent>
+#include "ComboBoxPlugin.hpp"
+#include "SliderPlugin.hpp"
+#include "LabelPlugin.hpp"
 
-namespace OmicronTK {
-namespace qt {
-
-TitleBarWidget::TitleBarWidget(QWidget *parent)
-    : Widget(parent),
-      m_mainWindow(parent)
+Plugin::Plugin(QObject *parent) : QObject(parent)
 {
+    m_widgets.append(new OmicronTK::qt::ComboBoxPlugin(this));
+    m_widgets.append(new OmicronTK::qt::SliderPlugin(this));
+    m_widgets.append(new OmicronTK::qt::LabelPlugin(this));
 }
 
-void TitleBarWidget::closeApp()
+QList<QDesignerCustomWidgetInterface *> Plugin::customWidgets() const
 {
-    m_mainWindow->hide();
-    qApp->quit();
-}
-
-//================================================================================================================
-// private
-//================================================================================================================
-
-void TitleBarWidget::mousePressEvent(QMouseEvent *event)
-{
-    if (event->button() == Qt::LeftButton)
-        m_cursor = mapToParent(event->pos());
-}
-
-void TitleBarWidget::mouseMoveEvent(QMouseEvent *event)
-{
-    if (m_mainWindow && event->buttons() == Qt::LeftButton)
-        m_mainWindow->move(event->globalPosition().toPoint() - m_cursor);
-}
-
-}
+    return m_widgets;
 }

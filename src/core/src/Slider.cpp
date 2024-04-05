@@ -66,7 +66,7 @@ void Slider::mouseReleaseEvent(QMouseEvent *event)
         m_sendEvent = false;
 
         double halfHandleWidth = (0.5 * 9) + 0.5;
-        double adaptedPosX = event->x();
+        double adaptedPosX = event->position().x();
 
         if (adaptedPosX < halfHandleWidth)
             adaptedPosX = halfHandleWidth;

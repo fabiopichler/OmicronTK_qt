@@ -30,6 +30,10 @@
 #include "OmicronTK/qt/Theme.hpp"
 #include "OmicronTK/qt/AppInfo.hpp"
 
+#include "OmicronTK/qt/Label.hpp"
+#include "OmicronTK/qt/ComboBox.hpp"
+#include "OmicronTK/qt/Slider.hpp"
+
 #include <QFile>
 #include <QMessageBox>
 #include <QSettings>
@@ -38,9 +42,36 @@
 #include <QFontDatabase>
 #include <QDebug>
 #include <QRegularExpression>
+#include <QUiLoader>
 
 namespace OmicronTK {
 namespace qt {
+
+class MyUiLoader : public QUiLoader
+{
+    template<typename T>
+    QWidget *createWidget(QWidget *parent, const QString &name)
+    {
+        QWidget *widget = new T(parent);
+        widget->setObjectName(name);
+        return widget;
+    }
+
+public:
+    explicit MyUiLoader(QObject *parent = nullptr) : QUiLoader(parent) {}
+
+    QWidget *createWidget(const QString &className, QWidget *parent = nullptr, const QString &name = QString()) override
+    {
+        if (className == "MyLabel")
+            return createWidget<Label>(parent, name);
+        else if (className == "MyComboBox")
+            return createWidget<ComboBox>(parent, name);
+        else if (className == "MySlider")
+            return createWidget<Slider>(parent, name);
+
+        return QUiLoader::createWidget(className, parent, name);
+    }
+};
 
 QSettings *Theme::s_settings = nullptr;
 QString Theme::s_defaultTheme;
@@ -133,6 +164,29 @@ bool Theme::load()
     qApp->setStyleSheet(css);
 
     return true;
+}
+
+QWidget *Theme::loadUi(const QString &fileName, QWidget *parent, const QVector<QString> &pluginPaths)
+{
+    QWidget *uiWidget = nullptr;
+    QFile file(AppInfo::themePath() + fileName);
+
+#if 0
+    QUiLoader loader;
+
+    loader.addPluginPath(AppInfo::pluginsPath() + "/designer");
+
+    for (const auto &path : pluginPaths)
+        loader.addPluginPath(path);
+#else
+    MyUiLoader loader;
+#endif
+
+    if (!file.open(QFile::ReadOnly) || !(uiWidget = loader.load(&file, parent)))
+        setCurrentTheme(s_defaultTheme);
+
+    file.close();
+    return uiWidget;
 }
 
 bool Theme::setCurrentTheme(const QString &name)

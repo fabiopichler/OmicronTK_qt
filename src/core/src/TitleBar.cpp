@@ -105,7 +105,7 @@ void TitleBar::mousePressEvent(QMouseEvent *event)
 void TitleBar::mouseMoveEvent(QMouseEvent *event)
 {
     if (event->buttons() == Qt::LeftButton)
-        m_parent->move(event->globalPos() - m_cursor);
+        m_parent->move(event->globalPosition().toPoint() - m_cursor);
 }
 
 //================================================================================================================

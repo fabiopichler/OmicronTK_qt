@@ -27,42 +27,75 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/TitleBarWidget.hpp"
+#include "../../include/OmicronTK/qt/ComboBox.hpp"
+#include "ComboBoxPlugin.hpp"
 
-#include <QLabel>
-#include <QPushButton>
-#include <QApplication>
-#include <QMouseEvent>
+#include <QtPlugin>
 
 namespace OmicronTK {
 namespace qt {
 
-TitleBarWidget::TitleBarWidget(QWidget *parent)
-    : Widget(parent),
-      m_mainWindow(parent)
+ComboBoxPlugin::ComboBoxPlugin(QObject *parent) : QObject(parent)
 {
+    m_initialized = false;
 }
 
-void TitleBarWidget::closeApp()
+void ComboBoxPlugin::initialize(QDesignerFormEditorInterface * /* core */)
 {
-    m_mainWindow->hide();
-    qApp->quit();
+    if (m_initialized)
+        return;
+
+    m_initialized = true;
 }
 
-//================================================================================================================
-// private
-//================================================================================================================
-
-void TitleBarWidget::mousePressEvent(QMouseEvent *event)
+bool ComboBoxPlugin::isInitialized() const
 {
-    if (event->button() == Qt::LeftButton)
-        m_cursor = mapToParent(event->pos());
+    return m_initialized;
 }
 
-void TitleBarWidget::mouseMoveEvent(QMouseEvent *event)
+QWidget *ComboBoxPlugin::createWidget(QWidget *parent)
 {
-    if (m_mainWindow && event->buttons() == Qt::LeftButton)
-        m_mainWindow->move(event->globalPosition().toPoint() - m_cursor);
+    return new ComboBox(parent);
+}
+
+QString ComboBoxPlugin::name() const
+{
+    return QLatin1String("MyComboBox");
+}
+
+QString ComboBoxPlugin::group() const
+{
+    return QLatin1String("");
+}
+
+QIcon ComboBoxPlugin::icon() const
+{
+    return QIcon();
+}
+
+QString ComboBoxPlugin::toolTip() const
+{
+    return QLatin1String("");
+}
+
+QString ComboBoxPlugin::whatsThis() const
+{
+    return QLatin1String("");
+}
+
+bool ComboBoxPlugin::isContainer() const
+{
+    return false;
+}
+
+QString ComboBoxPlugin::domXml() const
+{
+    return QLatin1String("<widget class=\"MyComboBox\" name=\"myComboBox\">\n</widget>\n");
+}
+
+QString ComboBoxPlugin::includeFile() const
+{
+    return QLatin1String("mycombobox.h");
 }
 
 }

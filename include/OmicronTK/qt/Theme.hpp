@@ -48,7 +48,7 @@ public:
     static bool init(const QString &dtheme);
     static void free();
     static bool load();
-    static QWidget *loadUi(const QString &, QWidget * = nullptr, const QVector<QString> &pluginPaths = QVector<QString>());
+    static QWidget *loadUi(const QString &fileName, QWidget *parent = nullptr, const QVector<QString> &pluginPaths = {});
     static bool setCurrentTheme(const QString &);
     static QVariant get(const QString &key, const QVariant &value = QVariant());
     static QString getString(const QString &key, const QVariant &value = QVariant());
