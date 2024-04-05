@@ -42,7 +42,7 @@ class TitleBar;
 
 enum
 {
-    DIALOG
+    DIALOG = 2,
 };
 
 enum TitleBarPolicy

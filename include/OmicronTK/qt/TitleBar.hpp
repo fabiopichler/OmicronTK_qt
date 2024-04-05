@@ -42,7 +42,10 @@ class OTKQT_CORE_EXPORT TitleBar : public Widget
     Q_OBJECT
 
 public:
-    TitleBar(QWidget *parent, int flags = -1);
+    TitleBar(QWidget *parent, int flags = 0, bool isDesigner = false);
+
+public slots:
+    void setTitle(const QString &title);
 
 private:
     void mousePressEvent(QMouseEvent *) override;

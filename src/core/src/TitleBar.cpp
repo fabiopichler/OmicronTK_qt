@@ -30,6 +30,7 @@
 #include "OmicronTK/qt/TitleBar.hpp"
 #include "OmicronTK/qt/AppInfo.hpp"
 #include "OmicronTK/qt/Dialog.hpp"
+#include "OmicronTK/qt/Theme.hpp"
 
 #include <QLabel>
 #include <QPushButton>
@@ -40,44 +41,71 @@
 namespace OmicronTK {
 namespace qt {
 
-TitleBar::TitleBar(QWidget *parent, int flags)
+TitleBar::TitleBar(QWidget *parent, int flags, bool isDesigner)
     : Widget(parent),
       m_parent(parent)
 {
-    setObjectName("titleBar");
+    QWidget *uiWidget = nullptr;
 
-    m_titleIcon = new QLabel;
-    m_titleIcon->setObjectName("windowIcon");
+    if (isDesigner)
+    {
+        if (!(uiWidget = Theme::loadUi("TitleBar.xml", this)))
+        {
+            throw std::runtime_error(
+                "Ops! Algo deu errado...\nHouve um erro ao carregar o arquivo \"TitleBar.xml\" do tema atual.");
+            return;
+        }
+
+        m_titleIcon = uiWidget->findChild<QLabel *>("windowIconLabel");
+        m_label = uiWidget->findChild<QLabel *>("windowTitleLabel");
+        m_buttonMinimize = uiWidget->findChild<QPushButton *>("minimizeButton");
+        m_buttonMinimizeTray = uiWidget->findChild<QPushButton *>("minimizeTrayButton");
+        m_buttonClose = uiWidget->findChild<QPushButton *>("closeButton");
+    }
+    else
+    {
+        m_titleIcon = new QLabel;
+        m_label = new QLabel;
+        m_buttonMinimize = new QPushButton;
+        m_buttonMinimizeTray = new QPushButton;
+        m_buttonClose = new QPushButton;
+
+        setObjectName("titleBar");
+        m_titleIcon->setObjectName("windowIconLabel");
+        m_label->setObjectName("windowTitleLabel");
+        m_buttonMinimize->setObjectName("minimizeButton");
+        m_buttonMinimizeTray->setObjectName("minimizeTrayButton");
+        m_buttonClose->setObjectName("closeButton");
+    }
+
     m_titleIcon->setPixmap(QPixmap(QString(AppInfo::sharePath()).append("/icon.png")));
-
-    m_label = new QLabel;
     m_label->setObjectName("windowTitle");
     m_label->setText(parent->windowTitle());
-
-    m_buttonMinimize = new QPushButton;
-    m_buttonMinimize->setObjectName("minimizeButton");
     m_buttonMinimize->setToolTip("Minimizar");
-
-    m_buttonMinimizeTray = new QPushButton;
-    m_buttonMinimizeTray->setObjectName("minimizeTrayButton");
     m_buttonMinimizeTray->setToolTip("Minimizar para a Bandeja");
-
-    m_buttonClose = new QPushButton;
-    m_buttonClose->setObjectName("closeButton");
     m_buttonClose->setToolTip("Fechar");
 
-    QHBoxLayout *layout = new QHBoxLayout;
-    layout->addWidget(m_titleIcon);
-    layout->addWidget(m_label);
-    layout->addStretch(1);
-    layout->addWidget(m_buttonMinimize);
-    layout->addWidget(m_buttonMinimizeTray);
-    layout->addWidget(m_buttonClose);
+    auto layout = new QHBoxLayout;
+
+    if (isDesigner)
+    {
+        layout->addWidget(uiWidget);
+    }
+    else
+    {
+        layout->addWidget(m_titleIcon);
+        layout->addWidget(m_label);
+        layout->addStretch(1);
+        layout->addWidget(m_buttonMinimize);
+        layout->addWidget(m_buttonMinimizeTray);
+        layout->addWidget(m_buttonClose);
+    }
+
     layout->setContentsMargins(0, 0, 0, 0);
     layout->setSpacing(0);
     setLayout(layout);
 
-    if (flags == DIALOG)
+    if (flags & DIALOG)
     {
         m_buttonMinimize->hide();
         m_buttonMinimizeTray->hide();
@@ -90,6 +118,11 @@ TitleBar::TitleBar(QWidget *parent, int flags)
         connect(m_buttonMinimizeTray, SIGNAL(clicked()), parent, SLOT(hide()));
         connect(m_buttonClose, SIGNAL(clicked()), this, SLOT(quitApp()));
     }
+}
+
+void TitleBar::setTitle(const QString &title)
+{
+    m_label->setText(title);
 }
 
 //================================================================================================================
