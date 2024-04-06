@@ -30,10 +30,6 @@
 #include "OmicronTK/qt/Theme.hpp"
 #include "OmicronTK/qt/AppInfo.hpp"
 
-#include "OmicronTK/qt/Label.hpp"
-#include "OmicronTK/qt/ComboBox.hpp"
-#include "OmicronTK/qt/Slider.hpp"
-
 #include <QFile>
 #include <QMessageBox>
 #include <QSettings>
@@ -49,25 +45,24 @@ namespace qt {
 
 class MyUiLoader : public QUiLoader
 {
-    template<typename T>
-    QWidget *createWidget(QWidget *parent, const QString &name)
-    {
-        QWidget *widget = new T(parent);
-        widget->setObjectName(name);
-        return widget;
-    }
+    const QVector<MyUiLoaderWidget> &m_customWidgets;
 
 public:
-    explicit MyUiLoader(QObject *parent = nullptr) : QUiLoader(parent) {}
+    explicit MyUiLoader(const QVector<MyUiLoaderWidget> &customWidgets, QObject *parent = nullptr)
+        : QUiLoader(parent)
+        , m_customWidgets(customWidgets) {}
 
     QWidget *createWidget(const QString &className, QWidget *parent = nullptr, const QString &name = QString()) override
     {
-        if (className == "MyLabel")
-            return createWidget<Label>(parent, name);
-        else if (className == "MyComboBox")
-            return createWidget<ComboBox>(parent, name);
-        else if (className == "MySlider")
-            return createWidget<Slider>(parent, name);
+        for (const auto &customWidget : m_customWidgets)
+        {
+            if (customWidget.className == className && customWidget.callback)
+            {
+                QWidget *widget = customWidget.callback(parent);
+                widget->setObjectName(name);
+                return widget;
+            }
+        }
 
         return QUiLoader::createWidget(className, parent, name);
     }
@@ -166,7 +161,8 @@ bool Theme::load()
     return true;
 }
 
-QWidget *Theme::loadUi(const QString &fileName, QWidget *parent, const QVector<QString> &pluginPaths)
+QWidget *Theme::loadUi(const QString &fileName, QWidget *parent, const QVector<MyUiLoaderWidget> &customWidgets,
+                       const QVector<QString> &pluginPaths)
 {
     QWidget *uiWidget = nullptr;
     QFile file(AppInfo::themePath() + fileName);
@@ -179,7 +175,7 @@ QWidget *Theme::loadUi(const QString &fileName, QWidget *parent, const QVector<Q
     for (const auto &path : pluginPaths)
         loader.addPluginPath(path);
 #else
-    MyUiLoader loader;
+    MyUiLoader loader(customWidgets);
 #endif
 
     if (!file.open(QFile::ReadOnly) || !(uiWidget = loader.load(&file, parent)))
