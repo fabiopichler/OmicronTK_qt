@@ -38,7 +38,7 @@ ComboBox::ComboBox(QWidget *parent)
     : QComboBox(parent)
 {
     QListView *listView = new QListView;
-    listView->setObjectName("ComboBox");
+    listView->setProperty("class", "ComboBoxListView");
     setView(listView);
 }
 

@@ -62,7 +62,7 @@ Dialog::Dialog(QWidget *parent, TitleBarPolicy policy)
 
     m_mainLayout = new QVBoxLayout;
 
-    setObjectName("dialog");
+    setProperty("class", "dialog");
     setAttribute(Qt::WA_TranslucentBackground);
     setWindowTitle(AppInfo::appName());
 }

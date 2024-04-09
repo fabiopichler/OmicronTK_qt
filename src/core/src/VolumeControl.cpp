@@ -51,7 +51,7 @@ VolumeControl::VolumeControl(QWidget *parent)
 
     m_button = new QPushButton(popup);
     m_button->setObjectName("volumeButton");
-    m_button->setProperty("class", "iconButton iconButton2");
+    m_button->setProperty("class", "iconButton smallIconButton");
     m_button->setToolTip("Desativar som");
 
     m_slider = new Slider(popup);

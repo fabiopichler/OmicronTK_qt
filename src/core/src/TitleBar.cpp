@@ -70,7 +70,7 @@ TitleBar::TitleBar(QWidget *parent, int flags, bool isDesigner)
         m_buttonMinimizeTray = new QPushButton;
         m_buttonClose = new QPushButton;
 
-        setObjectName("titleBar");
+        setProperty("class", "titleBar");
         m_titleIcon->setObjectName("windowIconLabel");
         m_label->setObjectName("windowTitleLabel");
         m_buttonMinimize->setObjectName("minimizeButton");

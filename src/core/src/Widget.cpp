@@ -47,6 +47,12 @@ void Widget::updateStyle(QWidget *widget)
     widget->update();
 }
 
+void Widget::updateStyle(const std::vector<QWidget *> &widgets)
+{
+    for (QWidget *widget : widgets)
+        updateStyle(widget);
+}
+
 void Widget::paintEvent(QPaintEvent *)
 {
     QStyleOption opt;

@@ -43,6 +43,7 @@ class OTKQT_CORE_EXPORT Widget : public QWidget
 public:
     explicit Widget(QWidget *parent = nullptr);
     static void updateStyle(QWidget *widget);
+    static void updateStyle(const std::vector<QWidget *> &widgets);
 
 private:
     void paintEvent(QPaintEvent *) override;
