@@ -64,9 +64,9 @@ signals:
     void volumeChanged(int volume);
 
 private:
-    QPushButton *m_button;
-    QLabel *m_label;
-    Slider *m_slider;
+    QPushButton *m_muteButton;
+    QLabel *m_volumeLabel;
+    Slider *m_volumeSlider;
     bool m_mute;
 };
 

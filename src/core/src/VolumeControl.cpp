@@ -49,30 +49,29 @@ VolumeControl::VolumeControl(QWidget *parent)
     QWidget *popup = new QWidget(this);
     popup->setMinimumWidth(240);
 
-    m_button = new QPushButton(popup);
-    m_button->setObjectName("volumeButton");
-    m_button->setProperty("class", "iconButton smallIconButton");
-    m_button->setToolTip("Desativar som");
+    m_muteButton = new QPushButton(popup);
+    m_muteButton->setProperty("class", "muteButton iconButton smallIconButton");
+    m_muteButton->setToolTip("Desativar som");
 
-    m_slider = new Slider(popup);
-    m_slider->setOrientation(Qt::Horizontal);
-    m_slider->setRange(0, 100);
+    m_volumeSlider = new Slider(popup);
+    m_volumeSlider->setOrientation(Qt::Horizontal);
+    m_volumeSlider->setRange(0, 100);
 
-    m_label = new QLabel(popup);
-    m_label->setAlignment(Qt::AlignCenter);
-    m_label->setText("0%");
-    m_label->setMinimumWidth(45);
+    m_volumeLabel = new QLabel(popup);
+    m_volumeLabel->setAlignment(Qt::AlignCenter);
+    m_volumeLabel->setText("0%");
+    m_volumeLabel->setMinimumWidth(45);
 
-    connect(m_button, &QPushButton::clicked, this, &VolumeControl::changeMute);
-    connect(m_slider, &QAbstractSlider::valueChanged, this, &VolumeControl::volumeChanged);
-    connect(m_slider, &QAbstractSlider::valueChanged, this, &VolumeControl::updateVolume);
+    connect(m_muteButton, &QPushButton::clicked, this, &VolumeControl::changeMute);
+    connect(m_volumeSlider, &QAbstractSlider::valueChanged, this, &VolumeControl::volumeChanged);
+    connect(m_volumeSlider, &QAbstractSlider::valueChanged, this, &VolumeControl::updateVolume);
 
     QBoxLayout *popupLayout = new QHBoxLayout(popup);
     popupLayout->setContentsMargins(2, 2, 2, 2);
-    popupLayout->addWidget(m_label);
-    popupLayout->addWidget(m_slider);
+    popupLayout->addWidget(m_volumeLabel);
+    popupLayout->addWidget(m_volumeSlider);
     popupLayout->addSpacing(4);
-    popupLayout->addWidget(m_button);
+    popupLayout->addWidget(m_muteButton);
 
     QWidgetAction *action = new QWidgetAction(this);
     action->setDefaultWidget(popup);
@@ -86,7 +85,7 @@ VolumeControl::VolumeControl(QWidget *parent)
 
 int VolumeControl::volume() const
 {
-    return m_slider->value();
+    return m_volumeSlider->value();
 }
 
 //================================================================================================================
@@ -95,7 +94,7 @@ int VolumeControl::volume() const
 
 void VolumeControl::setVolume(int volume)
 {
-    m_slider->setValue(volume);
+    m_volumeSlider->setValue(volume);
 }
 
 //================================================================================================================
@@ -104,7 +103,7 @@ void VolumeControl::setVolume(int volume)
 
 void VolumeControl::updateVolume(int volume)
 {
-    m_label->setText(QString(QString::number(volume)).append("%"));
+    m_volumeLabel->setText(QString(QString::number(volume)).append("%"));
     mute(false, false);
 }
 
@@ -130,8 +129,8 @@ void VolumeControl::mute(bool act, bool event)
         m_mute = true;
 
         setProperty("mute", true);
-        m_button->setProperty("mute", true);
-        m_button->setToolTip("Ativar som");
+        m_muteButton->setProperty("mute", true);
+        m_muteButton->setToolTip("Ativar som");
 
         if (event)
             emit volumeChanged(0);
@@ -141,14 +140,14 @@ void VolumeControl::mute(bool act, bool event)
         m_mute = false;
 
         setProperty("mute", false);
-        m_button->setProperty("mute", false);
-        m_button->setToolTip("Desativar som");
+        m_muteButton->setProperty("mute", false);
+        m_muteButton->setToolTip("Desativar som");
 
         if (event)
-            emit volumeChanged(m_slider->value());
+            emit volumeChanged(m_volumeSlider->value());
     }
 
-    Widget::updateStyle(m_button);
+    Widget::updateStyle(m_muteButton);
     Widget::updateStyle(this);
 }
 
