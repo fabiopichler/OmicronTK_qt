@@ -42,7 +42,7 @@ class OTKQT_CORE_EXPORT TitleBar : public Widget
     Q_OBJECT
 
 public:
-    TitleBar(QWidget *parent, int flags = 0, bool isDesigner = false);
+    TitleBar(QWidget *parent, int flags = 0, QWidget *uiWidget = nullptr);
 
 public slots:
     void setTitle(const QString &title);
@@ -55,10 +55,9 @@ private slots:
     void quitApp();
 
 public:
-    QLabel *m_label;
+    QLabel *m_titleLabel;
 
 private:
-    QWidget *m_parent;
     QLabel *m_titleIcon;
     QPushButton *m_buttonMinimize, *m_buttonMinimizeTray, *m_buttonClose;
     QPoint m_cursor;

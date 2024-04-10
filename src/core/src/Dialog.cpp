@@ -73,8 +73,8 @@ Dialog::~Dialog()
 
 void Dialog::setWindowTitle(const QString &title)
 {
-    if (m_titleBar && m_titleBar->m_label)
-        m_titleBar->m_label->setText(title);
+    if (m_titleBar && m_titleBar->m_titleLabel)
+        m_titleBar->m_titleLabel->setText(title);
 
     QDialog::setWindowTitle(title);
 }
