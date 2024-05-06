@@ -37,8 +37,8 @@ else()
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_DEBUG ${CMAKE_SOURCE_DIR}/bin/linux64/debug)
     set(CMAKE_RUNTIME_OUTPUT_DIRECTORY_RELEASE ${CMAKE_SOURCE_DIR}/bin/linux64)
 
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-rpath,\'$ORIGIN\',-z,origin")
-    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -Wl,-rpath,\'$ORIGIN\',-z,origin")
+    string(APPEND CMAKE_EXE_LINKER_FLAGS " -Wl,-rpath,\'$ORIGIN\',-z,origin")
+    string(APPEND CMAKE_SHARED_LINKER_FLAGS " -Wl,-rpath,\'$ORIGIN\',-z,origin -Wl,--no-undefined -Wl,--as-needed")
 endif()
 
 if(WIN32)
