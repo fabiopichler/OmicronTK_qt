@@ -22,7 +22,7 @@ set(SRC_FILES
 )
 
 if(WIN32)
-    set(SRC_FILES ${SRC_FILES} plugin.rc)
+    #set(SRC_FILES ${SRC_FILES} plugin.rc)
 endif()
 
 add_library(${PROJECT} SHARED ${SRC_FILES})

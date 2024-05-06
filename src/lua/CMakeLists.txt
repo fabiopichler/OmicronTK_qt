@@ -36,7 +36,7 @@ set(SRC_FILES
     ../../include/OmicronTK/qt/lua/LuaWidgetWrapper.hpp)
 
 if(WIN32)
-    set(SRC_FILES ${SRC_FILES} rc/lua.rc)
+    #set(SRC_FILES ${SRC_FILES} rc/lua.rc)
 endif()
 
 add_library(${PROJECT_QT_LUA} SHARED ${SRC_FILES})

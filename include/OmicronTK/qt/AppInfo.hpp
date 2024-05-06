@@ -31,6 +31,8 @@
 
 #include "global.h"
 
+#include <QString>
+
 namespace OmicronTK {
 namespace qt {
 

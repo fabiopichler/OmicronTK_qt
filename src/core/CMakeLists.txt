@@ -38,7 +38,7 @@ set(SRC_FILES
     ../../include/OmicronTK/qt/version.h)
 
 if(WIN32)
-    set(SRC_FILES ${SRC_FILES} rc/core.rc)
+    #set(SRC_FILES ${SRC_FILES} rc/core.rc)
 endif()
 
 add_library(${PROJECT_QT} SHARED ${SRC_FILES})

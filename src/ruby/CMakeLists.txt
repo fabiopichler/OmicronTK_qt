@@ -37,7 +37,7 @@ set(SRC_FILES
 )
 
 if(WIN32)
-    set(SRC_FILES ${SRC_FILES} rc/lua.rc)
+    #set(SRC_FILES ${SRC_FILES} rc/lua.rc)
 endif()
 
 add_library(${PROJECT_QT_RUBY} SHARED ${SRC_FILES})

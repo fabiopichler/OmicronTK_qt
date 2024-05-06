@@ -4,5 +4,6 @@
 /cmake-build*
 /build*
 .env.cmake
+/bin
 /lib/*
 !/lib/.gitignore

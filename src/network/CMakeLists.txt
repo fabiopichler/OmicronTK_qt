@@ -10,7 +10,7 @@ set(SRC_FILES
     ../../include/OmicronTK/qt/network/LocalSocket.hpp)
 
 if(WIN32)
-    set(SRC_FILES ${SRC_FILES} rc/network.rc)
+    #set(SRC_FILES ${SRC_FILES} rc/network.rc)
 endif()
 
 add_library(${PROJECT_QT_NETWORK} SHARED ${SRC_FILES})
