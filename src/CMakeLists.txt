@@ -1,6 +1,7 @@
 
-add_subdirectory(core)
+add_subdirectory(qt)
 add_subdirectory(network)
+add_subdirectory(plugins)
 
 if(NOT WIN32)
     add_subdirectory(lua)

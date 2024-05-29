@@ -56,5 +56,4 @@ add_definitions(-DQT_DEPRECATED_WARNINGS)
 
 include_directories(include)
 
-add_subdirectory(plugins)
 add_subdirectory(src)
