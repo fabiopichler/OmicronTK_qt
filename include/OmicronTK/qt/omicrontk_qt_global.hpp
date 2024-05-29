@@ -27,35 +27,12 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt_ruby/RubyVolumeControl.hpp"
-#include "OmicronTK/qt_ruby/base/RubyWidgetBase.hpp"
-#include "OmicronTK/qt/VolumeControl.hpp"
+#pragma once
 
-#include <mruby/class.h>
-#include <mruby/data.h>
-#include <mruby/string.h>
+#include <QtCore/qcompilerdetection.h>
 
-namespace OmicronTK {
-namespace qt {
-
-static const char className[] = "VolumeControl";
-
-static mrb_value initialize(mrb_state *mrb, mrb_value self)
-{
-    mrb_value pointer;
-    mrb_get_args(mrb, "o", &pointer);
-
-    DATA_PTR(self) = mrb_cptr(pointer);
-
-    return self;
-}
-
-void RubyVolumeControl_Init(mrb_state *mrb)
-{
-    struct RClass *rclass = mrb_define_class(mrb, className, RubyWidgetBase_Init(mrb));
-
-    mrb_define_method(mrb, rclass, "initialize", initialize, MRB_ARGS_REQ(1));
-}
-
-}
-}
+#if defined(OTK_QT_BUILD_LIB)
+    #define OTK_QT_EXPORT Q_DECL_EXPORT
+#else
+    #define OTK_QT_EXPORT Q_DECL_IMPORT
+#endif

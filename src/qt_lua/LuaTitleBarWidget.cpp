@@ -27,8 +27,8 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/lua/LuaTitleBarWidget.hpp"
-#include "OmicronTK/qt/lua/base/LuaWidgetBase.hpp"
+#include "OmicronTK/qt_lua/LuaTitleBarWidget.hpp"
+#include "OmicronTK/qt_lua/base/LuaWidgetBase.hpp"
 #include "OmicronTK/qt/TitleBarWidget.hpp"
 
 #include <OmicronTK/lua/CallbackInfo.hpp>

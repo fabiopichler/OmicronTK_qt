@@ -6,34 +6,35 @@ add_definitions(-DOTKQT_BUILD_LUA_LIB)
 include_directories("../../../OmicronTK_lua/include")
 
 set(SRC_FILES
-    src/LuaComboBox.cpp
-    src/LuaObject.cpp
-    src/LuaVolumeControl.cpp
-    src/LuaTitleBarWidget.cpp
-    src/LuaWidget.cpp
-    src/LuaLabel.cpp
-    src/LuaLayout.cpp
-    src/LuaSlider.cpp
-    src/LuaProgressBar.cpp
-    src/LuaLineEdit.cpp
-    src/LuaPushButton.cpp
-    src/base/LuaObjectBase.cpp
-    src/base/LuaWidgetBase.cpp
-    src/LuaWidgetWrapper.cpp
-    ../../include/OmicronTK/qt/lua/LuaComboBox.hpp
-    ../../include/OmicronTK/qt/lua/LuaObject.hpp
-    ../../include/OmicronTK/qt/lua/LuaVolumeControl.hpp
-    ../../include/OmicronTK/qt/lua/LuaTitleBarWidget.hpp
-    ../../include/OmicronTK/qt/lua/LuaWidget.hpp
-    ../../include/OmicronTK/qt/lua/LuaLabel.hpp
-    ../../include/OmicronTK/qt/lua/LuaLayout.hpp
-    ../../include/OmicronTK/qt/lua/LuaSlider.hpp
-    ../../include/OmicronTK/qt/lua/LuaProgressBar.hpp
-    ../../include/OmicronTK/qt/lua/LuaLineEdit.hpp
-    ../../include/OmicronTK/qt/lua/LuaPushButton.hpp
-    ../../include/OmicronTK/qt/lua/base/LuaObjectBase.hpp
-    ../../include/OmicronTK/qt/lua/base/LuaWidgetBase.hpp
-    ../../include/OmicronTK/qt/lua/LuaWidgetWrapper.hpp)
+    LuaComboBox.cpp
+    LuaObject.cpp
+    LuaVolumeControl.cpp
+    LuaTitleBarWidget.cpp
+    LuaWidget.cpp
+    LuaLabel.cpp
+    LuaLayout.cpp
+    LuaSlider.cpp
+    LuaProgressBar.cpp
+    LuaLineEdit.cpp
+    LuaPushButton.cpp
+    base/LuaObjectBase.cpp
+    base/LuaWidgetBase.cpp
+    LuaWidgetWrapper.cpp
+    ../../include/OmicronTK/qt_lua/omicrontk_qt_lua_global.hpp
+    ../../include/OmicronTK/qt_lua/LuaComboBox.hpp
+    ../../include/OmicronTK/qt_lua/LuaObject.hpp
+    ../../include/OmicronTK/qt_lua/LuaVolumeControl.hpp
+    ../../include/OmicronTK/qt_lua/LuaTitleBarWidget.hpp
+    ../../include/OmicronTK/qt_lua/LuaWidget.hpp
+    ../../include/OmicronTK/qt_lua/LuaLabel.hpp
+    ../../include/OmicronTK/qt_lua/LuaLayout.hpp
+    ../../include/OmicronTK/qt_lua/LuaSlider.hpp
+    ../../include/OmicronTK/qt_lua/LuaProgressBar.hpp
+    ../../include/OmicronTK/qt_lua/LuaLineEdit.hpp
+    ../../include/OmicronTK/qt_lua/LuaPushButton.hpp
+    ../../include/OmicronTK/qt_lua/base/LuaObjectBase.hpp
+    ../../include/OmicronTK/qt_lua/base/LuaWidgetBase.hpp
+    ../../include/OmicronTK/qt_lua/LuaWidgetWrapper.hpp)
 
 if(WIN32)
     #set(SRC_FILES ${SRC_FILES} rc/lua.rc)

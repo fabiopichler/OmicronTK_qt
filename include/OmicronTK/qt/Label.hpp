@@ -29,14 +29,14 @@
 
 #pragma once
 
-#include "global.h"
+#include "omicrontk_qt_global.hpp"
 
 #include <QLabel>
 
 namespace OmicronTK {
 namespace qt {
 
-class OTKQT_CORE_EXPORT Label : public QLabel
+class OTK_QT_EXPORT Label : public QLabel
 {
     Q_OBJECT
 

@@ -29,7 +29,7 @@
 
 #pragma once
 
-#include "OmicronTK/qt/global.h"
+#include "omicrontk_qt_lua_global.hpp"
 
 namespace OmicronTK {
 

@@ -27,7 +27,7 @@
 
 *******************************************************************************/
 
-#include "../../include/OmicronTK/qt/Label.hpp"
+#include "../../../include/OmicronTK/qt/Label.hpp"
 #include "LabelPlugin.hpp"
 
 #include <QtPlugin>

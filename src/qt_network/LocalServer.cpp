@@ -27,7 +27,7 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/network/LocalServer.hpp"
+#include "OmicronTK/qt_network/LocalServer.hpp"
 
 #include <QLocalServer>
 #include <QLocalSocket>

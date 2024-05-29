@@ -27,7 +27,7 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/lua/base/LuaObjectBase.hpp"
+#include "OmicronTK/qt_lua/base/LuaObjectBase.hpp"
 
 #include <OmicronTK/lua/CallbackInfo.hpp>
 

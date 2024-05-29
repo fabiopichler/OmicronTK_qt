@@ -1,26 +1,26 @@
 
 project(${PROJECT_QT} LANGUAGES CXX)
 
-add_definitions(-DOTKQT_BUILD_CORE_LIB)
+add_definitions(-DOTK_QT_BUILD_LIB)
 
 set(SRC_FILES
-    src/AppInfo.cpp
-    src/ComboBox.cpp
-    src/Dialog.cpp
-    src/DirectoryDialog.cpp
-    src/DropArea.cpp
-    src/Equalizer.cpp
-    src/ErrorWindow.cpp
-    src/Label.cpp
-    src/PopUp.cpp
-    src/Slider.cpp
-    src/Theme.cpp
-    src/TitleBar.cpp
-    src/TitleBarWidget.cpp
-    src/VolumeControl.cpp
-    src/Widget.cpp
+    AppInfo.cpp
+    ComboBox.cpp
+    Dialog.cpp
+    DirectoryDialog.cpp
+    DropArea.cpp
+    Equalizer.cpp
+    ErrorWindow.cpp
+    Label.cpp
+    PopUp.cpp
+    Slider.cpp
+    Theme.cpp
+    TitleBar.cpp
+    TitleBarWidget.cpp
+    VolumeControl.cpp
+    Widget.cpp
     ../../include/OmicronTK/qt/AppInfo.hpp
-    ../../include/OmicronTK/qt/global.h
+    ../../include/OmicronTK/qt/omicrontk_qt_global.hpp
     ../../include/OmicronTK/qt/PopUp.hpp
     ../../include/OmicronTK/qt/ComboBox.hpp
     ../../include/OmicronTK/qt/Dialog.hpp

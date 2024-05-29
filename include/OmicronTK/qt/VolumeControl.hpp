@@ -29,7 +29,7 @@
 
 #pragma once
 
-#include "global.h"
+#include "omicrontk_qt_global.hpp"
 
 #include <QPushButton>
 
@@ -40,7 +40,7 @@ namespace qt {
 
 class Slider;
 
-class OTKQT_CORE_EXPORT VolumeControl : public QPushButton
+class OTK_QT_EXPORT VolumeControl : public QPushButton
 {
     Q_OBJECT
     Q_PROPERTY(int volume READ volume WRITE setVolume NOTIFY volumeChanged)

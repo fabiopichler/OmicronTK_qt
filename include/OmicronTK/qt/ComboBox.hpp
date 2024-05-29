@@ -29,14 +29,14 @@
 
 #pragma once
 
-#include "global.h"
+#include "omicrontk_qt_global.hpp"
 
 #include <QComboBox>
 
 namespace OmicronTK {
 namespace qt {
 
-class OTKQT_CORE_EXPORT ComboBox : public QComboBox
+class OTK_QT_EXPORT ComboBox : public QComboBox
 {
     Q_OBJECT
 

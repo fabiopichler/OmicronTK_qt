@@ -27,7 +27,7 @@
 
 *******************************************************************************/
 
-#include "../../include/OmicronTK/qt/ComboBox.hpp"
+#include "../../../include/OmicronTK/qt/ComboBox.hpp"
 #include "ComboBoxPlugin.hpp"
 
 #include <QtPlugin>

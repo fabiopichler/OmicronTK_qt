@@ -29,7 +29,7 @@
 
 #pragma once
 
-#include "global.h"
+#include "omicrontk_qt_global.hpp"
 
 #include <QVariant>
 #include <QVector>
@@ -48,7 +48,7 @@ struct MyUiLoaderWidget
     const std::function<QWidget *(QWidget *parent)> callback;
 };
 
-class OTKQT_CORE_EXPORT Theme
+class OTK_QT_EXPORT Theme
 {
 public:
     static bool init(const QString &dtheme);

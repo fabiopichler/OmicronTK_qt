@@ -27,8 +27,8 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/ruby/RubyComboBox.hpp"
-#include "OmicronTK/qt/ruby/base/RubyWidgetBase.hpp"
+#include "OmicronTK/qt_ruby/RubyComboBox.hpp"
+#include "OmicronTK/qt_ruby/base/RubyWidgetBase.hpp"
 
 #include <OmicronTK/qt/ComboBox.hpp>
 

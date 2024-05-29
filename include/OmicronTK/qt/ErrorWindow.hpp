@@ -29,7 +29,8 @@
 
 #pragma once
 
-#include "Dialog.hpp"
+#include "OmicronTK/qt/Dialog.hpp"
+#include "omicrontk_qt_global.hpp"
 
 class QLabel;
 class QTextEdit;
@@ -37,7 +38,7 @@ class QTextEdit;
 namespace OmicronTK {
 namespace qt {
 
-class OTKQT_CORE_EXPORT ErrorWindow : public Dialog
+class OTK_QT_EXPORT ErrorWindow : public Dialog
 {
     Q_OBJECT
 

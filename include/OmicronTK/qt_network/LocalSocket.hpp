@@ -29,7 +29,7 @@
 
 #pragma once
 
-#include "../global.h"
+#include "omicrontk_qt_network_global.hpp"
 
 #include <QObject>
 #include <QVector>

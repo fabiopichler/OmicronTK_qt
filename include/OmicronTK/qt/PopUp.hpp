@@ -29,7 +29,7 @@
 
 #pragma once
 
-#include "global.h"
+#include "omicrontk_qt_global.hpp"
 
 #include <QWidget>
 
@@ -39,7 +39,7 @@ class QTimer;
 namespace OmicronTK {
 namespace qt {
 
-class OTKQT_CORE_EXPORT PopUp : public QWidget
+class OTK_QT_EXPORT PopUp : public QWidget
 {
     Q_OBJECT
 

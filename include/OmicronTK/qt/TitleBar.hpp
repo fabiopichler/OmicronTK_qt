@@ -29,7 +29,8 @@
 
 #pragma once
 
-#include "Widget.hpp"
+#include "OmicronTK/qt/Widget.hpp"
+#include "omicrontk_qt_global.hpp"
 
 class QLabel;
 class QPushButton;
@@ -37,7 +38,7 @@ class QPushButton;
 namespace OmicronTK {
 namespace qt {
 
-class OTKQT_CORE_EXPORT TitleBar : public Widget
+class OTK_QT_EXPORT TitleBar : public Widget
 {
     Q_OBJECT
 

@@ -29,14 +29,14 @@
 
 #pragma once
 
-#include "global.h"
+#include "omicrontk_qt_global.hpp"
 
 #include <QWidget>
 
 namespace OmicronTK {
 namespace qt {
 
-class OTKQT_CORE_EXPORT Widget : public QWidget
+class OTK_QT_EXPORT Widget : public QWidget
 {
     Q_OBJECT
 

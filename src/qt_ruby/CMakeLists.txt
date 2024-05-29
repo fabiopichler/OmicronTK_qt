@@ -6,34 +6,35 @@ add_definitions(-DOTKQT_BUILD_RUBY_LIB)
 include_directories(${MRUBY_INCLUDE_PATH})
 
 set(SRC_FILES
-    src/RubyComboBox.cpp
-    src/RubyLabel.cpp
-    src/RubyLayout.cpp
-    src/RubyLineEdit.cpp
-    src/RubyObject.cpp
-    src/RubyProgressBar.cpp
-    src/RubyPushButton.cpp
-    src/RubySlider.cpp
-    src/RubyTitleBarWidget.cpp
-    src/RubyVolumeControl.cpp
-    src/RubyWidget.cpp
-    src/base/RubyObjectBase.cpp
-    src/base/RubyWidgetBase.cpp
-    src/RubyWidgetWrapper.cpp
-    ../../include/OmicronTK/qt/ruby/RubyComboBox.hpp
-    ../../include/OmicronTK/qt/ruby/RubyLabel.hpp
-    ../../include/OmicronTK/qt/ruby/RubyLayout.hpp
-    ../../include/OmicronTK/qt/ruby/RubyLineEdit.hpp
-    ../../include/OmicronTK/qt/ruby/RubyObject.hpp
-    ../../include/OmicronTK/qt/ruby/RubyProgressBar.hpp
-    ../../include/OmicronTK/qt/ruby/RubyPushButton.hpp
-    ../../include/OmicronTK/qt/ruby/RubySlider.hpp
-    ../../include/OmicronTK/qt/ruby/RubyTitleBarWidget.hpp
-    ../../include/OmicronTK/qt/ruby/RubyVolumeControl.hpp
-    ../../include/OmicronTK/qt/ruby/RubyWidget.hpp
-    ../../include/OmicronTK/qt/ruby/base/RubyObjectBase.hpp
-    ../../include/OmicronTK/qt/ruby/base/RubyWidgetBase.hpp
-    ../../include/OmicronTK/qt/ruby/RubyWidgetWrapper.hpp
+    RubyComboBox.cpp
+    RubyLabel.cpp
+    RubyLayout.cpp
+    RubyLineEdit.cpp
+    RubyObject.cpp
+    RubyProgressBar.cpp
+    RubyPushButton.cpp
+    RubySlider.cpp
+    RubyTitleBarWidget.cpp
+    RubyVolumeControl.cpp
+    RubyWidget.cpp
+    base/RubyObjectBase.cpp
+    base/RubyWidgetBase.cpp
+    RubyWidgetWrapper.cpp
+    ../../include/OmicronTK/qt_ruby/omicrontk_qt_ruby_global.hpp
+    ../../include/OmicronTK/qt_ruby/RubyComboBox.hpp
+    ../../include/OmicronTK/qt_ruby/RubyLabel.hpp
+    ../../include/OmicronTK/qt_ruby/RubyLayout.hpp
+    ../../include/OmicronTK/qt_ruby/RubyLineEdit.hpp
+    ../../include/OmicronTK/qt_ruby/RubyObject.hpp
+    ../../include/OmicronTK/qt_ruby/RubyProgressBar.hpp
+    ../../include/OmicronTK/qt_ruby/RubyPushButton.hpp
+    ../../include/OmicronTK/qt_ruby/RubySlider.hpp
+    ../../include/OmicronTK/qt_ruby/RubyTitleBarWidget.hpp
+    ../../include/OmicronTK/qt_ruby/RubyVolumeControl.hpp
+    ../../include/OmicronTK/qt_ruby/RubyWidget.hpp
+    ../../include/OmicronTK/qt_ruby/base/RubyObjectBase.hpp
+    ../../include/OmicronTK/qt_ruby/base/RubyWidgetBase.hpp
+    ../../include/OmicronTK/qt_ruby/RubyWidgetWrapper.hpp
 )
 
 if(WIN32)

@@ -27,8 +27,8 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/ruby/RubyWidgetWrapper.hpp"
-#include "OmicronTK/qt/ruby/base/RubyWidgetBase.hpp"
+#include "OmicronTK/qt_ruby/RubyWidgetWrapper.hpp"
+#include "OmicronTK/qt_ruby/base/RubyWidgetBase.hpp"
 
 #include <mruby/class.h>
 #include <mruby/data.h>

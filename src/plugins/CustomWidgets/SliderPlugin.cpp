@@ -27,7 +27,7 @@
 
 *******************************************************************************/
 
-#include "../../include/OmicronTK/qt/Slider.hpp"
+#include "../../../include/OmicronTK/qt/Slider.hpp"
 #include "SliderPlugin.hpp"
 
 #include <QtPlugin>

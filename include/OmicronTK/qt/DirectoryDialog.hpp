@@ -29,7 +29,7 @@
 
 #pragma once
 
-#include "global.h"
+#include "omicrontk_qt_global.hpp"
 
 #include <QThread>
 #include <QFileInfo>
@@ -43,7 +43,7 @@ namespace qt {
 
 class Dialog;
 
-class OTKQT_CORE_EXPORT DirectoryDialog : public QThread
+class OTK_QT_EXPORT DirectoryDialog : public QThread
 {
     Q_OBJECT
 

@@ -13,12 +13,12 @@ set(SRC_FILES
     SliderPlugin.hpp
     SliderPlugin.cpp
 
-    ../../include/OmicronTK/qt/ComboBox.hpp
-    ../../src/core/src/ComboBox.cpp
-    ../../include/OmicronTK/qt/Label.hpp
-    ../../src/core/src/Label.cpp
-    ../../include/OmicronTK/qt/Slider.hpp
-    ../../src/core/src/Slider.cpp
+    ../../../include/OmicronTK/qt/ComboBox.hpp
+    ../../../src/qt/ComboBox.cpp
+    ../../../include/OmicronTK/qt/Label.hpp
+    ../../../src/qt/Label.cpp
+    ../../../include/OmicronTK/qt/Slider.hpp
+    ../../../src/qt/Slider.cpp
 )
 
 if(WIN32)

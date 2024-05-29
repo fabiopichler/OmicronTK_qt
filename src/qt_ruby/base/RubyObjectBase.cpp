@@ -27,7 +27,7 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/ruby/base/RubyObjectBase.hpp"
+#include "OmicronTK/qt_ruby/base/RubyObjectBase.hpp"
 
 #include <mruby/class.h>
 #include <mruby/data.h>

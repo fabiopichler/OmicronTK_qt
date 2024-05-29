@@ -29,7 +29,7 @@
 
 #pragma once
 
-#include "global.h"
+#include "omicrontk_qt_global.hpp"
 
 #include <QDialog>
 
@@ -52,7 +52,7 @@ enum TitleBarPolicy
     HideBar
 };
 
-class OTKQT_CORE_EXPORT Dialog : public QDialog
+class OTK_QT_EXPORT Dialog : public QDialog
 {
     Q_OBJECT
     Q_PROPERTY(int marginLayout READ marginLayout WRITE setMarginLayout)

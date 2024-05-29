@@ -29,14 +29,14 @@
 
 #pragma once
 
-#include "global.h"
+#include "omicrontk_qt_global.hpp"
 
 #include <QString>
 
 namespace OmicronTK {
 namespace qt {
 
-class OTKQT_CORE_EXPORT AppInfo
+class OTK_QT_EXPORT AppInfo
 {
 public:
     static void setAppName(const QString &name);

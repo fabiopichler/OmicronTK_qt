@@ -27,8 +27,8 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/ruby/RubyTitleBarWidget.hpp"
-#include "OmicronTK/qt/ruby/base/RubyWidgetBase.hpp"
+#include "OmicronTK/qt_ruby/RubyTitleBarWidget.hpp"
+#include "OmicronTK/qt_ruby/base/RubyWidgetBase.hpp"
 #include "OmicronTK/qt/TitleBarWidget.hpp"
 
 #include <mruby/class.h>

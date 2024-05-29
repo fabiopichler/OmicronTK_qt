@@ -29,13 +29,13 @@
 
 #pragma once
 
-#include "global.h"
+#include "omicrontk_qt_global.hpp"
 #include "Widget.hpp"
 
 namespace OmicronTK {
 namespace qt {
 
-class OTKQT_CORE_EXPORT DropArea : public Widget
+class OTK_QT_EXPORT DropArea : public Widget
 {
     Q_OBJECT
 

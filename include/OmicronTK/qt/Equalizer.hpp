@@ -29,7 +29,7 @@
 
 #pragma once
 
-#include "global.h"
+#include "omicrontk_qt_global.hpp"
 #include "Dialog.hpp"
 
 #include <functional>
@@ -42,7 +42,7 @@ namespace qt {
 
 class ComboBox;
 
-class OTKQT_CORE_EXPORT Equalizer : public Dialog
+class OTK_QT_EXPORT Equalizer : public Dialog
 {
     Q_OBJECT
 

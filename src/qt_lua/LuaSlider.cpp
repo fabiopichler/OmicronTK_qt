@@ -27,8 +27,8 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/lua/LuaSlider.hpp"
-#include "OmicronTK/qt/lua/base/LuaWidgetBase.hpp"
+#include "OmicronTK/qt_lua/LuaSlider.hpp"
+#include "OmicronTK/qt_lua/base/LuaWidgetBase.hpp"
 
 #include "OmicronTK/qt/Slider.hpp"
 

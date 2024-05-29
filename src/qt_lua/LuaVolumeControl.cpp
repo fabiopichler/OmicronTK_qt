@@ -27,8 +27,8 @@
 
 *******************************************************************************/
 
-#include "OmicronTK/qt/lua/LuaVolumeControl.hpp"
-#include "OmicronTK/qt/lua/base/LuaWidgetBase.hpp"
+#include "OmicronTK/qt_lua/LuaVolumeControl.hpp"
+#include "OmicronTK/qt_lua/base/LuaWidgetBase.hpp"
 #include "OmicronTK/qt/VolumeControl.hpp"
 
 #include <OmicronTK/lua/CallbackInfo.hpp>

@@ -31,18 +31,8 @@
 
 #include <QtCore/qcompilerdetection.h>
 
-#if defined(OTKQT_BUILD_CORE_LIB)
-    #define OTKQT_CORE_EXPORT Q_DECL_EXPORT
-#else
-    #define OTKQT_CORE_EXPORT Q_DECL_IMPORT
-#endif
 #if defined(OTKQT_BUILD_LUA_LIB)
     #define OTKQT_LUA_EXPORT Q_DECL_EXPORT
 #else
     #define OTKQT_LUA_EXPORT Q_DECL_IMPORT
-#endif
-#if defined(OTKQT_BUILD_NETWORK_LIB)
-    #define OTKQT_NETWORK_EXPORT Q_DECL_EXPORT
-#else
-    #define OTKQT_NETWORK_EXPORT Q_DECL_IMPORT
 #endif
