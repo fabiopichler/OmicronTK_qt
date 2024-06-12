@@ -38,19 +38,19 @@ class QPushButton;
 namespace OmicronTK {
 namespace qt {
 
-class OTK_QT_EXPORT TitleBar : public Widget
+class OTK_QT_EXPORT TitleBar : public QObject
 {
     Q_OBJECT
 
 public:
     TitleBar(QWidget *parent, int flags = 0, QWidget *uiWidget = nullptr);
+    inline QWidget *widget();
 
 public slots:
     void setTitle(const QString &title);
 
 private:
-    void mousePressEvent(QMouseEvent *) override;
-    void mouseMoveEvent(QMouseEvent *) override;
+    bool eventFilter(QObject *watched, QEvent *event) override;
 
 private slots:
     void quitApp();
@@ -59,10 +59,13 @@ public:
     QLabel *m_titleLabel;
 
 private:
+    QWidget *m_widget;
     QLabel *m_titleIcon;
     QPushButton *m_buttonMinimize, *m_buttonMinimizeTray, *m_buttonClose;
     QPoint m_cursor;
 };
+
+inline QWidget *TitleBar::widget() { return m_widget; }
 
 }
 }

@@ -42,10 +42,11 @@ namespace OmicronTK {
 namespace qt {
 
 TitleBar::TitleBar(QWidget *parent, int flags, QWidget *uiWidget)
-    : Widget(parent)
+    : QObject(parent)
 {
     if (uiWidget)
     {
+        m_widget = uiWidget;
         m_titleIcon = uiWidget->findChild<QLabel *>("windowIconLabel");
         m_titleLabel = uiWidget->findChild<QLabel *>("windowTitleLabel");
         m_buttonMinimize = uiWidget->findChild<QPushButton *>("minimizeButton");
@@ -54,18 +55,32 @@ TitleBar::TitleBar(QWidget *parent, int flags, QWidget *uiWidget)
     }
     else
     {
+        m_widget = new Widget(parent);
+
         m_titleIcon = new QLabel;
         m_titleLabel = new QLabel;
         m_buttonMinimize = new QPushButton;
         m_buttonMinimizeTray = new QPushButton;
         m_buttonClose = new QPushButton;
 
-        setProperty("class", "titleBar");
+        m_widget->setProperty("class", "titleBar");
         m_titleIcon->setObjectName("windowIconLabel");
         m_titleLabel->setObjectName("windowTitleLabel");
         m_buttonMinimize->setObjectName("minimizeButton");
         m_buttonMinimizeTray->setObjectName("minimizeTrayButton");
         m_buttonClose->setObjectName("closeButton");
+
+        auto layout = new QHBoxLayout;
+        layout->addWidget(m_titleIcon);
+        layout->addWidget(m_titleLabel);
+        layout->addStretch(1);
+        layout->addWidget(m_buttonMinimize);
+        layout->addWidget(m_buttonMinimizeTray);
+        layout->addWidget(m_buttonClose);
+        layout->setContentsMargins(0, 0, 0, 0);
+        layout->setSpacing(0);
+
+        m_widget->setLayout(layout);
     }
 
     m_titleIcon->setPixmap(QPixmap(QString(AppInfo::sharePath()).append("/icon.png")));
@@ -74,25 +89,7 @@ TitleBar::TitleBar(QWidget *parent, int flags, QWidget *uiWidget)
     m_buttonMinimizeTray->setToolTip("Minimizar para a Bandeja");
     m_buttonClose->setToolTip("Fechar");
 
-    auto layout = new QHBoxLayout;
-
-    if (uiWidget)
-    {
-        layout->addWidget(uiWidget);
-    }
-    else
-    {
-        layout->addWidget(m_titleIcon);
-        layout->addWidget(m_titleLabel);
-        layout->addStretch(1);
-        layout->addWidget(m_buttonMinimize);
-        layout->addWidget(m_buttonMinimizeTray);
-        layout->addWidget(m_buttonClose);
-    }
-
-    layout->setContentsMargins(0, 0, 0, 0);
-    layout->setSpacing(0);
-    setLayout(layout);
+    m_widget->installEventFilter(this);
 
     if (flags & DIALOG)
     {
@@ -118,16 +115,28 @@ void TitleBar::setTitle(const QString &title)
 // private
 //================================================================================================================
 
-void TitleBar::mousePressEvent(QMouseEvent *event)
+bool TitleBar::eventFilter(QObject *watched, QEvent *event)
 {
-    if (event->button() == Qt::LeftButton)
-        m_cursor = mapToParent(event->pos());
-}
+    if (watched != m_widget)
+        return false;
 
-void TitleBar::mouseMoveEvent(QMouseEvent *event)
-{
-    if (event->buttons() == Qt::LeftButton)
-        static_cast<QWidget *>(parent())->move(event->globalPosition().toPoint() - m_cursor);
+    if (event->type() == QEvent::MouseButtonPress)
+    {
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+
+        if (mouseEvent->button() == Qt::LeftButton)
+            m_cursor = m_widget->mapToParent(mouseEvent->pos());
+    }
+
+    if (event->type() == QEvent::MouseMove)
+    {
+        QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+
+        if (mouseEvent->buttons() == Qt::LeftButton)
+            static_cast<QWidget *>(parent())->move(mouseEvent->globalPosition().toPoint() - m_cursor);
+    }
+
+    return false;
 }
 
 //================================================================================================================

@@ -85,7 +85,7 @@ void Dialog::setLayout(QLayout *layout)
     mainWidget->setLayout(layout);
 
     if (m_titleBar)
-        m_mainLayout->addWidget(m_titleBar);
+        m_mainLayout->addWidget(m_titleBar->widget());
 
     m_mainLayout->addWidget(mainWidget, 1);
 
