@@ -56,19 +56,24 @@ TitleBar::TitleBar(QWidget *parent, int flags, QWidget *uiWidget)
     else
     {
         m_widget = new Widget(parent);
-
         m_titleIcon = new QLabel;
         m_titleLabel = new QLabel;
         m_buttonMinimize = new QPushButton;
         m_buttonMinimizeTray = new QPushButton;
         m_buttonClose = new QPushButton;
 
-        m_widget->setProperty("class", "titleBar");
         m_titleIcon->setObjectName("windowIconLabel");
         m_titleLabel->setObjectName("windowTitleLabel");
         m_buttonMinimize->setObjectName("minimizeButton");
         m_buttonMinimizeTray->setObjectName("minimizeTrayButton");
         m_buttonClose->setObjectName("closeButton");
+
+        m_widget->setProperty("class", "titleBar");
+        m_titleIcon->setProperty("class", "windowIconLabel");
+        m_titleLabel->setProperty("class", "windowTitleLabel");
+        m_buttonMinimize->setProperty("class", "titleBarButtons minimizeButton");
+        m_buttonMinimizeTray->setProperty("class", "titleBarButtons minimizeTrayButton");
+        m_buttonClose->setProperty("class", "titleBarButtons closeButton");
 
         auto layout = new QHBoxLayout;
         layout->addWidget(m_titleIcon);
