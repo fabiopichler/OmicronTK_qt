@@ -42,7 +42,8 @@ namespace qt {
 Dialog::Dialog(QWidget *parent, TitleBarPolicy policy)
     : QDialog(parent)
 {
-    m_titleBar = nullptr;
+    m_mainLayout = new QVBoxLayout;
+    QDialog::setLayout(m_mainLayout);
 
     switch (policy)
     {
@@ -53,14 +54,13 @@ Dialog::Dialog(QWidget *parent, TitleBarPolicy policy)
     case TitleBarPolicy::CustomBar:
         setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
         m_titleBar = new TitleBar(this, DIALOG);
+        m_mainLayout->addWidget(m_titleBar->widget());
         break;
 
     case TitleBarPolicy::HideBar:
         setWindowFlags(Qt::Dialog | Qt::FramelessWindowHint);
         break;
     }
-
-    m_mainLayout = new QVBoxLayout;
 
     setProperty("class", "dialog");
     setAttribute(Qt::WA_TranslucentBackground);
@@ -81,15 +81,14 @@ void Dialog::setWindowTitle(const QString &title)
 
 void Dialog::setLayout(QLayout *layout)
 {
-    Widget *mainWidget = new Widget(this);
-    mainWidget->setLayout(layout);
+    if (m_currentLayout)
+    {
+        m_mainLayout->removeItem(m_currentLayout);
+        m_currentLayout->deleteLater();
+    }
 
-    if (m_titleBar)
-        m_mainLayout->addWidget(m_titleBar->widget());
-
-    m_mainLayout->addWidget(mainWidget, 1);
-
-    QDialog::setLayout(m_mainLayout);
+    m_currentLayout = layout;
+    m_mainLayout->addLayout(layout, 1);
 }
 
 int Dialog::marginLayout() const

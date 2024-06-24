@@ -78,8 +78,9 @@ private:
     void paintEvent(QPaintEvent *) override;
 
 private:
-    TitleBar *m_titleBar;
-    QVBoxLayout *m_mainLayout;
+    TitleBar *m_titleBar{};
+    QVBoxLayout *m_mainLayout{};
+    QLayout *m_currentLayout{};
 };
 
 }
