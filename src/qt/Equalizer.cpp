@@ -159,6 +159,7 @@ void Equalizer::createSlider()
     for (size_t i = 1; i < 16; i++)
     {
         m_eq[i] = new QSlider(Qt::Vertical);
+        m_eq[i]->setFixedHeight(92);
         m_eq[i]->setRange(-30, 30);
         m_eq[i]->setSliderPosition(m_values[i]);
     }
