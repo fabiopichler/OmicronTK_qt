@@ -46,18 +46,19 @@ VolumeControl::VolumeControl(QWidget *parent)
     m_mute = false;
     setToolTip("Ajustar o Volume");
 
-    QWidget *popup = new QWidget(this);
-    popup->setMinimumWidth(240);
+    auto popupWidget = new QWidget(this);
+    popupWidget->setMinimumWidth(240);
+    popupWidget->setProperty("class", "VolumeControlWidget");
 
-    m_muteButton = new QPushButton(popup);
+    m_muteButton = new QPushButton(popupWidget);
     m_muteButton->setProperty("class", "muteButton iconButton smallIconButton");
     m_muteButton->setToolTip("Desativar som");
 
-    m_volumeSlider = new Slider(popup);
+    m_volumeSlider = new Slider(popupWidget);
     m_volumeSlider->setOrientation(Qt::Horizontal);
     m_volumeSlider->setRange(0, 100);
 
-    m_volumeLabel = new QLabel(popup);
+    m_volumeLabel = new QLabel(popupWidget);
     m_volumeLabel->setAlignment(Qt::AlignCenter);
     m_volumeLabel->setText("0%");
     m_volumeLabel->setMinimumWidth(45);
@@ -66,19 +67,23 @@ VolumeControl::VolumeControl(QWidget *parent)
     connect(m_volumeSlider, &QAbstractSlider::valueChanged, this, &VolumeControl::volumeChanged);
     connect(m_volumeSlider, &QAbstractSlider::valueChanged, this, &VolumeControl::updateVolume);
 
-    QBoxLayout *popupLayout = new QHBoxLayout(popup);
+    auto popupLayout = new QHBoxLayout;
     popupLayout->setContentsMargins(2, 2, 2, 2);
     popupLayout->addWidget(m_volumeLabel);
     popupLayout->addWidget(m_volumeSlider);
     popupLayout->addSpacing(4);
     popupLayout->addWidget(m_muteButton);
 
-    QWidgetAction *action = new QWidgetAction(this);
-    action->setDefaultWidget(popup);
+    popupWidget->setLayout(popupLayout);
 
-    QMenu *menu = new QMenu(this);
+    auto action = new QWidgetAction(this);
+    action->setDefaultWidget(popupWidget);
+
+    auto menu = new QMenu(this);
+    menu->setAttribute(Qt::WA_TranslucentBackground);
     menu->addAction(action);
     menu->installEventFilter(this);
+    menu->adjustSize();
 
     setMenu(menu);
 }

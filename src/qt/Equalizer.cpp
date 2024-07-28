@@ -131,6 +131,12 @@ void Equalizer::createLabels()
         m_eqFr[i]->setObjectName("equalizerLabel");
         m_eqDb[i]->setObjectName("equalizerLabel");
         m_eqDb[i]->setMinimumWidth(32);
+
+        if (i > 0)
+        {
+            m_eqFr[i]->setAlignment(Qt::AlignCenter);
+            m_eqDb[i]->setAlignment(Qt::AlignCenter);
+        }
     }
 
     m_presetCombo = new ComboBox;
@@ -201,9 +207,9 @@ void Equalizer::createBoxLayout()
     for (int i = 0; i < 15; i++)
     {
         vLayout[i] = new QVBoxLayout;
-        vLayout[i]->addWidget(m_eqFr[i + 1]);
-        vLayout[i]->addWidget(m_eq[i + 1]);
-        vLayout[i]->addWidget(m_eqDb[i + 1]);
+        vLayout[i]->addWidget(m_eqFr[i + 1], 0, Qt::AlignCenter);
+        vLayout[i]->addWidget(m_eq[i + 1], 0, Qt::AlignCenter);
+        vLayout[i]->addWidget(m_eqDb[i + 1], 0, Qt::AlignCenter);
         vLayout[i]->setSpacing(5);
 
         eqLayout->addLayout(vLayout[i]);
