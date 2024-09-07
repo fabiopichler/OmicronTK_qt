@@ -52,7 +52,7 @@ protected:
     void dragLeaveEvent(QDragLeaveEvent *event) override;
     void dropEvent(QDropEvent *event) override;
 
-signals:
+Q_SIGNALS:
     void filesFromDropArea(QVector<QString>);
     void dragAndDrop(bool);
 

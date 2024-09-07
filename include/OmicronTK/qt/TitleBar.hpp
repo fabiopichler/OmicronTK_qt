@@ -46,13 +46,13 @@ public:
     TitleBar(QWidget *parent, int flags = 0, QWidget *uiWidget = nullptr);
     inline QWidget *widget();
 
-public slots:
+public Q_SLOTS:
     void setTitle(const QString &title);
 
 private:
     bool eventFilter(QObject *watched, QEvent *event) override;
 
-private slots:
+private Q_SLOTS:
     void quitApp();
 
 public:

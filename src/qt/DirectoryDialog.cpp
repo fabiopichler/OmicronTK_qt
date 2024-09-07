@@ -91,7 +91,7 @@ void DirectoryDialog::setFileNameFilter(const QString &filter)
 }
 
 //================================================================================================================
-// public slots
+// public Q_SLOTS
 //================================================================================================================
 
 void DirectoryDialog::update(QFileInfo fileInfo)
@@ -125,7 +125,7 @@ void DirectoryDialog::run()
 
         if (fileInfo.isFile() && fileInfo.suffix().contains(filter))
         {
-            emit updateFiles(fileInfo);
+            Q_EMIT updateFiles(fileInfo);
 
             if (m_func)
                 m_func(fileInfo);

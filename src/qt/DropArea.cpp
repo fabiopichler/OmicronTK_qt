@@ -64,7 +64,7 @@ void DropArea::setAllowAnyFile(bool anyFile)
 
 void DropArea::dragEnterEvent(QDragEnterEvent *event)
 {
-    emit dragAndDrop(true);
+    Q_EMIT dragAndDrop(true);
     event->acceptProposedAction();
 }
 
@@ -115,17 +115,17 @@ void DropArea::dropEvent(QDropEvent *event)
         if (!list.isEmpty())
         {
             list.push_front(QString("--nohide"));
-            emit filesFromDropArea(list);
+            Q_EMIT filesFromDropArea(list);
         }
     }
 
-    emit dragAndDrop(false);
+    Q_EMIT dragAndDrop(false);
     event->acceptProposedAction();
 }
 
 void DropArea::dragLeaveEvent(QDragLeaveEvent *event)
 {
-    emit dragAndDrop(false);
+    Q_EMIT dragAndDrop(false);
     event->accept();
 }
 

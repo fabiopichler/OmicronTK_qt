@@ -79,7 +79,7 @@ void Slider::mouseReleaseEvent(QMouseEvent *event)
         double pos = minimum() + ((maximum() - minimum()) * normalizedPosition);
 
         setValue(static_cast<int>(pos));
-        emit sliderMoved(static_cast<int>(pos));
+        Q_EMIT sliderMoved(static_cast<int>(pos));
         event->accept();
     }
 
@@ -88,14 +88,14 @@ void Slider::mouseReleaseEvent(QMouseEvent *event)
 
 void Slider::enterEvent(QEnterEvent *event)
 {
-    emit hover(true, event);
+    Q_EMIT hover(true, event);
 
     QSlider::enterEvent(event);
 }
 
 void Slider::leaveEvent(QEvent *event)
 {
-    emit hover(false, event);
+    Q_EMIT hover(false, event);
 
     QSlider::leaveEvent(event);
 }

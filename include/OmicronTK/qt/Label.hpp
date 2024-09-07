@@ -43,7 +43,7 @@ class OTK_QT_EXPORT Label : public QLabel
 public:
     explicit Label(QWidget *parent = nullptr);
 
-signals:
+Q_SIGNALS:
     void clicked();
 
 protected:

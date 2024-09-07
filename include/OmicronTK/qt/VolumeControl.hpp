@@ -49,10 +49,10 @@ public:
     VolumeControl(QWidget *parent = nullptr);
     int volume() const;
 
-public slots:
+public Q_SLOTS:
     void setVolume(int volume);
 
-private slots:
+private Q_SLOTS:
     void updateVolume(int volume);
     void changeMute();
 
@@ -60,7 +60,7 @@ private:
     void mute(bool act, bool event = true);
     bool eventFilter(QObject *obj, QEvent *event) override;
 
-signals:
+Q_SIGNALS:
     void volumeChanged(int volume);
 
 private:

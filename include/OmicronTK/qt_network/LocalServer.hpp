@@ -57,10 +57,10 @@ public:
     bool listen();
     inline bool isRunning() const;
 
-public slots:
+public Q_SLOTS:
     void newConnection();
 
-signals:
+Q_SIGNALS:
     void messageAvailable(QVector<QString>);
 
 private:

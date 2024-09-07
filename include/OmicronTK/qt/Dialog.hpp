@@ -71,7 +71,7 @@ public:
     void setMarginLayout(int margin);
     void setSpacingLayout(int spacing);
 
-public slots:
+public Q_SLOTS:
     virtual void close();
 
 private:

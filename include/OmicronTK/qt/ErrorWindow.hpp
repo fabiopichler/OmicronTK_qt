@@ -52,7 +52,7 @@ private:
     void createLayouts();
     void createEvents();
 
-signals:
+Q_SIGNALS:
     void stopStream();
 
 private:

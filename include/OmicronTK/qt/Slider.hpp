@@ -43,7 +43,7 @@ class OTK_QT_EXPORT Slider : public QSlider
 public:
     Slider(QWidget *parent = nullptr);
 
-signals:
+Q_SIGNALS:
     void hover(bool hover, QEvent *event);
 
 private:

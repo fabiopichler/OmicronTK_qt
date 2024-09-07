@@ -42,7 +42,7 @@ class OTK_QT_EXPORT TitleBarWidget : public Widget
 public:
     explicit TitleBarWidget(QWidget *parent);
 
-public slots:
+public Q_SLOTS:
     void closeApp();
 
 private:

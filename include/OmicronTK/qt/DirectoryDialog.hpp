@@ -56,13 +56,13 @@ public:
 
     void setFileNameFilter(const QString &filter);
 
-public slots:
+public Q_SLOTS:
     void update(QFileInfo fileInfo);
 
 private:
     void run();
 
-signals:
+Q_SIGNALS:
     void updateFiles(QFileInfo);
 
 private:

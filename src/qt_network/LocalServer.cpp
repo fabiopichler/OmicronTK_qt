@@ -91,7 +91,7 @@ bool LocalServer::listen()
 }
 
 //================================================================================================================
-// public slots
+// public Q_SLOTS
 //================================================================================================================
 
 void LocalServer::newConnection()
@@ -110,7 +110,7 @@ void LocalServer::newConnection()
     QStringList list = data.split(":!#!:");
     list.removeAll("");
 
-    emit messageAvailable(QVector<QString>::fromList(list));
+    Q_EMIT messageAvailable(QVector<QString>::fromList(list));
 
     qLocalSocket->disconnectFromServer();
 }

@@ -258,7 +258,7 @@ void Equalizer::createEvents()
 }
 
 //================================================================================================================
-// private slots
+// private Q_SLOTS
 //================================================================================================================
 
 void Equalizer::ok()
@@ -281,7 +281,7 @@ void Equalizer::close()
 
     for (size_t i = 0; i < 16; i++)
     {
-        emit updateEqualizer(static_cast<int>(i), m_oldValues[i]);
+        Q_EMIT updateEqualizer(static_cast<int>(i), m_oldValues[i]);
     }
 
     QDialog::close();
@@ -293,7 +293,7 @@ void Equalizer::defaultEqualizer()
     {
         m_eq[i]->setValue(0);
         m_values[i] = 0;
-        emit updateEqualizer(static_cast<int>(i), 0);
+        Q_EMIT updateEqualizer(static_cast<int>(i), 0);
     }
 }
 
@@ -309,7 +309,7 @@ void Equalizer::indexChanged()
 void Equalizer::equalizerChanged(int id, int value)
 {
     m_values[static_cast<size_t>(id)] = value;
-    emit updateEqualizer(id, value);
+    Q_EMIT updateEqualizer(id, value);
 }
 
 void Equalizer::newPreset()
@@ -392,7 +392,7 @@ void Equalizer::loadPreset()
     {
         m_eq[i]->setValue(list[i]);
         m_values[i] = list[i];
-        emit updateEqualizer(static_cast<int>(i), list[i]);
+        Q_EMIT updateEqualizer(static_cast<int>(i), list[i]);
     }
 
     m_presetCombo->setEditable(false);

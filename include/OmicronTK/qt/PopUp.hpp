@@ -47,10 +47,10 @@ public:
     explicit PopUp(QWidget *parent = nullptr);
     ~PopUp() override;
 
-public slots:
+public Q_SLOTS:
     void show(QString msg, int duration = 3000);
 
-private slots:
+private Q_SLOTS:
     void fadeOut();
 
 private:

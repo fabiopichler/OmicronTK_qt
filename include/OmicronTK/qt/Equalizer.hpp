@@ -72,7 +72,7 @@ private:
     void createBoxLayout();
     void createEvents();
 
-private slots:
+private Q_SLOTS:
     void ok();
     void close() override;
     void defaultEqualizer();
@@ -84,7 +84,7 @@ private slots:
     void deletePreset();
     void loadPreset();
 
-signals:
+Q_SIGNALS:
     void updateEqualizer(int, int);
 
 private:

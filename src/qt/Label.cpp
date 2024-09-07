@@ -39,7 +39,7 @@ Label::Label(QWidget *parent)
 
 void Label::mousePressEvent(QMouseEvent *)
 {
-    emit clicked();
+    Q_EMIT clicked();
 }
 
 }

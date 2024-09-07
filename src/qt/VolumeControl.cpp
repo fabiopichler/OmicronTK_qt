@@ -94,7 +94,7 @@ int VolumeControl::volume() const
 }
 
 //================================================================================================================
-// public slots
+// public Q_SLOTS
 //================================================================================================================
 
 void VolumeControl::setVolume(int volume)
@@ -103,7 +103,7 @@ void VolumeControl::setVolume(int volume)
 }
 
 //================================================================================================================
-// private slots
+// private Q_SLOTS
 //================================================================================================================
 
 void VolumeControl::updateVolume(int volume)
@@ -138,7 +138,7 @@ void VolumeControl::mute(bool act, bool event)
         m_muteButton->setToolTip("Ativar som");
 
         if (event)
-            emit volumeChanged(0);
+            Q_EMIT volumeChanged(0);
     }
     else
     {
@@ -149,7 +149,7 @@ void VolumeControl::mute(bool act, bool event)
         m_muteButton->setToolTip("Desativar som");
 
         if (event)
-            emit volumeChanged(m_volumeSlider->value());
+            Q_EMIT volumeChanged(m_volumeSlider->value());
     }
 
     Widget::updateStyle(m_muteButton);
