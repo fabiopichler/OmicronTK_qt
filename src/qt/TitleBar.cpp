@@ -37,12 +37,14 @@
 #include <QVBoxLayout>
 #include <QMouseEvent>
 #include <QApplication>
+#include <QWindow>
 
 namespace OmicronTK {
 namespace qt {
 
 TitleBar::TitleBar(QWidget *parent, int flags, QWidget *uiWidget)
     : QObject(parent)
+    , m_parent(parent)
 {
     if (uiWidget)
     {
@@ -125,20 +127,23 @@ bool TitleBar::eventFilter(QObject *watched, QEvent *event)
     if (watched != m_widget)
         return false;
 
-    if (event->type() == QEvent::MouseButtonPress)
-    {
-        QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
+    // if (event->type() == QEvent::MouseButtonPress)
+    // {
+    //     QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
 
-        if (mouseEvent->button() == Qt::LeftButton)
-            m_cursor = m_widget->mapToParent(mouseEvent->pos());
-    }
+    //     if (mouseEvent->button() == Qt::LeftButton)
+    //         m_cursor = m_widget->mapToParent(mouseEvent->pos());
+    // }
 
     if (event->type() == QEvent::MouseMove)
     {
         QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
 
-        if (mouseEvent->buttons() == Qt::LeftButton)
-            static_cast<QWidget *>(parent())->move(mouseEvent->globalPosition().toPoint() - m_cursor);
+        // if (mouseEvent->buttons() == Qt::LeftButton)
+        //     static_cast<QWidget *>(parent())->move(mouseEvent->globalPosition().toPoint() - m_cursor);
+
+        if (mouseEvent->buttons() == Qt::LeftButton && m_parent && m_parent->windowHandle())
+            m_parent->windowHandle()->startSystemMove();
     }
 
     return false;

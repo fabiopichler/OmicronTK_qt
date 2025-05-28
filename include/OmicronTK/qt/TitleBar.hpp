@@ -59,10 +59,11 @@ public:
     QLabel *m_titleLabel;
 
 private:
+    QWidget *m_parent;
     QWidget *m_widget;
     QLabel *m_titleIcon;
     QPushButton *m_buttonMinimize, *m_buttonMinimizeTray, *m_buttonClose;
-    QPoint m_cursor;
+    // QPoint m_cursor;
 };
 
 inline QWidget *TitleBar::widget() { return m_widget; }
