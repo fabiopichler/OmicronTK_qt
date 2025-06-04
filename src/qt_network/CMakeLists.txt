@@ -5,10 +5,11 @@ add_definitions(-DOTKQT_BUILD_NETWORK_LIB)
 
 set(SRC_FILES
     ../../include/OmicronTK/qt_network/omicrontk_qt_network_global.hpp
-    LocalServer.cpp
-    LocalSocket.cpp
     ../../include/OmicronTK/qt_network/LocalServer.hpp
-    ../../include/OmicronTK/qt_network/LocalSocket.hpp)
+    ../../include/OmicronTK/qt_network/LocalClient.hpp
+    LocalServer.cpp
+    LocalClient.cpp
+)
 
 if(WIN32)
     #set(SRC_FILES ${SRC_FILES} rc/network.rc)
