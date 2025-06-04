@@ -50,21 +50,8 @@ void TitleBarWidget::closeApp()
     qApp->quit();
 }
 
-//================================================================================================================
-// private
-//================================================================================================================
-
-// void TitleBarWidget::mousePressEvent(QMouseEvent *event)
-// {
-//     if (event->button() == Qt::LeftButton)
-//         m_cursor = mapToParent(event->pos());
-// }
-
 void TitleBarWidget::mouseMoveEvent(QMouseEvent *event)
 {
-    // if (m_mainWindow && event->buttons() == Qt::LeftButton)
-    //     m_mainWindow->move(event->globalPosition().toPoint() - m_cursor);
-
     if (event->buttons() == Qt::LeftButton && m_mainWindow && m_mainWindow->windowHandle())
         m_mainWindow->windowHandle()->startSystemMove();
 }

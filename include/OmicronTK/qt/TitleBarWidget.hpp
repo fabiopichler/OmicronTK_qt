@@ -46,12 +46,10 @@ public Q_SLOTS:
     void closeApp();
 
 private:
-    // void mousePressEvent(QMouseEvent *event) override;
     void mouseMoveEvent(QMouseEvent *event) override;
 
 private:
     QWidget *m_mainWindow;
-    // QPoint m_cursor;
 };
 
 }

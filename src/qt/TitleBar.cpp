@@ -118,29 +118,14 @@ void TitleBar::setTitle(const QString &title)
     m_titleLabel->setText(title);
 }
 
-//================================================================================================================
-// private
-//================================================================================================================
-
 bool TitleBar::eventFilter(QObject *watched, QEvent *event)
 {
     if (watched != m_widget)
         return false;
 
-    // if (event->type() == QEvent::MouseButtonPress)
-    // {
-    //     QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
-
-    //     if (mouseEvent->button() == Qt::LeftButton)
-    //         m_cursor = m_widget->mapToParent(mouseEvent->pos());
-    // }
-
     if (event->type() == QEvent::MouseMove)
     {
         QMouseEvent *mouseEvent = static_cast<QMouseEvent *>(event);
-
-        // if (mouseEvent->buttons() == Qt::LeftButton)
-        //     static_cast<QWidget *>(parent())->move(mouseEvent->globalPosition().toPoint() - m_cursor);
 
         if (mouseEvent->buttons() == Qt::LeftButton && m_parent && m_parent->windowHandle())
             m_parent->windowHandle()->startSystemMove();
@@ -148,10 +133,6 @@ bool TitleBar::eventFilter(QObject *watched, QEvent *event)
 
     return false;
 }
-
-//================================================================================================================
-// private Q_SLOTS
-//================================================================================================================
 
 void TitleBar::quitApp()
 {
