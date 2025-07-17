@@ -43,6 +43,7 @@ QString AppInfo::s_configPath;
 QString AppInfo::s_executablePath;
 QString AppInfo::s_guiBasePath;
 QString AppInfo::s_themePath;
+QString AppInfo::s_skinPath;
 
 void AppInfo::setAppName(const QString &name)
 {
@@ -89,6 +90,11 @@ void AppInfo::setThemePath(const QString &path)
     s_themePath = path;
 }
 
+void AppInfo::setSkinPath(const QString &path)
+{
+    s_skinPath = path;
+}
+
 const QString &AppInfo::appName()
 {
     return s_appName;
@@ -132,6 +138,11 @@ const QString &AppInfo::guiBasePath()
 const QString &AppInfo::themePath()
 {
     return s_themePath;
+}
+
+const QString &AppInfo::skinPath()
+{
+    return s_skinPath;
 }
 
 }

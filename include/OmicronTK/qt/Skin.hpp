@@ -42,32 +42,33 @@ class QSettings;
 namespace OmicronTK {
 namespace qt {
 
-// struct MyUiLoaderWidget
-// {
-//     const QString className;
-//     const std::function<QWidget *(QWidget *parent)> callback;
-// };
+struct MyUiLoaderWidget
+{
+    const QString className;
+    const std::function<QWidget *(QWidget *parent)> callback;
+};
 
 // Lembrete: Essa classe está uma porcaria, eu preciso recriar ela do zero e fazer melhor.
+// Nota: Skin é uma cópia da classe Theme para não perder tempo
 
-class OTK_QT_EXPORT Theme
+class OTK_QT_EXPORT Skin
 {
 public:
-    static bool init(const QString &dtheme);
+    static bool init(const QString &dskin);
     static void free();
     static bool load();
-    // static QWidget *loadUi(const QString &fileName, QWidget *parent = nullptr,
-    //     const QVector<MyUiLoaderWidget> &customWidgets = {}, const QVector<QString> &pluginPaths = {});
-    static bool setCurrentTheme(const QString &);
+    static QWidget *loadUi(const QString &fileName, QWidget *parent = nullptr,
+        const QVector<MyUiLoaderWidget> &customWidgets = {}, const QVector<QString> &pluginPaths = {});
+    static bool setCurrentSkin(const QString &);
     static QVariant get(const QString &key, const QVariant &value = QVariant());
     static QString getString(const QString &key, const QVariant &value = QVariant());
-    static QVector<QVector<QString>> themes();
+    static QVector<QVector<QString>> skins();
     static QVector<QVector<QString>> styles();
-    static QString getDefaultTheme();
+    static QString getDefaultSkin();
 
-    static std::function<bool(const QString &)> s_setThemeValue;
+    static std::function<bool(const QString &)> s_setSkinValue;
     static std::function<bool(const QString &)> s_setStyleValue;
-    static std::function<QString()> s_themeValue;
+    static std::function<QString()> s_skinValue;
     static std::function<QString()> s_styleValue;
 
 private:
@@ -75,8 +76,8 @@ private:
 
 private:
     static QSettings *s_settings;
-    static QString s_defaultTheme;
-    static QString s_themeDir;
+    static QString s_defaultSkin;
+    static QString s_skinDir;
 };
 
 }

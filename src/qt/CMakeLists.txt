@@ -15,6 +15,7 @@ set(SRC_FILES
     PopUp.cpp
     Slider.cpp
     Theme.cpp
+    Skin.cpp
     TitleBar.cpp
     TitleBarWidget.cpp
     VolumeControl.cpp
@@ -31,6 +32,7 @@ set(SRC_FILES
     ../../include/OmicronTK/qt/Label.hpp
     ../../include/OmicronTK/qt/Slider.hpp
     ../../include/OmicronTK/qt/Theme.hpp
+    ../../include/OmicronTK/qt/Skin.hpp
     ../../include/OmicronTK/qt/TitleBar.hpp
     ../../include/OmicronTK/qt/TitleBarWidget.hpp
     ../../include/OmicronTK/qt/Widget.hpp

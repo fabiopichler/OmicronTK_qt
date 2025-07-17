@@ -43,30 +43,30 @@
 namespace OmicronTK {
 namespace qt {
 
-class MyUiLoader : public QUiLoader
-{
-    const QVector<MyUiLoaderWidget> &m_customWidgets;
+// class MyUiLoader : public QUiLoader
+// {
+//     const QVector<MyUiLoaderWidget> &m_customWidgets;
 
-public:
-    explicit MyUiLoader(const QVector<MyUiLoaderWidget> &customWidgets, QObject *parent = nullptr)
-        : QUiLoader(parent)
-        , m_customWidgets(customWidgets) {}
+// public:
+//     explicit MyUiLoader(const QVector<MyUiLoaderWidget> &customWidgets, QObject *parent = nullptr)
+//         : QUiLoader(parent)
+//         , m_customWidgets(customWidgets) {}
 
-    QWidget *createWidget(const QString &className, QWidget *parent = nullptr, const QString &name = QString()) override
-    {
-        for (const auto &customWidget : m_customWidgets)
-        {
-            if (customWidget.className == className && customWidget.callback)
-            {
-                QWidget *widget = customWidget.callback(parent);
-                widget->setObjectName(name);
-                return widget;
-            }
-        }
+//     QWidget *createWidget(const QString &className, QWidget *parent = nullptr, const QString &name = QString()) override
+//     {
+//         for (const auto &customWidget : m_customWidgets)
+//         {
+//             if (customWidget.className == className && customWidget.callback)
+//             {
+//                 QWidget *widget = customWidget.callback(parent);
+//                 widget->setObjectName(name);
+//                 return widget;
+//             }
+//         }
 
-        return QUiLoader::createWidget(className, parent, name);
-    }
-};
+//         return QUiLoader::createWidget(className, parent, name);
+//     }
+// };
 
 QSettings *Theme::s_settings = nullptr;
 QString Theme::s_defaultTheme;
@@ -161,29 +161,29 @@ bool Theme::load()
     return true;
 }
 
-QWidget *Theme::loadUi(const QString &fileName, QWidget *parent, const QVector<MyUiLoaderWidget> &customWidgets,
-                       const QVector<QString> &pluginPaths)
-{
-    QWidget *uiWidget = nullptr;
-    QFile file(AppInfo::themePath() + fileName);
+// QWidget *Theme::loadUi(const QString &fileName, QWidget *parent, const QVector<MyUiLoaderWidget> &customWidgets,
+//                        const QVector<QString> &pluginPaths)
+// {
+//     QWidget *uiWidget = nullptr;
+//     QFile file(AppInfo::themePath() + fileName);
 
-#if 0
-    QUiLoader loader;
+// #if 0
+//     QUiLoader loader;
 
-    loader.addPluginPath(AppInfo::pluginsPath() + "/designer");
+//     loader.addPluginPath(AppInfo::pluginsPath() + "/designer");
 
-    for (const auto &path : pluginPaths)
-        loader.addPluginPath(path);
-#else
-    MyUiLoader loader(customWidgets);
-#endif
+//     for (const auto &path : pluginPaths)
+//         loader.addPluginPath(path);
+// #else
+//     MyUiLoader loader(customWidgets);
+// #endif
 
-    if (!file.open(QFile::ReadOnly) || !(uiWidget = loader.load(&file, parent)))
-        setCurrentTheme(s_defaultTheme);
+//     if (!file.open(QFile::ReadOnly) || !(uiWidget = loader.load(&file, parent)))
+//         setCurrentTheme(s_defaultTheme);
 
-    file.close();
-    return uiWidget;
-}
+//     file.close();
+//     return uiWidget;
+// }
 
 bool Theme::setCurrentTheme(const QString &name)
 {

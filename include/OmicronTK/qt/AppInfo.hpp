@@ -48,6 +48,7 @@ public:
     static void setExecutablePath(const QString &path);
     static void setGuiBasePath(const QString &path);
     static void setThemePath(const QString &path);
+    static void setSkinPath(const QString &path);
 
     static const QString &appName();
     static const QString &appVersion();
@@ -58,6 +59,7 @@ public:
     static const QString &executablePath();
     static const QString &guiBasePath();
     static const QString &themePath();
+    static const QString &skinPath();
 
 private:
     static QString s_appName;
@@ -69,6 +71,7 @@ private:
     static QString s_executablePath;
     static QString s_guiBasePath;
     static QString s_themePath;
+    static QString s_skinPath;
 };
 
 }
