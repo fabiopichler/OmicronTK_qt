@@ -95,13 +95,13 @@ void Skin::free()
 }
 
 // Nota para mim mesmo (para a refatoração):
-// Skin também precisa carregar CSS/QSS assim como Theme (preciso refatorar e implementar isso corretamente);
+// Skin também precisa carregar o QSS assim como Theme (preciso refatorar e implementar isso corretamente);
 // Skin deve ser carregado após Theme;
 // Skin pode substituir imagens da janela princial e adicionar fontes para a janela principal (não para o tema globalmente)
 
 bool Skin::load()
 {
-    //QString css;
+    //QString qss;
     //QString style;
     QString skinPath = s_skinValue();
 
@@ -143,25 +143,25 @@ bool Skin::load()
 
     // style = s_styleValue();
 
-    // if (!QFile::exists(QString(skinPath).append(style).append(".css")))
+    // if (!QFile::exists(QString(skinPath).append(style).append(".qss")))
     // {
     //     s_setStyleValue("default");
     //     style = "default";
     // }
 
-//     css = loadCss("/images.css");
-//     css.append(loadCss("/skin.css"));
+//     qss = loadQss("/images.qss");
+//     qss.append(loadQss("/skin.qss"));
 
 //     if (style != "default")
-//         css.append(loadCss(QString("/").append(style).append(".css")));
+//         qss.append(loadQss(QString("/").append(style).append(".qss")));
 
 // #ifdef Q_OS_LINUX
-//     css.append(loadCss("/linux.css"));
+//     qss.append(loadQss("/linux.qss"));
 // #elif defined(Q_OS_WIN)
-//     css.append(loadCss("windows.css"));
+//     qss.append(loadQss("windows.qss"));
 // #endif // Q_OS_WIN
 
-//     qApp->setStyleSheet(css);
+//     qApp->setStyleSheet(qss);
 
     return true;
 }
@@ -259,7 +259,7 @@ QVector<QVector<QString>> Skin::styles()
     {
         QStringList s = styles[i].split("=");
 
-        if (QFile::exists(QString(AppInfo::skinPath()).append("/").append(s[0]).append(".css")))
+        if (QFile::exists(QString(AppInfo::skinPath()).append("/").append(s[0]).append(".qss")))
         {
             s.move(0, 1);
             list << s.toVector();
@@ -278,7 +278,7 @@ QString Skin::getDefaultSkin()
 // private
 //================================================================================================================
 
-QString Skin::loadCss(const QString &name)
+QString Skin::loadQss(const QString &name)
 {
     QString str;
     QFile file(AppInfo::skinPath() + name);

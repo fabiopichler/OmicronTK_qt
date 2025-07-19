@@ -72,7 +72,7 @@ public:
     static std::function<QString()> s_styleValue;
 
 private:
-    static QString loadCss(const QString &);
+    static QString loadQss(const QString &);
 
 private:
     static QSettings *s_settings;

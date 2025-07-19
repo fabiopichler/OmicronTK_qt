@@ -96,7 +96,7 @@ void Theme::free()
 
 bool Theme::load()
 {
-    QString css,
+    QString qss,
             style,
             themePath = s_themeValue();
 
@@ -138,25 +138,25 @@ bool Theme::load()
 
     style = s_styleValue();
 
-    if (!QFile::exists(QString(themePath).append(style).append(".css")))
+    if (!QFile::exists(QString(themePath).append(style).append(".qss")))
     {
         s_setStyleValue("default");
         style = "default";
     }
 
-    css = loadCss("/images.css");
-    css.append(loadCss("/theme.css"));
+    qss = loadQss("/images.qss");
+    qss.append(loadQss("/theme.qss"));
 
     if (style != "default")
-        css.append(loadCss(QString("/").append(style).append(".css")));
+        qss.append(loadQss(QString("/").append(style).append(".qss")));
 
 #ifdef Q_OS_LINUX
-    css.append(loadCss("/linux.css"));
+    qss.append(loadQss("/linux.qss"));
 #elif defined(Q_OS_WIN)
-    css.append(loadCss("windows.css"));
+    qss.append(loadQss("windows.qss"));
 #endif // Q_OS_WIN
 
-    qApp->setStyleSheet(css);
+    qApp->setStyleSheet(qss);
 
     return true;
 }
@@ -254,7 +254,7 @@ QVector<QVector<QString>> Theme::styles()
     {
         QStringList s = styles[i].split("=");
 
-        if (QFile::exists(QString(AppInfo::themePath()).append("/").append(s[0]).append(".css")))
+        if (QFile::exists(QString(AppInfo::themePath()).append("/").append(s[0]).append(".qss")))
         {
             s.move(0, 1);
             list << s.toVector();
@@ -273,7 +273,7 @@ QString Theme::getDefaultTheme()
 // private
 //================================================================================================================
 
-QString Theme::loadCss(const QString &name)
+QString Theme::loadQss(const QString &name)
 {
     QString str;
     QFile file(AppInfo::themePath() + name);
