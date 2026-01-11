@@ -7,7 +7,7 @@ set(PROJECT_QT_NETWORK OmicronTK_qt_network)
 set(PROJECT_QT_LUA OmicronTK_qt_lua)
 set(PROJECT_QT_RUBY OmicronTK_qt_ruby)
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_AUTOMOC ON)
@@ -42,9 +42,6 @@ else()
 endif()
 
 if(WIN32)
-    # TEMP
-    set(QT6_BASE_PATH /mnt/projetos/Frameworks/qt/qt6-mingw-w64)
-
     find_package(Qt6 6.1 COMPONENTS Core Gui Widgets Network UiTools Designer REQUIRED PATHS ${QT6_BASE_PATH} NO_DEFAULT_PATH)
 else()
     find_package(Qt6 6.1 COMPONENTS Core Gui Widgets Network UiTools Designer REQUIRED)

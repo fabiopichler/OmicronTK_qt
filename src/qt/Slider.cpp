@@ -55,7 +55,7 @@ void Slider::mousePressEvent(QMouseEvent *event)
 
 void Slider::mouseMoveEvent(QMouseEvent *event)
 {
-    m_sendEvent = false;
+    //m_sendEvent = false;
     QSlider::mouseMoveEvent(event);
 }
 

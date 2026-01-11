@@ -69,7 +69,7 @@ void DirectoryDialog::getAllFiles(QString &dirName, std::function<void(QFileInfo
     m_label = new QLabel("---");
 
     QPushButton *button = new QPushButton("Cancelar");
-    connect(button, &QPushButton::clicked, [=]() { m_stop = true; });
+    connect(button, &QPushButton::clicked, this, [this]() { m_stop = true; });
 
     QVBoxLayout *layout = new QVBoxLayout;
     layout->addWidget(new QLabel("<strong>Procurado por arquivos. Aguarde...</strong>"));
